@@ -95,7 +95,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
             {allGuesses.map((allGuess) => {
                 return (
                     <div key={allGuess} style={{display: 'flex', flexDirection: 'row'}}>
-                    &#10060;<span key={allGuess} style={{marginLeft: '10px'}}>{allGuess}</span>
+                    <span role='img' aria-label='Error'>&#10060;</span><span key={allGuess} style={{marginLeft: '10px'}}>{allGuess}</span>
                     </div>
                 )
             })}
