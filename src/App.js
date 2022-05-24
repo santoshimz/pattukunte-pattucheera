@@ -90,6 +90,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
         <>
             <div className="searchbox-container" style={{marginBottom: '20px'}}>
             <AsyncSelect
+                placeholder='Enter a movie name'
                 cacheOptions
                 defaultOptions
                 value={selectedValue}
