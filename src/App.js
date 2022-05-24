@@ -119,7 +119,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
                   {gameStatus === "completed" && <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
             </div>
             <button style={{ color: 'white', backgroundColor: 'purple', margin: 'auto', width: '100px', marginBottom: '20px'}} onClick={copyText}>{shareText}</button>
-            <span>Done with love by <a href='https://twitter.com/santoshimz' target='_blank'>santoshimz</a>.Reach out for maintaining project/questions</span>
+            <span>Done with love by <a href='https://twitter.com/santoshimz' rel="noopener noreferrer" target='_blank'>santoshimz</a>.Reach out for maintaining project/questions</span>
             </div>
          </>
     )
