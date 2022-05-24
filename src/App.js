@@ -16,11 +16,22 @@ const searchClient = algoliasearch(
 
 const App =  (props) => {
     const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
+    const [buttonLogic, setButtonLogic] = React.useState(false);
+    const [currentIndexFromButton, setCurrentIndexFromButton] = React.useState(1);
     const [currentGuesses, setCurrentGuesses] = useLocalStorage("currentGuesses", "");
     const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", "running");
+    const [day, setDay] = useLocalStorage("day", 1);
+    const initialStats = {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        currentStreak: 0
+    };
+
+    const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
+
     return (
         <>
-        <div style={{display: 'flex', textAlign: 'center', alignItems: 'center', justifyContent: 'center', fontSize: '32px', marginTop: '20px'}}>Pattukunte Pattucheera</div>
+        <div style={{display: 'flex', textAlign: 'center', alignItems: 'center', justifyContent: 'center', fontSize: '32px', marginTop: '20px', fontFamily: 'Rosmatika'}}>Pattukunte Pattucheera</div>
         <div style={{display: 'flex', flexDirection: 'column'}}>
         <InstantSearch
                 searchClient={searchClient}
@@ -31,15 +42,28 @@ const App =  (props) => {
             >
                 <Configure hitsPerPage={10} />
                 <div className="searchbox-container" style={{marginBottom: '20px'}}>
-                    <img alt='' src={`${currentIndexFromStorage.toString()}.png`} width="100%" height="100%" />
+                    <img alt='' src={buttonLogic ?  `${currentIndexFromButton.toString()}.png` : `${currentIndexFromStorage.toString()}.png`} width="100%" height="100%" />
+                    <div className='searchbox-container' style={{marginTop: '20px'}}>
+                        {range(0, currentIndexFromStorage).map((index) => {
+                            return <button style={{marginLeft: '10px', marginBottom: '10px' }} onClick={() => {
+                            setCurrentIndexFromButton(index+1);
+                            setButtonLogic(true);
+                            }}>{index+1}</button>
+                        })}
+                    </div>
                 </div>
+              
                 <SearchBox  
                     currentIndex={currentIndexFromStorage} 
                     setCurrentIndex={setCurrentIndexFromStorage} 
                     currentGuesses={currentGuesses} 
                     setCurrentGuesses={setCurrentGuesses}
                     gameStatus={gameStatus}
-                    setGameStatus={setGameStatus} />
+                    setGameStatus={setGameStatus} 
+                    day={day}
+                    setDay={setDay}
+                    setStats={setStats}
+                    stats={stats}/>
             </InstantSearch>
         </div>
         </>
@@ -47,7 +71,7 @@ const App =  (props) => {
 
 
 
-const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus}) => {
+const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus, stats, setStats,day, setDay}) => {
     const [shareText, setShareText] = React.useState("SHARE")
     const [inputValue, setValue] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState(null);
@@ -59,8 +83,19 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
         setSelectedValue(value.title);
         if (value.title === 'Paisa') {
             setGameStatus("completed");
+            const gameStats = JSON.parse(stats);
+            setStats({
+                gamesPlayed: gameStats.gamesPlayed + 1,
+                gamesWon: gameStats.gamesWon + 1
+            })
+            setDay(day);
         } else if (currentIndex === 5) {
             setGameStatus("failed");
+            setStats({
+                gamesPlayed: stats.gamesPlayed + 1,
+                gamesWon: stats.gamesWon
+            })
+            setDay(day);
         }
         else {
             setCurrentIndex(currentIndex +1);
@@ -82,7 +117,6 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
     const copyText = () =>  {   
         let str = `Pattukunte Pattucheera Day 1: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/`
         navigator.clipboard.writeText(str);
-        // alert("Copied the text: " + str);
         setShareText("COPIED");
       }
     
@@ -113,7 +147,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
             {gameStatus === "completed" && <span style={{marginTop: '20px'}}>You got it - The answer was Paisa</span>}
             {gameStatus === "failed" && <span style={{marginTop: '20px'}}>The answer was Paisa</span>}
             <div id='share' style={{display: 'flex', flexDirection: 'row', width: '1.2em', height: '1.2em'}}>
-                {range(1, currentIndex).map((index) => {
+                {range(1, currentIndex).map(() => {
                     return <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e5.svg' alt='' />
                 })}
                   {gameStatus === "completed" && <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
