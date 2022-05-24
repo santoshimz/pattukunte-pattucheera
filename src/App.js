@@ -49,7 +49,7 @@ const App =  (props) => {
             setCurrentIndexFromStorage(1);
             setMovieName("Aa Naluguru");
         }
-    }, []);
+    }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
         <>
         <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
