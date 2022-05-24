@@ -11,7 +11,7 @@ import AsyncSelect from 'react-select/async';
 import range from 'lodash/range';
 import Modal from 'react-modal';
 import { customStyles } from './styles';
-import { ALGOLIA_CLIENT } from './constants';
+import { ALGOLIA_CLIENT, MOVIE_NAME, dayCount } from './constants';
 
 const searchClient = algoliasearch(
     'latency',
@@ -42,12 +42,12 @@ const App =  (props) => {
     }, [stats]) 
 
     React.useEffect(() => {
-        if (day === 1) {
+        if (day === dayCount) {
             setGameStatus("running");
-            setDay(2);
+            setDay(dayCount + 1);
             setCurrentGuesses("");
             setCurrentIndexFromStorage(1);
-            setMovieName("Aa Naluguru");
+            setMovieName(MOVIE_NAME);
         }
     }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
