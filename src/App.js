@@ -9,10 +9,15 @@ import './App.css';
 import { useLocalStorage } from './useLocalStorage';
 import AsyncSelect from 'react-select/async';
 import range from 'lodash/range';
+import Modal from 'react-modal';
+import { customStyles } from './styles';
+import { ALGOLIA_CLIENT } from './constants';
+
 const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76'
+    'latency',
+    ALGOLIA_CLIENT
 );
+
 
 const App =  (props) => {
     const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -21,18 +26,49 @@ const App =  (props) => {
     const [currentGuesses, setCurrentGuesses] = useLocalStorage("currentGuesses", "");
     const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", "running");
     const [day, setDay] = useLocalStorage("day", 1);
+    const [openStatsModal, setOpenStatsModal] = React.useState(false);
+    const [movieName, setMovieName] = React.useState("");
     const initialStats = {
         gamesPlayed: 0,
         gamesWon: 0,
-        currentStreak: 0
+        currentStreak: 0,
+        maxStreak: 0
     };
 
     const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
 
+    const statsObj = React.useMemo(() => {
+        return typeof stats === "string" ? JSON.parse(stats) : stats;
+    }, [stats]) 
+
+    React.useEffect(() => {
+        if (day === 1) {
+            setGameStatus("running");
+            setDay(2);
+            setCurrentGuesses("");
+            setCurrentIndexFromStorage(1);
+            setMovieName("Aa Naluguru");
+        }
+    }, []);
     return (
         <>
-        <div style={{display: 'flex', textAlign: 'center', alignItems: 'center', justifyContent: 'center', fontSize: '32px', marginTop: '20px', fontFamily: 'Rosmatika'}}>Pattukunte Pattucheera</div>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
+        <span style={customStyles.statsStyle} onClick={() => setOpenStatsModal(true)}>STATS</span>
+        <Modal
+            isOpen={openStatsModal}
+            onRequestClose={() => setOpenStatsModal(false)}
+            style={customStyles}
+        >
+           <div style={customStyles.spaceBetween}>
+                <span style={{marginTop: '8px', fontSize: '16px'}}>Stats from 5/23/2022</span>
+                <button className="btn" onClick={() => setOpenStatsModal(false)}><i className="fa fa-close"></i></button>
+           </div>
+           <h3>{`Played: ${statsObj.gamesPlayed}`}</h3>
+           <h3>{`Won: ${statsObj.gamesWon}`}</h3>
+           <h3>{`Current Streak: ${statsObj.currentStreak ?  statsObj.currentStreak : statsObj.gamesPlayed === statsObj.gamesWon ? statsObj.gamesPlayed : 0}`}</h3>
+           <h3>{`Max Streak: ${statsObj.maxStreak ?  statsObj.maxStreak : statsObj.gamesPlayed === statsObj.gamesWon ? statsObj.gamesPlayed : 0}`}</h3>
+      </Modal>
+        <div style={customStyles.column}>
         <InstantSearch
                 searchClient={searchClient}
                 indexName="movies"
@@ -41,11 +77,11 @@ const App =  (props) => {
                 onSearchStateChange={props.onSearchStateChange}
             >
                 <Configure hitsPerPage={10} />
-                <div className="searchbox-container" style={{marginBottom: '20px'}}>
+                <div className="searchbox-container" style={customStyles.marginBottom}>
                     <img alt='' src={buttonLogic ?  `${currentIndexFromButton.toString()}.png` : `${currentIndexFromStorage.toString()}.png`} width="100%" height="100%" />
-                    <div className='searchbox-container' style={{marginTop: '20px'}}>
+                    <div className='searchbox-container' style={customStyles.marginTop}>
                         {range(0, currentIndexFromStorage).map((index) => {
-                            return <button style={{marginLeft: '10px', marginBottom: '10px' }} onClick={() => {
+                            return <button key={index} style={{...customStyles.marginLeft, ...customStyles.marginBottom}} onClick={() => {
                             setCurrentIndexFromButton(index+1);
                             setButtonLogic(true);
                             }}>{index+1}</button>
@@ -63,7 +99,9 @@ const App =  (props) => {
                     day={day}
                     setDay={setDay}
                     setStats={setStats}
-                    stats={stats}/>
+                    stats={stats}
+                    gameStats={statsObj} 
+                    movieName={movieName}/>
             </InstantSearch>
         </div>
         </>
@@ -71,7 +109,7 @@ const App =  (props) => {
 
 
 
-const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus, stats, setStats,day, setDay}) => {
+const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus, stats, setStats,day, setDay, gameStats}) => {
     const [shareText, setShareText] = React.useState("SHARE")
     const [inputValue, setValue] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState(null);
@@ -81,21 +119,22 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
  
     const handleChange = value => {
         setSelectedValue(value.title);
-        if (value.title === 'Paisa') {
+        if (value.title === movieName) {
             setGameStatus("completed");
-            const gameStats = JSON.parse(stats);
-            setStats({
+            setStats(JSON.stringify({
                 gamesPlayed: gameStats.gamesPlayed + 1,
-                gamesWon: gameStats.gamesWon + 1
-            })
-            setDay(day);
+                gamesWon: gameStats.gamesWon + 1,
+                currentStreak: gameStats.currentStreak ?  gameStats.currentStreak + 1 : gameStats.gamesPlayed === gameStats.gamesWon ? gameStats.gamesWon + 1 : 1,
+                maxStreak: gameStats.currentStreak ?  gameStats.currentStreak + 1 : gameStats.gamesPlayed === gameStats.gamesWon ? gameStats.gamesWon + 1 : 1,
+            }))
         } else if (currentIndex === 5) {
             setGameStatus("failed");
-            setStats({
-                gamesPlayed: stats.gamesPlayed + 1,
-                gamesWon: stats.gamesWon
-            })
-            setDay(day);
+            setStats(JSON.stringify({
+                gamesPlayed: gameStats.gamesPlayed + 1,
+                gamesWon: gameStats.gamesWon,
+                maxStreak: gameStats.currentStreak ?  gameStats.currentStreak : 0,
+                currentStreak: 0,
+            }))
         }
         else {
             setCurrentIndex(currentIndex +1);
@@ -115,14 +154,14 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
     const allGuesses = currentGuesses !== "" ?  currentGuesses.split(',') : [];
 
     const copyText = () =>  {   
-        let str = `Pattukunte Pattucheera Day 1: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/`
+        let str = `Pattukunte Pattucheera Day ${day}: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/\n#PattukuntePattuCheera`
         navigator.clipboard.writeText(str);
         setShareText("COPIED");
       }
     
     return (
         <>
-            <div className="searchbox-container" style={{marginBottom: '20px'}}>
+            <div className="searchbox-container" style={customStyles.marginBottom}>
             {gameStatus === "running" &&
             <AsyncSelect
                 placeholder='Enter a movie name'
@@ -136,24 +175,24 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
                 onChange={handleChange}
             />}
             </div>
-            <div className="searchbox-container" style={{display: 'flex', flexDirection: 'column'}}>
+            <div className="searchbox-container" style={customStyles.column}>
             {allGuesses.map((allGuess) => {
                 return (
-                    <div key={allGuess} style={{display: 'flex', flexDirection: 'row'}}>
-                    <span role='img' aria-label='Error'>&#10060;</span><span key={allGuess} style={{marginLeft: '10px'}}>{allGuess}</span>
+                    <div key={allGuess} style={customStyles.row}>
+                    <span role='img' aria-label='Error'>&#10060;</span><span key={allGuess} style={customStyles.marginLeft}>{allGuess}</span>
                     </div>
                 )
             })}
-            {gameStatus === "running" && <span style={{marginTop: '20px'}}>{`You got ${6 - currentIndex} guesses remaining`}</span>}
-            {gameStatus === "completed" && <span style={{marginTop: '20px'}}>You got it - The answer was Paisa</span>}
-            {gameStatus === "failed" && <span style={{marginTop: '20px'}}>The answer was Paisa</span>}
-            <div id='share' style={{display: 'flex', flexDirection: 'row', width: '1.2em', height: '1.2em'}}>
-                {range(1, currentIndex).map(() => {
-                    return <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e5.svg' alt='' />
-                })}
-                  {gameStatus === "completed" && <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
+            {gameStatus === "running" && <span style={customStyles.marginTop}>{`You got ${6 - currentIndex} guesses remaining`}</span>}
+            {gameStatus === "completed" && <span style={customStyles.marginTop}>{`You got it - The answer was ${movieName}`}</span>}
+            {gameStatus === "failed" && <span style={customStyles.marginTop}>{`The answer was ${movieName}`}</span>}
+            <div id='share' style={{ ...customStyles.row,  width: '1.2em', height: '1.2em'}}>
+                {range(1, currentIndex).map((index) => {
+                    return <img  key={index} style={customStyles.marginRight} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e5.svg' alt='' />
+                })} 
+                  {gameStatus === "completed" && <img style={customStyles.marginRight} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
             </div>
-            <button style={{ color: 'white', backgroundColor: 'purple', margin: 'auto', width: '100px', marginBottom: '20px'}} onClick={copyText}>{shareText}</button>
+            <button style={customStyles.shareText} onClick={copyText}>{shareText}</button>
             <span>Done with love by <a href='https://twitter.com/santoshimz' rel="noopener noreferrer" target='_blank'>santoshimz</a>.Reach out for maintaining project/questions</span>
             </div>
          </>
