@@ -8,6 +8,7 @@ import withURLSync from './URLSync';
 import './App.css';
 import { useLocalStorage } from './useLocalStorage';
 import AsyncSelect from 'react-select/async';
+import range from 'lodash/range';
 const searchClient = algoliasearch(
   'latency',
   '6be0576ff61c053d5f9a3225e2a90f76'
@@ -47,6 +48,7 @@ const App =  (props) => {
 
 
 const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus}) => {
+    const [shareText, setShareText] = React.useState("SHARE")
     const [inputValue, setValue] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState(null);
     const handleInputChange = value => {
@@ -76,6 +78,13 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
         return hits.hits;
     }
     const allGuesses = currentGuesses !== "" ?  currentGuesses.split(',') : [];
+
+    const copyText = () =>  {   
+        let str = `Pattukunte Pattucheera Day 1: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/`
+        navigator.clipboard.writeText(str);
+        // alert("Copied the text: " + str);
+        setShareText("COPIED");
+      }
     
     return (
         <>
@@ -102,6 +111,14 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
             {gameStatus === "running" && <span style={{marginTop: '20px'}}>{`You got ${6 - currentIndex} guesses remaining`}</span>}
             {gameStatus === "completed" && <span style={{marginTop: '20px'}}>You got it - The answer was Paisa</span>}
             {gameStatus === "failed" && <span style={{marginTop: '20px'}}>The answer was Paisa</span>}
+            <div id='share' style={{display: 'flex', flexDirection: 'row', width: '1.2em', height: '1.2em'}}>
+                {range(1, currentIndex).map((index) => {
+                    return <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e5.svg' alt='' />
+                })}
+                  {gameStatus === "completed" && <img style={{marginRight: '10px'}} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
+            </div>
+            <button style={{ color: 'white', backgroundColor: 'purple', margin: 'auto', width: '100px', marginBottom: '20px'}} onClick={copyText}>{shareText}</button>
+            <span>Done with love by <a href='www.twitter.com/santoshimz'>santoshimz</a>.Reach out for maintaining project/questions</span>
             </div>
          </>
     )
