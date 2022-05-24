@@ -1,4 +1,8 @@
 export const customStyles = {
+    backgroundStyle: {
+        backgroundColor: 'black',
+        height: '100%'
+    },
     content: {
       top: '50%',
       left: '50%',
@@ -13,8 +17,9 @@ export const customStyles = {
         alignItems: 'center', 
         justifyContent: 'center', 
         fontSize: '32px', 
-        marginTop: '20px', 
-        fontFamily: 'Rosmatika'
+        // marginTop: '20px', 
+        fontFamily: 'Rosmatika',
+        color: 'white'
     },
     statsStyle: {
         display: 'flex', 
@@ -24,7 +29,8 @@ export const customStyles = {
         fontSize: '16px', 
         marginTop: '20px', 
         marginBottom: '10px', 
-        cursor: 'pointer'
+        cursor: 'pointer',
+        color: 'white'
     },
     spaceBetween: {
         display: 'flex', 

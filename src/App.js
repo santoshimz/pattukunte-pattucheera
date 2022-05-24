@@ -51,7 +51,7 @@ const App =  (props) => {
         }
     }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
-        <>
+        <div style={customStyles.backgroundStyle}>
         <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
         <span style={customStyles.statsStyle} onClick={() => setOpenStatsModal(true)}>STATS</span>
         <Modal
@@ -104,7 +104,7 @@ const App =  (props) => {
                     movieName={movieName}/>
             </InstantSearch>
         </div>
-        </>
+        </div>
 )};
 
 
@@ -179,13 +179,13 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
             {allGuesses.map((allGuess) => {
                 return (
                     <div key={allGuess} style={customStyles.row}>
-                    <span role='img' aria-label='Error'>&#10060;</span><span key={allGuess} style={customStyles.marginLeft}>{allGuess}</span>
+                    <span role='img' aria-label='Error'>&#10060;</span><span key={allGuess} style={{ ...customStyles.marginLeft, color: 'white'}}>{allGuess}</span>
                     </div>
                 )
             })}
-            {gameStatus === "running" && <span style={customStyles.marginTop}>{`You got ${6 - currentIndex} guesses remaining`}</span>}
-            {gameStatus === "completed" && <span style={customStyles.marginTop}>{`You got it - The answer was ${movieName}`}</span>}
-            {gameStatus === "failed" && <span style={customStyles.marginTop}>{`The answer was ${movieName}`}</span>}
+            {gameStatus === "running" && <span style={{ ...customStyles.marginTop, color: 'white'}}>{`You got ${6 - currentIndex} guesses remaining`}</span>}
+            {gameStatus === "completed" && <span style={{...customStyles.marginTop, color: 'white'}}>{`You got it - The answer was ${movieName}`}</span>}
+            {gameStatus === "failed" && <span style={{ ...customStyles.marginTop, color: 'white'}}>{`The answer was ${movieName}`}</span>}
             <div id='share' style={{ ...customStyles.row,  width: '1.2em', height: '1.2em'}}>
                 {range(1, currentIndex).map((index) => {
                     return <img  key={index} style={customStyles.marginRight} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e5.svg' alt='' />
@@ -193,7 +193,7 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
                   {gameStatus === "completed" && <img style={customStyles.marginRight} src='https://abs-0.twimg.com/emoji/v2/svg/1f7e9.svg' alt='' />}
             </div>
             <button style={customStyles.shareText} onClick={copyText}>{shareText}</button>
-            <span>Done with love by <a href='https://twitter.com/santoshimz' rel="noopener noreferrer" target='_blank'>santoshimz</a>.Reach out for maintaining project/questions</span>
+            <span style={{color: 'white'}}>Done with love by <a style={{color: 'purple'}} href='https://twitter.com/santoshimz' rel="noopener noreferrer" target='_blank'>santoshimz</a>. Reach out for maintaining project/questions</span>
             </div>
          </>
     )
