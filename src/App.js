@@ -27,7 +27,7 @@ const App =  (props) => {
     const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", "running");
     const [day, setDay] = useLocalStorage("day", 1);
     const [openStatsModal, setOpenStatsModal] = React.useState(false);
-    const [movieName, setMovieName] = React.useState("");
+    const [movieName] = React.useState(MOVIE_NAME);
     const initialStats = {
         gamesPlayed: 0,
         gamesWon: 0,
@@ -47,7 +47,6 @@ const App =  (props) => {
             setDay(dayCount + 1);
             setCurrentGuesses("");
             setCurrentIndexFromStorage(1);
-            setMovieName(MOVIE_NAME);
         }
     }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
@@ -109,7 +108,7 @@ const App =  (props) => {
 
 
 
-const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus, stats, setStats,day, setDay, gameStats}) => {
+const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, setCurrentGuesses, gameStatus, setGameStatus, setStats,day, gameStats}) => {
     const [shareText, setShareText] = React.useState("SHARE")
     const [inputValue, setValue] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState(null);
