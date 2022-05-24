@@ -123,6 +123,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
     return (
         <>
             <div className="searchbox-container" style={{marginBottom: '20px'}}>
+            {gameStatus === "running" &&
             <AsyncSelect
                 placeholder='Enter a movie name'
                 cacheOptions
@@ -133,7 +134,7 @@ const SearchBox = ({currentIndex, setCurrentIndex, currentGuesses, setCurrentGue
                 loadOptions={fetchData}
                 onInputChange={handleInputChange}
                 onChange={handleChange}
-            />
+            />}
             </div>
             <div className="searchbox-container" style={{display: 'flex', flexDirection: 'column'}}>
             {allGuesses.map((allGuess) => {
