@@ -64,8 +64,8 @@ const App =  (props) => {
            </div>
            <h3>{`Played: ${statsObj.gamesPlayed}`}</h3>
            <h3>{`Won: ${statsObj.gamesWon}`}</h3>
-           <h3>{`Current Streak: ${statsObj.currentStreak ?  statsObj.currentStreak : statsObj.gamesPlayed === statsObj.gamesWon ? statsObj.gamesPlayed : 0}`}</h3>
-           <h3>{`Max Streak: ${statsObj.maxStreak ?  statsObj.maxStreak : statsObj.gamesWon === 1 ? 1 : 0}`}</h3>
+           <h3>{`Current Streak: ${statsObj.currentStreak ?  statsObj.currentStreak : (statsObj.gamesPlayed === statsObj.gamesWon && statsObj.gamesWon === 1) ? 1 : 0}`}</h3>
+           <h3>{`Max Streak: ${statsObj.maxStreak ?  statsObj.maxStreak : (statsObj.gamesPlayed === statsObj.gamesWon && statsObj.gamesWon === 1) ? 1 : 0}`}</h3>
       </Modal>
         <div style={customStyles.column}>
         <InstantSearch
@@ -123,15 +123,15 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
             setStats(JSON.stringify({
                 gamesPlayed: gameStats.gamesPlayed + 1,
                 gamesWon: gameStats.gamesWon + 1,
-                currentStreak: gameStats.currentStreak ?  gameStats.currentStreak + 1 : gameStats.gamesPlayed === gameStats.gamesWon ? gameStats.gamesWon + 1 : 1,
-                maxStreak: gameStats.maxStreak ?  gameStats.maxStreak + 1 : gameStats.gamesPlayed === gameStats.gamesWon ? gameStats.gamesWon + 1 : 1,
+                currentStreak: gameStats.currentStreak ?  gameStats.currentStreak + 1 : (gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1) ? 2 : 1,
+                maxStreak: gameStats.maxStreak ?  gameStats.maxStreak + 1 : (gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1) ? 2 : 1,
             }))
         } else if (currentIndex === 5) {
             setGameStatus("failed");
             setStats(JSON.stringify({
                 gamesPlayed: gameStats.gamesPlayed + 1,
                 gamesWon: gameStats.gamesWon,
-                maxStreak: gameStats.currentStreak ?  gameStats.currentStreak : 0,
+                maxStreak: gameStats.maxStreak ?  gameStats.maxStreak : (gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1) ? 1 : 0,
                 currentStreak: 0,
             }))
         }
