@@ -149,12 +149,12 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
         const index = searchClient.initIndex('movies')
         const hits = await index.search(inputValue);
         const modifiedData = [
-            ...hits.hits,
             {
-                title: 'Uu Kodathara? Ulikki Padathara?'
-            }
+                title: 'Vasu'
+            },
+            ...hits.hits,
            ];
-        return inputValue.toLowerCase().startsWith('uu')  ?   modifiedData : hits.hits;
+        return inputValue.toLowerCase().startsWith('va')  ?   modifiedData : hits.hits;
     }
     const allGuesses = currentGuesses !== "" ?  currentGuesses.split(',') : [];
 
