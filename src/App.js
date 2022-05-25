@@ -59,7 +59,7 @@ const App =  (props) => {
             style={customStyles}
         >
            <div style={customStyles.spaceBetween}>
-                <span style={{marginTop: '8px', fontSize: '16px'}}>Stats from 5/23/2022</span>
+                <span style={{marginTop: '8px', fontSize: '16px'}}>Stats</span>
                 <button className="btn" onClick={() => setOpenStatsModal(false)}><i className="fa fa-close"></i></button>
            </div>
            <h3>{`Played: ${statsObj.gamesPlayed}`}</h3>
@@ -148,7 +148,13 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
     const fetchData = async () => {
         const index = searchClient.initIndex('movies')
         const hits = await index.search(inputValue);
-        return hits.hits;
+        const modifiedData = [
+            ...hits.hits,
+            {
+                title: 'Uu Kodathara? Ulikki Padathara?'
+            }
+           ];
+        return inputValue.toLowerCase().startsWith('uu')  ?   modifiedData : hits.hits;
     }
     const allGuesses = currentGuesses !== "" ?  currentGuesses.split(',') : [];
 
