@@ -42,12 +42,10 @@ const App =  (props) => {
     }, [stats]) 
 
     React.useEffect(() => {
-        if (day === dayCount) {
-            setGameStatus("running");
-            setDay(dayCount + 1);
-            setCurrentGuesses("");
-            setCurrentIndexFromStorage(1);
-        }
+        setGameStatus("running");
+        setDay(dayCount + 1);
+        setCurrentGuesses("");
+        setCurrentIndexFromStorage(1);
     }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
         <div style={customStyles.backgroundStyle}>
@@ -159,7 +157,7 @@ const SearchBox = ({movieName, currentIndex, setCurrentIndex, currentGuesses, se
     const allGuesses = currentGuesses !== "" ?  currentGuesses.split(',') : [];
 
     const copyText = () =>  {   
-        let str = `Pattukunte Pattucheera Day ${day}: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/\n#PattukuntePattuCheera`
+        let str = `Pattukunte Pattucheera Day ${dayCount + 1}: ${currentIndex}/5\nhttps://pattukunte-pattucheera.netlify.app/\n#PattukuntePattuCheera`
         navigator.clipboard.writeText(str);
         setShareText("COPIED");
       }
