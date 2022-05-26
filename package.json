@@ -4,20 +4,23 @@
   "private": true,
   "dependencies": {
     "algoliasearch": "4.11.0",
+    "lodash": "^4.17.21",
     "qs": "6.8.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-instantsearch-dom": "6.26.0",
-    "react-scripts": "3.4.1",
-    "react-select": "^5.3.2",
-    "lodash": "^4.17.21",
-    "react-modal": "^3.15.1"
+    "react-modal": "^3.15.1",
+    "react-scripts": "^5.0.1",
+    "react-select": "^5.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,5 +36,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "prettier": "^2.6.2"
   }
 }
