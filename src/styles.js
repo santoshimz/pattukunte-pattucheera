@@ -16,7 +16,7 @@ export const customStyles = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: "32px",
-    marginTop: '20px',
+    marginTop: "20px",
     fontFamily: "Rosmatika",
     color: "white",
   },
@@ -43,11 +43,11 @@ export const customStyles = {
   row: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   shareText: {
     color: "white",
-    backgroundColor: "#059669",
+    backgroundColor: "#652050",
     margin: "auto",
     width: "100px",
     marginBottom: "20px",
