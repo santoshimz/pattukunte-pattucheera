@@ -42,10 +42,12 @@ const App =  (props) => {
     }, [stats]) 
 
     React.useEffect(() => {
-        setGameStatus("running");
-        setDay(dayCount + 1);
-        setCurrentGuesses("");
-        setCurrentIndexFromStorage(1);
+        if (day !== dayCount + 1) {
+            setGameStatus("running");
+            setDay(dayCount + 1);
+            setCurrentGuesses("");
+            setCurrentIndexFromStorage(1);
+        }
     }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
     return (
         <div style={customStyles.backgroundStyle}>
