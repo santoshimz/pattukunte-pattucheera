@@ -1,0 +1,94 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+body {
+  min-height: 100%;
+  font-family: Roboto;
+  background: black;
+}
+
+a {
+  color: #333333;
+}
+
+header {
+  background: #ffffff;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+  position: relative;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchbox-container {
+  margin-left: 240px;
+  max-width: 400px;
+  margin-top: 20px; 
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.searchbox-container .input-group {
+  margin-top: 5px;
+}
+
+.searchbox-container .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.searchbox-container button {
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #f8f8f8;
+  border-radius: 0;
+}
+
+.button {
+  background-color: purple;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.close {
+  position: absolute;
+  right: 32 px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
