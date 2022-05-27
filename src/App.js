@@ -18,7 +18,8 @@ const App = (props) => {
   const { searchState, createURL, onSearchStateChange } = props;
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
-  const [currentIndexFromButton, setCurrentIndexFromButton] = React.useState(1);
+  const [currentIndexFromButton, setCurrentIndexFromButton] =
+    React.useState(currentIndexFromStorage);
   const [currentGuesses, setCurrentGuesses] = useLocalStorage("currentGuesses", "");
   const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", "running");
   const [day, setDay] = useLocalStorage("day", 1);
@@ -73,6 +74,8 @@ const App = (props) => {
           <Game
             currentIndex={currentIndexFromStorage}
             setCurrentIndex={setCurrentIndexFromStorage}
+            currentIndexFromButton={currentIndexFromButton}
+            setCurrentIndexFromButton={setCurrentIndexFromButton}
             currentGuesses={currentGuesses}
             setCurrentGuesses={setCurrentGuesses}
             gameStatus={gameStatus}

@@ -1,8 +1,7 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
 import algoliasearch from "algoliasearch/lite";
-import { ALGOLIA_CLIENT } from "../utils/constants";
-import { customStyles } from "../styles/styles";
+import { ALGOLIA_CLIENT, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
@@ -13,6 +12,7 @@ const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
 const Game = ({
   currentIndex,
   setCurrentIndex,
+  setCurrentIndexFromButton,
   currentGuesses,
   setCurrentGuesses,
   gameStatus,
@@ -47,8 +47,13 @@ const Game = ({
             : 1
         })
       );
-    } else if (currentIndex === 5) {
+    } else if (currentIndex === MAX_ATTEMPTS) {
       setGameStatus("failed");
+      if (currentGuesses !== "") {
+        setCurrentGuesses(currentGuesses + "," + value.title);
+      } else {
+        setCurrentGuesses(value.title);
+      }
       setStats(
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
@@ -63,6 +68,7 @@ const Game = ({
       );
     } else {
       setCurrentIndex(currentIndex + 1);
+      setCurrentIndexFromButton(currentIndex + 1);
       if (currentGuesses !== "") {
         setCurrentGuesses(currentGuesses + "," + value.title);
       } else {
@@ -85,8 +91,8 @@ const Game = ({
 
   return (
     <>
-      <div className="searchbox-container" style={customStyles.marginBottom}>
-        {gameStatus === "running" && (
+      {gameStatus === "running" && (
+        <div className="searchbox-container movie-search-dropdown">
           <AsyncSelect
             placeholder="Enter a movie name"
             cacheOptions
@@ -98,14 +104,22 @@ const Game = ({
             onInputChange={handleInputChange}
             onChange={handleChange}
           />
-        )}
-      </div>
+        </div>
+      )}
       <Results
         currentGuesses={currentGuesses}
         gameStatus={gameStatus}
         currentIndex={currentIndex}
       />
-      <ShareResults shareText={shareText} setShareText={setShareText} currentIndex={currentIndex} />
+
+      {(gameStatus === "completed" || gameStatus === "failed") && (
+        <ShareResults
+          gameStatus={gameStatus}
+          shareText={shareText}
+          setShareText={setShareText}
+          currentIndex={currentIndex}
+        />
+      )}
     </>
   );
 };
@@ -119,7 +133,8 @@ Game.propTypes = {
   setGameStatus: PropTypes.func,
   setStats: PropTypes.func,
   day: PropTypes.number,
-  gameStats: PropTypes.object
+  gameStats: PropTypes.object,
+  setCurrentIndexFromButton: PropTypes.number
 };
 
 export default Game;
