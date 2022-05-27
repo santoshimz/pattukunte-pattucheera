@@ -10,10 +10,12 @@ const ImagesContainer = ({
   currentIndexFromStorage,
   setCurrentIndexFromButton
 }) => {
+  //eslint-disable-next-line react/prop-types
   return (
-    <div className="searchbox-container" style={customStyles.marginBottom}>
+    <div className="searchbox-container">
       <img
         alt=""
+        className="movie-frame"
         src={
           buttonLogic
             ? `${currentIndexFromButton.toString()}.png`
@@ -22,16 +24,25 @@ const ImagesContainer = ({
         width="100%"
         height="100%"
       />
-      <div className="searchbox-container" style={customStyles.marginTop}>
+      <div className="searchbox-container guess-box" style={customStyles.marginTop}>
         {range(0, currentIndexFromStorage).map((index) => {
           return (
             <button
               key={index}
-              style={{ ...customStyles.marginLeft, ...customStyles.marginBottom }}
+              style={{ ...customStyles.marginLeft }}
               onClick={() => {
                 setCurrentIndexFromButton(index + 1);
                 setButtonLogic(true);
-              }}>
+              }}
+              className={
+                buttonLogic
+                  ? index + 1 === currentIndexFromButton
+                    ? "current-movie-frame"
+                    : ""
+                  : index + 1 === currentIndexFromStorage
+                  ? "current-movie-frame"
+                  : ""
+              }>
               {index + 1}
             </button>
           );
