@@ -8,7 +8,7 @@ body {
 body {
   min-height: 100%;
   font-family: Roboto;
-  background: black;
+  background: #ffffff;
 }
 
 a {
@@ -34,7 +34,7 @@ header {
 .searchbox-container {
   margin-left: 240px;
   max-width: 400px;
-  margin-top: 20px; 
+  margin-top: 20px;
   display: block;
   margin: auto;
   width: 50%;
@@ -56,6 +56,33 @@ header {
   border-radius: 0;
 }
 
+.searchbox-container button {
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Comfortaa', cursive;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 20px;
+  border-radius: 4px;
+  box-shadow: inset 0px 3px 5px rgba(255, 255, 255, 0.5), 0px 0px 10px rgba(0, 0, 0, 0.15);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(45deg, rgba(2, 0, 36, 0) 5%, rgba(255, 255, 255, .5) 6%, rgba(255, 255, 255, 0) 9%, rgba(255, 255, 255, .5) 10%, rgba(255, 255, 255, 0) 17%, rgba(255, 255, 255, .5) 19%, rgba(255, 255, 255, 0) 21%);
+  background-size: 150%;
+  background-position: right;
+  transition: 1s;
+}
+
+.searchbox-container button:hover {
+  background-position: left;
+  color: rgb(255, 255, 255);
+  box-shadow: inset 0px 3px 5px rgba(255, 255, 255, 1), 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.searchbox-container button:focus {
+  outline: none;
+}
+
 .button {
   background-color: purple;
   border: none;
@@ -75,10 +102,13 @@ header {
   height: 32px;
   opacity: 0.3;
 }
+
 .close:hover {
   opacity: 1;
 }
-.close:before, .close:after {
+
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
   content: ' ';
@@ -86,9 +116,11 @@ header {
   width: 2px;
   background-color: #333;
 }
+
 .close:before {
   transform: rotate(45deg);
 }
+
 .close:after {
   transform: rotate(-45deg);
 }

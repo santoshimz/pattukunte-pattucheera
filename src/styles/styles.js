@@ -1,6 +1,6 @@
 export const customStyles = {
   backgroundStyle: {
-    backgroundColor: "black",
+    backgroundColor: "#102228",
     height: "100%"
   },
   content: {
