@@ -34,11 +34,10 @@ header {
 .searchbox-container {
   margin-left: 240px;
   max-width: 400px;
-  margin-top: 20px; 
+  margin: 20px auto auto auto; 
   display: block;
-  margin: auto;
-  width: 50%;
 }
+
 
 .searchbox-container .input-group {
   margin-top: 5px;
@@ -49,11 +48,26 @@ header {
   box-shadow: none;
 }
 
+.searchbox-container .guessed-movie{
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  width: 300px;
+
+}
+
+.searchbox-container .movie-frame{
+  height: 14rem;
+}
+
 .searchbox-container button {
-  padding-left: 20px;
-  padding-right: 20px;
-  background: #f8f8f8;
+  
   border-radius: 0;
+  border-radius: 2px;
+  width: 28px;
+  border: none;
+  height: 35px;
 }
 
 .button {
@@ -91,4 +105,22 @@ header {
 }
 .close:after {
   transform: rotate(-45deg);
+}
+
+#share .square{
+  padding:5px
+}
+
+.guess-box{
+  display: flex;
+  justify-content: center;
+}
+
+.movie-search-dropdown{
+  width: 300px;
+}
+
+.current-movie-frame{
+  background-color: #595959;
+  color: white;
 }

@@ -30,7 +30,9 @@ export const customStyles = {
     marginTop: "20px",
     marginBottom: "10px",
     cursor: "pointer",
-    color: "white"
+    color: "white",
+    width: "30px",
+    margin: "auto"
   },
   spaceBetween: {
     display: "flex",
@@ -47,10 +49,15 @@ export const customStyles = {
   },
   shareText: {
     color: "white",
-    backgroundColor: "purple",
     margin: "auto",
     width: "100px",
-    marginBottom: "20px"
+    marginBottom: "20px",
+    border: "none",
+    height: "40px",
+    borderRadius: "2px",
+    backgroundColor: "#069668",
+    marginTop: "15px",
+    cursor: "pointer"
   },
   marginTop: {
     marginTop: "20px"
