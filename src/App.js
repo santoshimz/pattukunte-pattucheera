@@ -11,7 +11,7 @@ import algoliasearch from "algoliasearch/lite";
 import Game from "./components/Game";
 import Stats from "./components/Stats";
 import ImagesContainer from "./components/ImagesContainer";
-
+import statsLogo from "./assets/stats.svg";
 const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
 
 const App = (props) => {
@@ -48,8 +48,13 @@ const App = (props) => {
   return (
     <div style={customStyles.backgroundStyle}>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
-      <span style={customStyles.statsStyle} onClick={() => setOpenStatsModal(true)}>
-        STATS
+      <span style={customStyles.statsStyle}>
+        <img
+          className="stats-icon"
+          onClick={() => setOpenStatsModal(true)}
+          src={statsLogo}
+          alt="stats"
+        />
       </span>
       <Stats
         openStatsModal={openStatsModal}

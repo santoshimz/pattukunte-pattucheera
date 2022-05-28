@@ -2,6 +2,7 @@ import Modal from "react-modal";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
+import closeIcon from "../assets/close.svg";
 
 const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
@@ -10,20 +11,42 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
       isOpen={openStatsModal}
       onRequestClose={() => setOpenStatsModal(false)}
       style={customStyles}>
-      <div style={customStyles.spaceBetween}>
-        <span style={{ marginTop: "8px", fontSize: "16px" }}>Stats</span>
-        <button className="btn" onClick={() => setOpenStatsModal(false)}>
-          <i className="fa fa-close"></i>
+      <div className="stats-header" style={customStyles.spaceBetween}>
+        <h4 className="stats" style={{ marginTop: "8px" }}>
+          Stats
+        </h4>
+        <button className="btn modal-close" onClick={() => setOpenStatsModal(false)}>
+          <img className="close-icon" src={closeIcon} alt="close" />
         </button>
       </div>
-      <h3>{`Played: ${gamesPlayed}`}</h3>
-      <h3>{`Won: ${gamesWon}`}</h3>
-      <h3>{`Current Streak: ${
-        currentStreak ? currentStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0
-      }`}</h3>
-      <h3>{`Max Streak: ${
-        maxStreak ? maxStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0
-      }`}</h3>
+      <div className="data-props">
+        <div className="data-group">
+          <span className="data-value total-played">{gamesPlayed}</span>
+          <span className="data-item">Played</span>
+        </div>
+        <div className="data-group">
+          <span className="data-value won">{gamesWon}</span>
+          <span className="data-item">Won</span>
+        </div>
+        <div className="data-group">
+          <span className="data-value">{gamesPlayed > 0 ? (gamesWon / gamesPlayed) * 100 : 0}</span>
+          <span className="data-item">Win %</span>
+        </div>
+      </div>
+      <div className="data-props">
+        <div className="data-group">
+          <span className="data-value">
+            {currentStreak ? currentStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0}
+          </span>
+          <span className="data-item">Current Streak</span>
+        </div>
+        <div className="data-group">
+          <span className="data-value">
+            {maxStreak ? maxStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0}
+          </span>
+          <span className="data-item">Max Streak</span>
+        </div>
+      </div>
     </Modal>
   );
 };

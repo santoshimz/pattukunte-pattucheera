@@ -124,3 +124,63 @@ header {
   background-color: #595959;
   color: white;
 }
+
+.header-icon{
+  padding: 0px 16px;
+}
+
+.modal-close{
+  background-color: transparent;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
+}
+
+.Modal{
+  border: 1px solid black !important;
+}
+
+.data-props{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.data-group{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.stats{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.data-value{
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.stats-header{
+  margin-bottom: 20px;
+}
+
+.guess-dist{
+  margin-top: 20px;
+}
+
+.won{
+  background: green;
+  color: white;
+  border-radius: 3px;
+}
+
+.total-played{
+  background: #ffc107;
+  border-radius: 3px;
+  color: white;
+}
