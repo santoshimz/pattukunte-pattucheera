@@ -82,7 +82,7 @@ const Game = ({
     const hits = await index.search(inputValue);
     const modifiedData = [
       {
-        title: "Govinda Govinda"
+        title: "Godavari"
       },
       ...hits.hits
     ];
