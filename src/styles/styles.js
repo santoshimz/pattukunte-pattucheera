@@ -9,7 +9,9 @@ export const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    border: "1px solid black",
+    width: "350px"
   },
   headerStyle: {
     display: "flex",
@@ -56,7 +58,7 @@ export const customStyles = {
     height: "40px",
     borderRadius: "2px",
     backgroundColor: "#069668",
-    marginTop: "15px",
+    marginTop: "35px",
     cursor: "pointer"
   },
   marginTop: {
