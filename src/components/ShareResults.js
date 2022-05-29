@@ -17,7 +17,7 @@ const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus }) => 
     return `Pattukunte Pattucheera Day ${dayCount + 1}: ${currentIndex}/5\n\n${getShareText(
       currentIndex,
       gameStatus
-    )}\n\n${SITE_URL}/\n#PattukuntePattuCheera`;
+    )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
   };
 
   const socialShare = (app) => {
