@@ -184,3 +184,18 @@ header {
   border-radius: 3px;
   color: white;
 }
+
+.social-icons{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.social{
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+}
+.twitter-icon{
+  height: 56px;
+}

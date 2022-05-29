@@ -28,4 +28,6 @@ export const getShareText = (attempts, gameStatus) => {
   return shareText;
 };
 
+export const SITE_URL = "https://pattukunte-pattucheera.netlify.app/";
+
 export const dayCount = 5;
