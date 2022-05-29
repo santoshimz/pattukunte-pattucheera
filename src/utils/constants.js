@@ -1,12 +1,12 @@
 export const ALGOLIA_CLIENT = "6be0576ff61c053d5f9a3225e2a90f76";
 
-export const MOVIE_NAME = "Godavari";
+export const MOVIE_NAME = "Anukokunda Oka Roju";
 
 export const greenSquare = "🟩";
 
 export const redSquare = "🟥";
 
-export const graySquare = "⬜️";
+export const graySquare = "⬛";
 
 export const MAX_ATTEMPTS = 5;
 
@@ -30,4 +30,4 @@ export const getShareText = (attempts, gameStatus) => {
 
 export const SITE_URL = "https://pattukunte-pattucheera.netlify.app/";
 
-export const dayCount = 5;
+export const dayCount = 6;
