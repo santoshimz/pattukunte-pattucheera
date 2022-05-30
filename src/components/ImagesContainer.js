@@ -2,13 +2,15 @@ import range from "lodash/range";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
+import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 
 const ImagesContainer = ({
   buttonLogic,
   setButtonLogic,
   currentIndexFromButton,
   currentIndexFromStorage,
-  setCurrentIndexFromButton
+  setCurrentIndexFromButton,
+  gameStatus
 }) => {
   //eslint-disable-next-line react/prop-types
   return (
@@ -25,7 +27,10 @@ const ImagesContainer = ({
         height="100%"
       />
       <div className="searchbox-container guess-box" style={customStyles.marginTop}>
-        {range(0, currentIndexFromStorage).map((index) => {
+        {range(
+          0,
+          gameStatus !== GAME_STATUS.COMPLETED ? currentIndexFromStorage : MAX_ATTEMPTS
+        ).map((index) => {
           return (
             <button
               key={index}
@@ -57,7 +62,8 @@ ImagesContainer.propTypes = {
   setButtonLogic: PropTypes.func,
   currentIndexFromButton: PropTypes.number,
   currentIndexFromStorage: PropTypes.number,
-  setCurrentIndexFromButton: PropTypes.func
+  setCurrentIndexFromButton: PropTypes.func,
+  gameStatus: PropTypes.string
 };
 
 export default ImagesContainer;

@@ -5,7 +5,7 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { ALGOLIA_CLIENT, dayCount } from "./utils/constants";
+import { ALGOLIA_CLIENT, dayCount, GAME_STATUS } from "./utils/constants";
 import algoliasearch from "algoliasearch/lite";
 
 import Game from "./components/Game";
@@ -21,7 +21,7 @@ const App = (props) => {
   const [currentIndexFromButton, setCurrentIndexFromButton] =
     React.useState(currentIndexFromStorage);
   const [currentGuesses, setCurrentGuesses] = useLocalStorage("currentGuesses", "");
-  const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", "running");
+  const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", GAME_STATUS.RUNNING);
   const [day, setDay] = useLocalStorage("day", 1);
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const initialStats = {
@@ -39,7 +39,7 @@ const App = (props) => {
 
   React.useEffect(() => {
     if (day !== dayCount + 1) {
-      setGameStatus("running");
+      setGameStatus(GAME_STATUS.RUNNING);
       setDay(dayCount + 1);
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
@@ -75,6 +75,7 @@ const App = (props) => {
             currentIndexFromButton={currentIndexFromButton}
             currentIndexFromStorage={currentIndexFromStorage}
             setCurrentIndexFromButton={setCurrentIndexFromButton}
+            gameStatus={gameStatus}
           />
           <Game
             currentIndex={currentIndexFromStorage}

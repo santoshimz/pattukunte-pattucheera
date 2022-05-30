@@ -12,7 +12,7 @@ export const MAX_ATTEMPTS = 5;
 
 export const getShareText = (attempts, gameStatus) => {
   let shareText = "";
-  if (gameStatus === "failed") {
+  if (gameStatus === GAME_STATUS.FAILED) {
     shareText = Array(MAX_ATTEMPTS).fill(redSquare).join("");
     return shareText;
   }
@@ -31,3 +31,9 @@ export const getShareText = (attempts, gameStatus) => {
 export const SITE_URL = "https://pattukunte-pattucheera.netlify.app";
 
 export const dayCount = 6;
+
+export const GAME_STATUS = {
+  COMPLETED: "completed",
+  FAILED: "failed",
+  RUNNING: "running"
+};

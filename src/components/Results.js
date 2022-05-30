@@ -2,7 +2,7 @@ import React from "react";
 import { customStyles } from "../styles/styles";
 import range from "lodash/range";
 import PropTypes from "prop-types";
-import { greenSquare, MOVIE_NAME, redSquare } from "../utils/constants";
+import { GAME_STATUS, greenSquare, MOVIE_NAME, redSquare } from "../utils/constants";
 
 const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
@@ -19,12 +19,12 @@ const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
           </div>
         );
       })}
-      {gameStatus === "running" && (
+      {gameStatus === GAME_STATUS.RUNNING && (
         <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
           6 - currentIndex
         } guesses remaining`}</span>
       )}
-      {gameStatus === "completed" && (
+      {gameStatus === GAME_STATUS.COMPLETED && (
         <div>
           <div className="guessed-movie" style={customStyles.row}>
             <span role="img" aria-label="Error">
@@ -39,7 +39,7 @@ const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
             }}>{`You got it - The answer was ${MOVIE_NAME}`}</span>
         </div>
       )}
-      {gameStatus === "failed" && (
+      {gameStatus === GAME_STATUS.FAILED && (
         <span
           style={{
             ...customStyles.marginTop,
@@ -51,8 +51,8 @@ const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
           // eslint-disable-next-line react/jsx-key
           return <span className="square">{`${redSquare}`}</span>;
         })}
-        {gameStatus === "completed" && <span className="square">{`${greenSquare}`}</span>}
-        {gameStatus === "failed" && <span className="square">{`${redSquare}`}</span>}
+        {gameStatus === GAME_STATUS.COMPLETED && <span className="square">{`${greenSquare}`}</span>}
+        {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
       </div>
     </div>
   );

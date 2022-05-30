@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
 import algoliasearch from "algoliasearch/lite";
-import { ALGOLIA_CLIENT, MAX_ATTEMPTS } from "../utils/constants";
+import { ALGOLIA_CLIENT, GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
@@ -30,7 +30,7 @@ const Game = ({
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === MOVIE_NAME) {
-      setGameStatus("completed");
+      setGameStatus(GAME_STATUS.COMPLETED);
       setStats(
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
@@ -48,7 +48,7 @@ const Game = ({
         })
       );
     } else if (currentIndex === MAX_ATTEMPTS) {
-      setGameStatus("failed");
+      setGameStatus(GAME_STATUS.FAILED);
       if (currentGuesses !== "") {
         setCurrentGuesses(currentGuesses + "," + value.title);
       } else {
@@ -91,7 +91,7 @@ const Game = ({
 
   return (
     <>
-      {gameStatus === "running" && (
+      {gameStatus === GAME_STATUS.RUNNING && (
         <div className="searchbox-container movie-search-dropdown">
           <AsyncSelect
             placeholder="Enter a movie name"
@@ -112,7 +112,7 @@ const Game = ({
         currentIndex={currentIndex}
       />
 
-      {(gameStatus === "completed" || gameStatus === "failed") && (
+      {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
         <ShareResults
           gameStatus={gameStatus}
           shareText={shareText}
