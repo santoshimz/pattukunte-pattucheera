@@ -199,3 +199,19 @@ header {
 .twitter-icon{
   height: 56px;
 }
+.rules{
+  font-size: 18px;
+  padding: 10px;
+}
+.rules  p {
+  padding: 10px;
+  background: #9aaae63b;
+  border-radius: 5px;
+}
+ .rule-icon{
+  height: 20px;
+  margin-right: 10px;
+ }
+ .chances{
+  height: 28px;
+ }

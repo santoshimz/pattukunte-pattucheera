@@ -27,13 +27,13 @@ export const customStyles = {
     display: "flex",
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     fontSize: "16px",
     marginTop: "20px",
     marginBottom: "10px",
     cursor: "pointer",
     color: "white",
-    width: "30px",
+    width: "200px",
     margin: "auto"
   },
   spaceBetween: {
