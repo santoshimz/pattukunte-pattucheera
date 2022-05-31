@@ -12,6 +12,8 @@ import Game from "./components/Game";
 import Stats from "./components/Stats";
 import ImagesContainer from "./components/ImagesContainer";
 import statsLogo from "./assets/stats.svg";
+import rulesLogo from "./assets/rules.svg";
+import RulesModal from "./components/RulesModal";
 const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
 
 const App = (props) => {
@@ -24,6 +26,7 @@ const App = (props) => {
   const [gameStatus, setGameStatus] = useLocalStorage("gameStatus", GAME_STATUS.RUNNING);
   const [day, setDay] = useLocalStorage("day", 1);
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
+  const [openRulesModal, setOpenRulesModal] = React.useState(false);
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -55,12 +58,19 @@ const App = (props) => {
           src={statsLogo}
           alt="stats"
         />
+        <img
+          className="rules-icon"
+          onClick={() => setOpenRulesModal(true)}
+          src={rulesLogo}
+          alt="rules"
+        />
       </span>
       <Stats
         openStatsModal={openStatsModal}
         setOpenStatsModal={setOpenStatsModal}
         statsObj={statsObj}
       />
+      <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
         <InstantSearch
           searchClient={searchClient}
