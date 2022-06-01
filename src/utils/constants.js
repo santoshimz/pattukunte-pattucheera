@@ -30,7 +30,7 @@ export const getShareText = (attempts, gameStatus) => {
 
 export const SITE_URL = "https://pattukunte-pattucheera.netlify.app";
 
-export const dayCount = 7;
+export const dayCount = 8;
 
 export const GAME_STATUS = {
   COMPLETED: "completed",
