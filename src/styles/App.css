@@ -215,3 +215,16 @@ header {
  .chances{
   height: 28px;
  }
+ .timer-wrapper{
+  display: flex;
+  justify-content: space-evenly;
+  width: 300px;
+  margin: auto;
+  padding: 50px 0px;
+ }
+ .timer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+ }
