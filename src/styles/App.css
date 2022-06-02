@@ -228,3 +228,6 @@ header {
   align-items: center;
   color: white;
  }
+ .hide-dropdown .css-26l3qy-menu{
+   visibility: hidden ;
+ }

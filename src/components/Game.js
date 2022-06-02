@@ -101,7 +101,8 @@ const Game = ({
           <AsyncSelect
             placeholder="Enter a movie name"
             cacheOptions
-            defaultOptions
+            defaultValue={false}
+            className={!inputValue.length ? "hide-dropdown" : ""}
             value={selectedValue}
             getOptionLabel={(e) => e.title}
             getOptionValue={(e) => e.title}
