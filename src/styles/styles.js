@@ -51,14 +51,11 @@ export const customStyles = {
   },
   shareText: {
     color: "white",
-    margin: "auto",
     width: "100px",
-    marginBottom: "20px",
     border: "none",
     height: "40px",
     borderRadius: "2px",
     backgroundColor: "#069668",
-    marginTop: "35px",
     cursor: "pointer"
   },
   marginTop: {

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import twitterShare from "../assets/twitter.png";
 import fbShare from "../assets/fb.png";
 import whatsappShare from "../assets/whatsapp.png";
-
+import NextGameTimer from "./NextGameTimer";
 const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus }) => {
   const copyText = () => {
     let str = composeShareText();
@@ -44,9 +44,12 @@ const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus }) => 
 
   return (
     <>
-      <button style={customStyles.shareText} onClick={copyText}>
-        {shareText}
-      </button>
+      <div className="timer-wrapper">
+        <NextGameTimer />
+        <button style={customStyles.shareText} onClick={copyText}>
+          {shareText}
+        </button>
+      </div>
       <div className="social-icons">
         <img
           className="social twitter-icon"
