@@ -1,7 +1,12 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
 import algoliasearch from "algoliasearch/lite";
-import { ALGOLIA_CLIENT, GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import {
+  ALGOLIA_CLIENT,
+  ALTERNATE_MOVIE_NAME,
+  GAME_STATUS,
+  MAX_ATTEMPTS
+} from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
@@ -29,7 +34,7 @@ const Game = ({
 
   const handleChange = (value) => {
     setSelectedValue(value.title);
-    if (value.title === MOVIE_NAME) {
+    if (value.title === MOVIE_NAME || value.title === ALTERNATE_MOVIE_NAME) {
       setGameStatus(GAME_STATUS.COMPLETED);
       setStats(
         JSON.stringify({
