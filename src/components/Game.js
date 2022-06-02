@@ -1,18 +1,11 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
-import algoliasearch from "algoliasearch/lite";
-import {
-  ALGOLIA_CLIENT,
-  ALTERNATE_MOVIE_NAME,
-  GAME_STATUS,
-  MAX_ATTEMPTS
-} from "../utils/constants";
+import { ALTERNATE_MOVIE_NAME, GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import { MOVIE_NAME } from "../utils/constants";
-
-const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
+import moviesDataset from "../utils/telugu-movies";
 
 const Game = ({
   currentIndex,
@@ -83,15 +76,18 @@ const Game = ({
   };
 
   const fetchData = async () => {
-    const index = searchClient.initIndex("movies");
-    const hits = await index.search(inputValue);
-    const modifiedData = [
-      {
-        title: "Govinda Govinda"
-      },
-      ...hits.hits
-    ];
-    return inputValue.toLowerCase().startsWith("go") ? modifiedData : hits.hits;
+    let suggestions = [];
+    for (let i = 0; i < moviesDataset.length; i++) {
+      const movie = moviesDataset[i];
+      if (movie.toLowerCase().includes(inputValue.toLowerCase())) {
+        suggestions.push({ title: movie });
+      }
+      if (suggestions.length >= 5) {
+        break;
+      }
+    }
+
+    return suggestions;
   };
 
   return (
@@ -101,7 +97,7 @@ const Game = ({
           <AsyncSelect
             placeholder="Enter a movie name"
             cacheOptions
-            defaultOptions
+            defaultValue={false}
             value={selectedValue}
             getOptionLabel={(e) => e.title}
             getOptionValue={(e) => e.title}
