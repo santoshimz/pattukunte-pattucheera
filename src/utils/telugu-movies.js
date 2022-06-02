@@ -14,7 +14,7 @@ const moviesDataset = [
   "7/G Rainbow Colony",
   "9 Nelalu",
   "90 ML",
-  "@ Nartanasala",
+  "Nartanasala",
   "A Film by Aravind",
   "A... Aa",
   "ABCD: American-Born Confused Desi",
