@@ -29,7 +29,9 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
           <span className="data-item">Won</span>
         </div>
         <div className="data-group">
-          <span className="data-value">{gamesPlayed > 0 ? (gamesWon / gamesPlayed) * 100 : 0}</span>
+          <span className="data-value">
+            {gamesPlayed > 0 ? ((gamesWon / gamesPlayed) * 100).toFixed(2) : 0}
+          </span>
           <span className="data-item">Win %</span>
         </div>
       </div>
