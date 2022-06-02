@@ -49,9 +49,9 @@ const NextGameTimer = () => {
   }
   return (
     <div className="timer">
-      <span>Next Movie</span>
+      <span>Next Movie in</span>
       <span>
-        {diff.hours}:{diff.minutes}:{diff.seconds}
+        {diff.hours}hrs:{diff.minutes}mins:{diff.seconds}secs
       </span>
     </div>
   );
