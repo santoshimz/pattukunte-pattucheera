@@ -50,9 +50,11 @@ const NextGameTimer = () => {
   return (
     <div className="timer">
       <span>Next Movie in</span>
-      <span>
-        {diff.hours}hrs:{diff.minutes}mins:{diff.seconds}secs
-      </span>
+      <div>
+        <span className="counter">{diff.hours} hrs</span>:
+        <span className="counter">{diff.minutes} mins</span>:
+        <span className="counter"> {diff.seconds} secs</span>
+      </div>
     </div>
   );
 };
