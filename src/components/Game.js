@@ -91,7 +91,7 @@ const Game = ({
       },
       ...hits.hits
     ];
-    return inputValue.toLowerCase().startsWith("7g") ? modifiedData : hits.hits;
+    return inputValue.toLowerCase().startsWith("7") ? modifiedData : hits.hits;
   };
 
   return (
