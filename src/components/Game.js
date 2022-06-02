@@ -87,11 +87,11 @@ const Game = ({
     const hits = await index.search(inputValue);
     const modifiedData = [
       {
-        title: "Govinda Govinda"
+        title: "7/G Brindavan Colony"
       },
       ...hits.hits
     ];
-    return inputValue.toLowerCase().startsWith("go") ? modifiedData : hits.hits;
+    return inputValue.toLowerCase().startsWith("7g") ? modifiedData : hits.hits;
   };
 
   return (
