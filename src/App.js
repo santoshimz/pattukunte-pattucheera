@@ -17,6 +17,7 @@ import RulesModal from "./components/RulesModal";
 const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
 
 const App = (props) => {
+  console.log("process env", process.env);
   const { searchState, createURL, onSearchStateChange } = props;
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
