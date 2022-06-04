@@ -1,18 +1,11 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
-import algoliasearch from "algoliasearch/lite";
-import {
-  ALGOLIA_CLIENT,
-  ALTERNATE_MOVIE_NAME,
-  GAME_STATUS,
-  MAX_ATTEMPTS
-} from "../utils/constants";
+import { ALTERNATE_MOVIE_NAME, GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import { MOVIE_NAME } from "../utils/constants";
-
-const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
+import moviesDataset from "../utils/telugu-movies";
 
 const Game = ({
   currentIndex,
@@ -83,15 +76,25 @@ const Game = ({
   };
 
   const fetchData = async () => {
-    const index = searchClient.initIndex("movies");
-    const hits = await index.search(inputValue);
-    const modifiedData = [
-      {
-        title: "Preminche Manasu"
-      },
-      ...hits.hits
-    ];
-    return inputValue.toLowerCase().startsWith("pre") ? modifiedData : hits.hits;
+    let suggestions = [];
+    let modifiedData = [];
+    for (let i = 0; i < moviesDataset.length; i++) {
+      const movie = moviesDataset[i];
+      if (movie.toLowerCase().includes(inputValue.toLowerCase())) {
+        suggestions.push({ title: movie });
+      }
+      modifiedData = [
+        {
+          title: "Preminche Manasu"
+        },
+        ...suggestions
+      ];
+      if (suggestions.length >= 5) {
+        break;
+      }
+    }
+
+    return inputValue.toLowerCase().startsWith("pre") ? modifiedData : suggestions;
   };
 
   return (
