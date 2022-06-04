@@ -85,7 +85,7 @@ const Game = ({
       }
       modifiedData = [
         {
-          title: "Preminche Manasu"
+          title: "Aaruguru Pathivrathalu"
         },
         ...suggestions
       ];
@@ -94,7 +94,7 @@ const Game = ({
       }
     }
 
-    return inputValue.toLowerCase().startsWith("pre") ? modifiedData : suggestions;
+    return (inputValue.toLowerCase().startsWith("aar") || inputValue.toLowerCase().startsWith("6")) ? modifiedData : suggestions;
   };
 
   return (
