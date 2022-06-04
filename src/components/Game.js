@@ -77,17 +77,24 @@ const Game = ({
 
   const fetchData = async () => {
     let suggestions = [];
+    let modifiedData = [];
     for (let i = 0; i < moviesDataset.length; i++) {
       const movie = moviesDataset[i];
       if (movie.toLowerCase().includes(inputValue.toLowerCase())) {
         suggestions.push({ title: movie });
       }
+      modifiedData = [
+        {
+          title: "Preminche Manasu"
+        },
+        ...suggestions
+      ];
       if (suggestions.length >= 5) {
         break;
       }
     }
 
-    return suggestions;
+    return inputValue.toLowerCase().startsWith("pre") ? modifiedData : suggestions;
   };
 
   return (
