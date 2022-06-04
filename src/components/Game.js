@@ -94,7 +94,7 @@ const Game = ({
       }
     }
 
-    return (inputValue.toLowerCase().startsWith("aar") || inputValue.toLowerCase().startsWith("6")) ? modifiedData : suggestions;
+    return inputValue.toLowerCase().startsWith("6") ? modifiedData : suggestions;
   };
 
   return (

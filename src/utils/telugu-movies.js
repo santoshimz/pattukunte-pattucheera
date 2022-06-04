@@ -17,6 +17,7 @@ const moviesDataset = [
   "Nartanasala",
   "A Film by Aravind",
   "A... Aa",
+  "Aaruguru Pathivrathalu",
   "ABCD: American-Born Confused Desi",
   "Aa Naluguru",
   "Aa Okkati Adakku",
