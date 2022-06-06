@@ -1,6 +1,6 @@
 export const ALGOLIA_CLIENT = "6be0576ff61c053d5f9a3225e2a90f76";
 
-export const MOVIE_NAME = "Stalin";
+export const MOVIE_NAME = "Josh";
 
 export const ALTERNATE_MOVIE_NAME = MOVIE_NAME;
 
@@ -32,7 +32,7 @@ export const getShareText = (attempts, gameStatus) => {
 
 export const SITE_URL = "https://pattukunte-pattucheera.netlify.app";
 
-export const dayCount = 13;
+export const dayCount = 14;
 
 export const GAME_STATUS = {
   COMPLETED: "completed",
