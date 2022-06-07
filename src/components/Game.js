@@ -75,7 +75,7 @@ const Game = ({
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = async (inputValue) => {
     let suggestions = [];
     let modifiedData = [];
     for (let i = 0; i < moviesDataset.length; i++) {
