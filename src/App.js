@@ -27,6 +27,7 @@ const App = (props) => {
   const [day, setDay] = useLocalStorage("day", 1);
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
+  const [guessDistribution, setGuessDistribution] = useLocalStorage("guessDistribution", "");
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -92,6 +93,8 @@ const App = (props) => {
             setCurrentIndex={setCurrentIndexFromStorage}
             currentIndexFromButton={currentIndexFromButton}
             setCurrentIndexFromButton={setCurrentIndexFromButton}
+            guessDistribution={guessDistribution}
+            setGuessDistribution={setGuessDistribution}
             currentGuesses={currentGuesses}
             setCurrentGuesses={setCurrentGuesses}
             gameStatus={gameStatus}

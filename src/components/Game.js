@@ -16,7 +16,9 @@ const Game = ({
   gameStatus,
   setGameStatus,
   setStats,
-  gameStats
+  gameStats,
+  guessDistribution,
+  setGuessDistribution
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -25,10 +27,15 @@ const Game = ({
     setValue(value);
   };
 
+  const setAttemptsInLocalStorage = (attempts) => {
+    setGuessDistribution(`${guessDistribution}${guessDistribution ? "," : ""}${attempts}`);
+  };
+
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === MOVIE_NAME || value.title === ALTERNATE_MOVIE_NAME) {
       setGameStatus(GAME_STATUS.COMPLETED);
+      setAttemptsInLocalStorage(currentIndex);
       setStats(
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
@@ -47,6 +54,7 @@ const Game = ({
       );
     } else if (currentIndex === MAX_ATTEMPTS) {
       setGameStatus(GAME_STATUS.FAILED);
+      setAttemptsInLocalStorage(0);
       if (currentGuesses !== "") {
         setCurrentGuesses(currentGuesses + "," + value.title);
       } else {
@@ -143,7 +151,9 @@ Game.propTypes = {
   setStats: PropTypes.func,
   day: PropTypes.number,
   gameStats: PropTypes.object,
-  setCurrentIndexFromButton: PropTypes.number
+  setCurrentIndexFromButton: PropTypes.number,
+  guessDistribution: PropTypes.string,
+  setGuessDistribution: PropTypes.func
 };
 
 export default Game;
