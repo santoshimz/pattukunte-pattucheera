@@ -28,7 +28,9 @@ const Game = ({
   };
 
   const setAttemptsInLocalStorage = (attempts) => {
-    setGuessDistribution(`${guessDistribution}${guessDistribution ? "," : ""}${attempts}`);
+    let currentGuessDistribution = JSON.parse(guessDistribution);
+    currentGuessDistribution[attempts.toString()]++;
+    setGuessDistribution(JSON.stringify(currentGuessDistribution));
   };
 
   const handleChange = (value) => {
@@ -54,7 +56,6 @@ const Game = ({
       );
     } else if (currentIndex === MAX_ATTEMPTS) {
       setGameStatus(GAME_STATUS.FAILED);
-      setAttemptsInLocalStorage(0);
       if (currentGuesses !== "") {
         setCurrentGuesses(currentGuesses + "," + value.title);
       } else {
