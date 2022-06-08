@@ -68,6 +68,8 @@ header {
   width: 28px;
   border: none;
   height: 35px;
+  text-align: center;
+  font-size: large;
 }
 
 .button {
