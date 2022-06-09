@@ -1,10 +1,9 @@
 import AsyncSelect from "react-select/async";
 import React from "react";
-import { ALTERNATE_MOVIE_NAME, GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
-import { MOVIE_NAME } from "../utils/constants";
 import moviesDataset from "../utils/telugu-movies";
 
 const Game = ({
@@ -16,7 +15,8 @@ const Game = ({
   gameStatus,
   setGameStatus,
   setStats,
-  gameStats
+  gameStats,
+  movie
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -27,7 +27,7 @@ const Game = ({
 
   const handleChange = (value) => {
     setSelectedValue(value.title);
-    if (value.title === MOVIE_NAME || value.title === ALTERNATE_MOVIE_NAME) {
+    if (value.title === movie) {
       setGameStatus(GAME_STATUS.COMPLETED);
       setStats(
         JSON.stringify({
@@ -119,6 +119,7 @@ const Game = ({
         currentGuesses={currentGuesses}
         gameStatus={gameStatus}
         currentIndex={currentIndex}
+        movie={movie}
       />
 
       {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
@@ -143,7 +144,8 @@ Game.propTypes = {
   setStats: PropTypes.func,
   day: PropTypes.number,
   gameStats: PropTypes.object,
-  setCurrentIndexFromButton: PropTypes.number
+  setCurrentIndexFromButton: PropTypes.number,
+  movie: PropTypes.string
 };
 
 export default Game;

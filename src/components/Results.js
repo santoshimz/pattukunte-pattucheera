@@ -2,9 +2,9 @@ import React from "react";
 import { customStyles } from "../styles/styles";
 import range from "lodash/range";
 import PropTypes from "prop-types";
-import { GAME_STATUS, greenSquare, MOVIE_NAME, redSquare } from "../utils/constants";
+import { GAME_STATUS, greenSquare, redSquare } from "../utils/constants";
 
-const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
+const Results = ({ currentGuesses, gameStatus, currentIndex, movie }) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
 
   return (
@@ -30,13 +30,13 @@ const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
             <span role="img" aria-label="Error">
               ✅
             </span>
-            <span style={{ ...customStyles.marginLeft, color: "white" }}>{MOVIE_NAME}</span>
+            <span style={{ ...customStyles.marginLeft, color: "white" }}>{movie}</span>
           </div>
           <span
             style={{
               ...customStyles.marginTop,
               color: "white"
-            }}>{`You got it - The answer was ${MOVIE_NAME}`}</span>
+            }}>{`You got it - The answer was ${movie}`}</span>
         </div>
       )}
       {gameStatus === GAME_STATUS.FAILED && (
@@ -44,7 +44,7 @@ const Results = ({ currentGuesses, gameStatus, currentIndex }) => {
           style={{
             ...customStyles.marginTop,
             color: "white"
-          }}>{`The answer was ${MOVIE_NAME}`}</span>
+          }}>{`The answer was ${movie}`}</span>
       )}
       <div id="share" style={{ ...customStyles.row, width: "1.2em", height: "1.2em" }}>
         {range(1, currentIndex).map(() => {
@@ -62,7 +62,7 @@ Results.propTypes = {
   currentGuesses: PropTypes.string,
   gameStatus: PropTypes.string,
   currentIndex: PropTypes.number,
-  movieName: PropTypes.string
+  movie: PropTypes.string
 };
 
 export default Results;

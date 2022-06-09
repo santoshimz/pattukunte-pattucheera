@@ -2,7 +2,7 @@ import range from "lodash/range";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
-import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import { GAME_STATUS, getDayCount, MAX_ATTEMPTS, s3Bucket } from "../utils/constants";
 
 const ImagesContainer = ({
   buttonLogic,
@@ -20,8 +20,8 @@ const ImagesContainer = ({
         className="movie-frame"
         src={
           buttonLogic
-            ? `${currentIndexFromButton.toString()}.png`
-            : `${currentIndexFromStorage.toString()}.png`
+            ? `${s3Bucket}/${getDayCount()}/${currentIndexFromButton.toString()}.jpg`
+            : `${s3Bucket}/${getDayCount()}/${currentIndexFromStorage.toString()}.jpg`
         }
         width="100%"
         height="100%"

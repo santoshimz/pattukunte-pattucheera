@@ -1,6 +1,6 @@
 import React from "react";
 import { customStyles } from "../styles/styles";
-import { dayCount, getShareText, SITE_URL } from "../utils/constants";
+import { getDayCount, getShareText, SITE_URL } from "../utils/constants";
 import PropTypes from "prop-types";
 import twitterShare from "../assets/twitter.png";
 import fbShare from "../assets/fb.png";
@@ -14,7 +14,7 @@ const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus }) => 
   };
 
   const composeShareText = () => {
-    return `Pattukunte Pattucheera Day ${dayCount + 1}: ${currentIndex}/5\n\n${getShareText(
+    return `Pattukunte Pattucheera Day ${getDayCount()}: ${currentIndex}/5\n\n${getShareText(
       currentIndex,
       gameStatus
     )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
