@@ -39,3 +39,8 @@ export const GAME_STATUS = {
   FAILED: "failed",
   RUNNING: "running"
 };
+
+export const intialGuessDistribution = new Array(MAX_ATTEMPTS).fill().reduce((acc, _, index) => {
+  acc[index + 1] = 0;
+  return acc;
+}, {});
