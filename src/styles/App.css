@@ -34,7 +34,7 @@ header {
 .searchbox-container {
   margin-left: 240px;
   max-width: 400px;
-  margin: 20px auto auto auto; 
+  margin: 20px auto auto auto;
   display: block;
 }
 
@@ -48,7 +48,7 @@ header {
   box-shadow: none;
 }
 
-.searchbox-container .guessed-movie{
+.searchbox-container .guessed-movie {
   border: 1px solid white;
   padding: 10px;
   border-radius: 2px;
@@ -57,17 +57,19 @@ header {
 
 }
 
-.searchbox-container .movie-frame{
+.searchbox-container .movie-frame {
   height: 14rem;
 }
 
 .searchbox-container button {
-  
+
   border-radius: 0;
   border-radius: 2px;
   width: 28px;
   border: none;
   height: 35px;
+  padding: 0px;
+  font-size: large;
 }
 
 .button {
@@ -89,10 +91,13 @@ header {
   height: 32px;
   opacity: 0.3;
 }
+
 .close:hover {
   opacity: 1;
 }
-.close:before, .close:after {
+
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
   content: ' ';
@@ -100,36 +105,38 @@ header {
   width: 2px;
   background-color: #333;
 }
+
 .close:before {
   transform: rotate(45deg);
 }
+
 .close:after {
   transform: rotate(-45deg);
 }
 
-#share .square{
-  padding:5px
+#share .square {
+  padding: 5px
 }
 
-.guess-box{
+.guess-box {
   display: flex;
   justify-content: center;
 }
 
-.movie-search-dropdown{
+.movie-search-dropdown {
   width: 300px;
 }
 
-.current-movie-frame{
+.current-movie-frame {
   background-color: #595959;
   color: white;
 }
 
-.header-icon{
+.header-icon {
   padding: 0px 16px;
 }
 
-.modal-close{
+.modal-close {
   background-color: transparent;
   position: absolute;
   top: 15px;
@@ -137,100 +144,110 @@ header {
   font-size: 18px;
 }
 
-.Modal{
+.Modal {
   border: 1px solid black !important;
 }
 
-.data-props{
+.data-props {
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.data-group{
+.data-group {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.stats{
+.stats {
   text-transform: uppercase;
   font-weight: bold;
 }
 
-.data-value{
+.data-value {
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 2rem;
 }
 
-.stats-header{
+.stats-header {
   margin-bottom: 20px;
 }
 
-.guess-dist{
+.guess-dist {
   margin-top: 20px;
 }
 
-.won{
+.won {
   background: green;
   color: white;
   border-radius: 3px;
 }
 
-.total-played{
+.total-played {
   background: #ffc107;
   border-radius: 3px;
   color: white;
 }
 
-.social-icons{
+.social-icons {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
-.social{
+
+.social {
   height: 50px;
   margin: 10px;
   cursor: pointer;
 }
-.twitter-icon{
+
+.twitter-icon {
   height: 56px;
 }
-.rules{
+
+.rules {
   font-size: 18px;
   padding: 10px;
 }
-.rules  p {
+
+.rules p {
   padding: 10px;
   background: #9aaae63b;
   border-radius: 5px;
 }
- .rule-icon{
+
+.rule-icon {
   height: 20px;
   margin-right: 10px;
- }
- .chances{
+}
+
+.chances {
   height: 28px;
- }
- .timer-wrapper{
+}
+
+.timer-wrapper {
   display: flex;
   justify-content: space-evenly;
   width: 300px;
   margin: auto;
   padding: 50px 0px;
- }
- .timer{
+}
+
+.timer {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: white;
- }
- .hide-dropdown .css-26l3qy-menu{
-   visibility: hidden ;
- }
- .counter{
-   padding: 5px;
- }
+}
+
+.hide-dropdown .css-26l3qy-menu {
+  visibility: hidden;
+}
+
+.counter {
+  padding: 5px;
+}
