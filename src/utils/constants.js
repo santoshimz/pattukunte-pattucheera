@@ -38,7 +38,7 @@ export const GAME_STATUS = {
   RUNNING: "running"
 };
 
-export const s3Bucket = "https://pattukunte-pattucheera-movies.s3.amazonaws.com";
+export const s3Bucket = "https://d2t2f7d530jwgo.cloudfront.net";
 
 export function getTimeDifference(date) {
   var now = new Date();
