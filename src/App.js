@@ -5,7 +5,13 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { ALGOLIA_CLIENT, dayCount, GAME_STATUS, intialGuessDistribution } from "./utils/constants";
+import {
+  ALGOLIA_CLIENT,
+  GAME_STATUS,
+  getDayCount,
+  s3Bucket,
+  intialGuessDistribution
+} from "./utils/constants";
 import algoliasearch from "algoliasearch/lite";
 
 import Game from "./components/Game";
@@ -27,6 +33,7 @@ const App = (props) => {
   const [day, setDay] = useLocalStorage("day", 1);
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
+  const [movie, setMovie] = React.useState("");
   const [guessDistribution, setGuessDistribution] = useLocalStorage(
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
@@ -46,9 +53,14 @@ const App = (props) => {
   }, [stats]);
 
   React.useEffect(() => {
-    if (day !== dayCount + 1) {
+    const dayCount = getDayCount();
+    fetch(`${s3Bucket}/${dayCount}/meta-data.json`)
+      .then((response) => response.json())
+      .then((json) => setMovie(json.movie))
+      .catch((error) => console.log(error));
+    if (day !== dayCount) {
       setGameStatus(GAME_STATUS.RUNNING);
-      setDay(dayCount + 1);
+      setDay(dayCount);
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
     }
@@ -108,6 +120,7 @@ const App = (props) => {
             setStats={setStats}
             stats={stats}
             gameStats={statsObj}
+            movie={movie}
           />
         </InstantSearch>
       </div>
@@ -118,7 +131,9 @@ const App = (props) => {
 App.propTypes = {
   searchState: PropTypes.object,
   createURL: PropTypes.func,
-  onSearchStateChange: PropTypes.func
+  onSearchStateChange: PropTypes.func,
+  movie: PropTypes.string,
+  setMovie: PropTypes.func
 };
 
 export default withURLSync(App);
