@@ -103,6 +103,7 @@ const App = (props) => {
             currentIndexFromStorage={currentIndexFromStorage}
             setCurrentIndexFromButton={setCurrentIndexFromButton}
             gameStatus={gameStatus}
+            dayCount={day}
           />
           <Game
             currentIndex={currentIndexFromStorage}
