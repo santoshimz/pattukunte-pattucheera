@@ -2,7 +2,7 @@ import range from "lodash/range";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
-import { GAME_STATUS, getDayCount, MAX_ATTEMPTS, s3Bucket } from "../utils/constants";
+import { GAME_STATUS, MAX_ATTEMPTS, s3Bucket } from "../utils/constants";
 
 const ImagesContainer = ({
   buttonLogic,
@@ -10,7 +10,8 @@ const ImagesContainer = ({
   currentIndexFromButton,
   currentIndexFromStorage,
   setCurrentIndexFromButton,
-  gameStatus
+  gameStatus,
+  dayCount
 }) => {
   //eslint-disable-next-line react/prop-types
   return (
@@ -20,8 +21,8 @@ const ImagesContainer = ({
         className="movie-frame"
         src={
           buttonLogic
-            ? `${s3Bucket}/${getDayCount()}/${currentIndexFromButton.toString()}.jpg`
-            : `${s3Bucket}/${getDayCount()}/${currentIndexFromStorage.toString()}.jpg`
+            ? `${s3Bucket}/${dayCount}/${currentIndexFromButton.toString()}.jpg`
+            : `${s3Bucket}/${dayCount}/${currentIndexFromStorage.toString()}.jpg`
         }
         width="100%"
         height="100%"
@@ -63,7 +64,8 @@ ImagesContainer.propTypes = {
   currentIndexFromButton: PropTypes.number,
   currentIndexFromStorage: PropTypes.number,
   setCurrentIndexFromButton: PropTypes.func,
-  gameStatus: PropTypes.string
+  gameStatus: PropTypes.string,
+  dayCount: PropTypes.number
 };
 
 export default ImagesContainer;

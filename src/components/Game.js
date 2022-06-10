@@ -18,7 +18,8 @@ const Game = ({
   gameStats,
   movie,
   guessDistribution,
-  setGuessDistribution
+  setGuessDistribution,
+  day
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -137,6 +138,7 @@ const Game = ({
           shareText={shareText}
           setShareText={setShareText}
           currentIndex={currentIndex}
+          dayCount={day}
         />
       )}
     </>
