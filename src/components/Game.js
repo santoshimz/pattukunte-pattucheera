@@ -16,7 +16,9 @@ const Game = ({
   setGameStatus,
   setStats,
   gameStats,
-  movie
+  movie,
+  guessDistribution,
+  setGuessDistribution
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -25,10 +27,17 @@ const Game = ({
     setValue(value);
   };
 
+  const setAttemptsInLocalStorage = (attempts) => {
+    let currentGuessDistribution = JSON.parse(guessDistribution);
+    currentGuessDistribution[attempts.toString()]++;
+    setGuessDistribution(JSON.stringify(currentGuessDistribution));
+  };
+
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === movie) {
       setGameStatus(GAME_STATUS.COMPLETED);
+      setAttemptsInLocalStorage(currentIndex);
       setStats(
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
@@ -145,7 +154,9 @@ Game.propTypes = {
   day: PropTypes.number,
   gameStats: PropTypes.object,
   setCurrentIndexFromButton: PropTypes.number,
-  movie: PropTypes.string
+  movie: PropTypes.string,
+  guessDistribution: PropTypes.string,
+  setGuessDistribution: PropTypes.func
 };
 
 export default Game;

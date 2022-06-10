@@ -5,7 +5,13 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { ALGOLIA_CLIENT, GAME_STATUS, getDayCount, s3Bucket } from "./utils/constants";
+import {
+  ALGOLIA_CLIENT,
+  GAME_STATUS,
+  getDayCount,
+  s3Bucket,
+  intialGuessDistribution
+} from "./utils/constants";
 import algoliasearch from "algoliasearch/lite";
 
 import Game from "./components/Game";
@@ -28,6 +34,11 @@ const App = (props) => {
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
   const [movie, setMovie] = React.useState("");
+  const [guessDistribution, setGuessDistribution] = useLocalStorage(
+    "guessDistribution",
+    JSON.stringify(intialGuessDistribution)
+  );
+
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -98,6 +109,8 @@ const App = (props) => {
             setCurrentIndex={setCurrentIndexFromStorage}
             currentIndexFromButton={currentIndexFromButton}
             setCurrentIndexFromButton={setCurrentIndexFromButton}
+            guessDistribution={guessDistribution}
+            setGuessDistribution={setGuessDistribution}
             currentGuesses={currentGuesses}
             setCurrentGuesses={setCurrentGuesses}
             gameStatus={gameStatus}
