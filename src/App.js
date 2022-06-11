@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { InstantSearch, Configure } from "react-instantsearch-dom";
 import withURLSync from "./algolia/URLSync";
@@ -53,7 +54,8 @@ const App = (props) => {
   }, [stats]);
 
   React.useEffect(() => {
-    const dayCount = getDayCount();
+    const routeParam = window.location.pathname.split("/")[1];
+    const dayCount = routeParam;
     fetch(`${s3Bucket}/${dayCount}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => setMovie(json.movie))
