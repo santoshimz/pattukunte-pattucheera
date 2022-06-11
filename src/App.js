@@ -55,7 +55,7 @@ const App = (props) => {
 
   React.useEffect(() => {
     const routeParam = window.location.pathname.split("/")[1];
-    const dayCount = routeParam;
+    const dayCount = routeParam ? routeParam : getDayCount();
     fetch(`${s3Bucket}/${dayCount}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => setMovie(json.movie))
