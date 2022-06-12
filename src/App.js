@@ -123,6 +123,7 @@ const App = (props) => {
             stats={stats}
             gameStats={statsObj}
             movie={movie}
+            setOpenStatsModal={setOpenStatsModal}
           />
         </InstantSearch>
       </div>

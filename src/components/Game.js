@@ -19,11 +19,13 @@ const Game = ({
   movie,
   guessDistribution,
   setGuessDistribution,
-  day
+  day,
+  setOpenStatsModal
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
     setValue(value);
   };
@@ -37,6 +39,7 @@ const Game = ({
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === movie) {
+      setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
       setAttemptsInLocalStorage(currentIndex);
       setStats(
@@ -57,6 +60,7 @@ const Game = ({
       );
     } else if (currentIndex === MAX_ATTEMPTS) {
       setGameStatus(GAME_STATUS.FAILED);
+      setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {
         setCurrentGuesses(currentGuesses + "," + value.title);
       } else {
@@ -158,7 +162,8 @@ Game.propTypes = {
   setCurrentIndexFromButton: PropTypes.number,
   movie: PropTypes.string,
   guessDistribution: PropTypes.string,
-  setGuessDistribution: PropTypes.func
+  setGuessDistribution: PropTypes.func,
+  setOpenStatsModal: PropTypes.func
 };
 
 export default Game;
