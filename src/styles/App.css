@@ -251,3 +251,49 @@ header {
 .counter {
   padding: 5px;
 }
+.guess-graph{
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.graph-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px 0px 0px;
+}
+
+.guess-index{
+  width: 5%;
+  font-size: larger;
+  font-weight: bold;
+}
+.guess-bar{
+  background-color: transparent;
+  height: 20px;
+  width: 95%;
+  border-radius: 1px;
+}
+
+.graph-fill{
+  background: #787C7E;
+  height: 20px;
+  text-align: right;
+  padding-right: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.default-graph-width{
+  width: 8%;
+}
+
+.guess-data{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 2px 0px;
+}
