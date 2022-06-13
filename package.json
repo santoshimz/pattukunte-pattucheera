@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "algoliasearch": "4.11.0",
+    "fuse.js": "^6.6.2",
     "lodash": "^4.17.21",
     "qs": "6.8.0",
     "react": "17.0.2",

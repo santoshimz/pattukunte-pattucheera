@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import moviesDataset from "../utils/telugu-movies";
+import Fuse from "fuse.js";
 
 const Game = ({
   currentIndex,
@@ -27,6 +28,23 @@ const Game = ({
   const handleInputChange = (value) => {
     setValue(value);
   };
+  const fuzzyOptions = {
+    isCaseSensitive: false
+    // includeScore: false,
+    // shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: false,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    // fieldNormWeight: 1,
+  };
+
+  const fuse = new Fuse(moviesDataset, fuzzyOptions);
 
   const setAttemptsInLocalStorage = (attempts) => {
     let currentGuessDistribution = JSON.parse(guessDistribution);
@@ -86,25 +104,8 @@ const Game = ({
   };
 
   const fetchData = async (inputValue) => {
-    let suggestions = [];
-    let modifiedData = [];
-    for (let i = 0; i < moviesDataset.length; i++) {
-      const movie = moviesDataset[i];
-      if (movie.toLowerCase().includes(inputValue.toLowerCase())) {
-        suggestions.push({ title: movie });
-      }
-      modifiedData = [
-        {
-          title: "Aaruguru Pathivrathalu"
-        },
-        ...suggestions
-      ];
-      if (suggestions.length >= 5) {
-        break;
-      }
-    }
-
-    return inputValue.toLowerCase().startsWith("6") ? modifiedData : suggestions;
+    const vals = fuse.search(inputValue, { limit: 5 });
+    return vals.map((val) => ({ title: val.item }));
   };
 
   return (
