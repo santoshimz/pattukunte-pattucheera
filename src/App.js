@@ -86,6 +86,7 @@ const App = (props) => {
         openStatsModal={openStatsModal}
         setOpenStatsModal={setOpenStatsModal}
         statsObj={statsObj}
+        guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
@@ -122,6 +123,7 @@ const App = (props) => {
             stats={stats}
             gameStats={statsObj}
             movie={movie}
+            setOpenStatsModal={setOpenStatsModal}
           />
         </InstantSearch>
       </div>

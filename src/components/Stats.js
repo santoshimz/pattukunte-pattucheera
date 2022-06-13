@@ -1,11 +1,16 @@
+/* eslint-disable react/jsx-key */
 import Modal from "react-modal";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
 import closeIcon from "../assets/close.svg";
+import { MAX_ATTEMPTS } from "../utils/constants";
+import { range } from "lodash";
 
-const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
+const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
+  const sum = Object.keys(guessData).reduce((acc, val) => acc + guessData[val], 0);
+  const DEFAULT_GRAPH_WIDTH = 7;
   return (
     <Modal
       isOpen={openStatsModal}
@@ -49,6 +54,29 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
           <span className="data-item">Max Streak</span>
         </div>
       </div>
+      <h4 className="stats stats-header guess-graph">Guess distribution</h4>
+      <div className="graph-wrapper" style={customStyles.marginTop}>
+        {range(0, MAX_ATTEMPTS).map(function (_, index) {
+          return (
+            <div className="guess-data">
+              <div className="guess-index">{index + 1}</div>{" "}
+              <div className="guess-bar">
+                <div
+                  className={`graph-fill ${guessData[index + 1] ? "" : "default-graph-width"}`}
+                  style={{
+                    width: `${
+                      guessData[index + 1] !== 0
+                        ? (guessData[index + 1] / sum) * 100
+                        : DEFAULT_GRAPH_WIDTH
+                    }%`
+                  }}>
+                  {guessData[index + 1]}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </Modal>
   );
 };
@@ -56,7 +84,8 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj }) => {
 Stats.propTypes = {
   openStatsModal: PropTypes.bool,
   setOpenStatsModal: PropTypes.func,
-  statsObj: PropTypes.object
+  statsObj: PropTypes.object,
+  guessData: PropTypes.object
 };
 
 export default Stats;
