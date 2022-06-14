@@ -943,6 +943,7 @@ const moviesDataset = [
   "Paramanandayya Shishyula Katha",
   "Partha",
   "Parthal Pasi Theerum",
+  "Party",
   "Parugo Parugu",
   "Parugu",
   "Pasivadi Pranam",
