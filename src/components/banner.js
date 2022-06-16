@@ -1,21 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { bannerStyles } from "../styles/bannerStyles";
-import { BANNER_TEXT } from "../utils/constants";
 
-const Banner = ({ banner, setBanner }) => {
+const Banner = () => {
+  const [bannerText, setBannerText] = React.useState(process.env.REACT_APP_BANNER);
   return (
-    banner && (
+    bannerText &&
+    true && (
       <div style={bannerStyles.banner} className="row">
         <div className="col-xs-10 text-center">
           <span style={bannerStyles.infoIcon} className="material-symbols-outlined">
             info
           </span>
-          {BANNER_TEXT}
+          {bannerText}
         </div>
 
         <div className="">
-          <button style={bannerStyles.closeIcon} onClick={() => setBanner(false)}>
+          <button style={bannerStyles.closeIcon} onClick={() => setBannerText("")}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -24,9 +24,6 @@ const Banner = ({ banner, setBanner }) => {
   );
 };
 
-Banner.propTypes = {
-  banner: PropTypes.boolean,
-  setBanner: PropTypes.func
-};
+Banner.propTypes = {};
 
 export default Banner;
