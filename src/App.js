@@ -30,6 +30,9 @@ const App = () => {
   );
   const [banner, setBanner] = React.useState(true);
 
+  // eslint-disable-next-line no-undef
+  console.log(process.env);
+
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
