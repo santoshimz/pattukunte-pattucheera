@@ -61,3 +61,6 @@ export const intialGuessDistribution = new Array(MAX_ATTEMPTS).fill().reduce((ac
   acc[index + 1] = 0;
   return acc;
 }, {});
+
+export const BANNER_TEXT =
+  "Announcement: Going forward we will update new movie daily at 12:00 AM IST";
