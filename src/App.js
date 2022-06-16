@@ -29,7 +29,7 @@ const App = () => {
     JSON.stringify(intialGuessDistribution)
   );
 
-  console.log(process.env);
+  console.log(process.env + "");
 
   const initialStats = {
     gamesPlayed: 0,
