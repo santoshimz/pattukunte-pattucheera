@@ -1,6 +1,6 @@
 export const bannerStyles = {
   banner: {
-    height: "50px",
+    minHeight: "50px",
     background: "#3f51b5",
     display: "flex",
     alignItems: "center",
