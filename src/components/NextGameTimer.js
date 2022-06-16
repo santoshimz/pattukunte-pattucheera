@@ -5,9 +5,10 @@ const NextGameTimer = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const diff = getTimeDifference(
-        new Date(`${getNextGameDate().toISOString().split("T")[0]}T00:00:14.000Z`)
+      const nextGameTime = new Date(
+        new Date(`${getNextGameDate().toISOString().split("T")[0]}T00:00:14.000Z`) - 330 * 60 * 1000
       );
+      const diff = getTimeDifference(nextGameTime);
       if (diff.hours === 0 && diff.minutes === 0 && diff.seconds === 0) {
         window.location.reload();
       }

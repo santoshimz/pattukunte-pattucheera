@@ -11,6 +11,7 @@ import ImagesContainer from "./components/ImagesContainer";
 import statsLogo from "./assets/stats.svg";
 import rulesLogo from "./assets/rules.svg";
 import RulesModal from "./components/RulesModal";
+import Banner from "./components/banner";
 
 const App = () => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -27,6 +28,7 @@ const App = () => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
+  const [banner, setBanner] = React.useState(true);
 
   const initialStats = {
     gamesPlayed: 0,
@@ -56,6 +58,7 @@ const App = () => {
   }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
+      <Banner banner={banner} setBanner={setBanner}></Banner>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
@@ -106,6 +109,7 @@ const App = () => {
           stats={stats}
           gameStats={statsObj}
           movie={movie}
+          setOpenStatsModal={setOpenStatsModal}
         />
       </div>
     </div>

@@ -55,7 +55,7 @@ export function getTimeDifference(date) {
 }
 
 export function getDayCount() {
-  return Math.abs(getTimeDifference(new Date("2022-05-24T00:00:14.000Z")).days);
+  return Math.abs(getTimeDifference(new Date("2022-05-23T19:30:14.000Z")).days);
 }
 export const intialGuessDistribution = new Array(MAX_ATTEMPTS).fill().reduce((acc, _, index) => {
   acc[index + 1] = 0;
