@@ -1,19 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { InstantSearch, Configure } from "react-instantsearch-dom";
-import withURLSync from "./algolia/URLSync";
 import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import {
-  ALGOLIA_CLIENT,
-  GAME_STATUS,
-  getDayCount,
-  s3Bucket,
-  intialGuessDistribution
-} from "./utils/constants";
-import algoliasearch from "algoliasearch/lite";
+import { GAME_STATUS, getDayCount, intialGuessDistribution } from "./utils/constants";
 
 import Game from "./components/Game";
 import Stats from "./components/Stats";
@@ -21,10 +12,9 @@ import ImagesContainer from "./components/ImagesContainer";
 import statsLogo from "./assets/stats.svg";
 import rulesLogo from "./assets/rules.svg";
 import RulesModal from "./components/RulesModal";
-const searchClient = algoliasearch("latency", ALGOLIA_CLIENT);
+import Banner from "./components/banner";
 
-const App = (props) => {
-  const { searchState, createURL, onSearchStateChange } = props;
+const App = () => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -55,8 +45,8 @@ const App = (props) => {
 
   React.useEffect(() => {
     const routeParam = window.location.pathname.split("/")[1];
-    const dayCount = routeParam;
-    fetch(`${s3Bucket}/${dayCount}/meta-data.json`)
+    const dayCount = routeParam ? routeParam : getDayCount();
+    fetch(`${process.env.REACT_APP_CDN_URL}/${dayCount}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => setMovie(json.movie))
       .catch((error) => console.log(error));
@@ -69,6 +59,7 @@ const App = (props) => {
   }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
+      <Banner></Banner>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
@@ -88,44 +79,39 @@ const App = (props) => {
         openStatsModal={openStatsModal}
         setOpenStatsModal={setOpenStatsModal}
         statsObj={statsObj}
+        guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
-        <InstantSearch
-          searchClient={searchClient}
-          indexName="movies"
-          searchState={searchState}
-          createURL={createURL}
-          onSearchStateChange={onSearchStateChange}>
-          <Configure hitsPerPage={10} />
-          <ImagesContainer
-            buttonLogic={buttonLogic}
-            setButtonLogic={setButtonLogic}
-            currentIndexFromButton={currentIndexFromButton}
-            currentIndexFromStorage={currentIndexFromStorage}
-            setCurrentIndexFromButton={setCurrentIndexFromButton}
-            gameStatus={gameStatus}
-            dayCount={day}
-          />
-          <Game
-            currentIndex={currentIndexFromStorage}
-            setCurrentIndex={setCurrentIndexFromStorage}
-            currentIndexFromButton={currentIndexFromButton}
-            setCurrentIndexFromButton={setCurrentIndexFromButton}
-            guessDistribution={guessDistribution}
-            setGuessDistribution={setGuessDistribution}
-            currentGuesses={currentGuesses}
-            setCurrentGuesses={setCurrentGuesses}
-            gameStatus={gameStatus}
-            setGameStatus={setGameStatus}
-            day={day}
-            setDay={setDay}
-            setStats={setStats}
-            stats={stats}
-            gameStats={statsObj}
-            movie={movie}
-          />
-        </InstantSearch>
+        <div />
+        <ImagesContainer
+          buttonLogic={buttonLogic}
+          setButtonLogic={setButtonLogic}
+          currentIndexFromButton={currentIndexFromButton}
+          currentIndexFromStorage={currentIndexFromStorage}
+          setCurrentIndexFromButton={setCurrentIndexFromButton}
+          gameStatus={gameStatus}
+          dayCount={day}
+        />
+        <Game
+          currentIndex={currentIndexFromStorage}
+          setCurrentIndex={setCurrentIndexFromStorage}
+          currentIndexFromButton={currentIndexFromButton}
+          setCurrentIndexFromButton={setCurrentIndexFromButton}
+          guessDistribution={guessDistribution}
+          setGuessDistribution={setGuessDistribution}
+          currentGuesses={currentGuesses}
+          setCurrentGuesses={setCurrentGuesses}
+          gameStatus={gameStatus}
+          setGameStatus={setGameStatus}
+          day={day}
+          setDay={setDay}
+          setStats={setStats}
+          stats={stats}
+          gameStats={statsObj}
+          movie={movie}
+          setOpenStatsModal={setOpenStatsModal}
+        />
       </div>
     </div>
   );
@@ -139,4 +125,4 @@ App.propTypes = {
   setMovie: PropTypes.func
 };
 
-export default withURLSync(App);
+export default App;

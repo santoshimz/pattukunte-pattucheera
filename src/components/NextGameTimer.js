@@ -5,9 +5,8 @@ const NextGameTimer = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const diff = getTimeDifference(
-        new Date(`${getNextGameDate().toISOString().split("T")[0]}T00:00:14.000Z`)
-      );
+      const nextGameDate = getNextGameDate();
+      const diff = getTimeDifference(nextGameDate);
       if (diff.hours === 0 && diff.minutes === 0 && diff.seconds === 0) {
         window.location.reload();
       }
@@ -20,11 +19,11 @@ const NextGameTimer = () => {
 
   function getNextGameDate() {
     let today = new Date();
-    let todayInUTC = new Date(`${today.toISOString().split("T")[0]}T00:00:14.000Z`);
+    let todayInUTC = new Date(`${today.toISOString().split("T")[0]}T18:30:00.000Z`);
     const todayDiff = getTimeDifference(todayInUTC);
     if (todayDiff.hours < 0) {
       today.setDate(today.getDate() + 1);
-      return new Date(`${today.toISOString().split("T")[0]}T00:00:14.000Z`);
+      return new Date(`${today.toISOString().split("T")[0]}T18:30:00.000Z`);
     }
     return todayInUTC;
   }
