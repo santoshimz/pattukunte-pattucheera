@@ -6,7 +6,8 @@ export const bannerStyles = {
     alignItems: "center",
     justifyContent: "center",
     color: "white",
-    fontSize: "1rem"
+    fontSize: "1rem",
+    margin: "0px"
   },
 
   infoIcon: {
