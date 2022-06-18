@@ -3,7 +3,7 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { GAME_STATUS, getDayCount, s3Bucket, intialGuessDistribution } from "./utils/constants";
+import { GAME_STATUS, getDayCount, intialGuessDistribution } from "./utils/constants";
 
 import Game from "./components/Game";
 import Stats from "./components/Stats";
@@ -11,6 +11,7 @@ import ImagesContainer from "./components/ImagesContainer";
 import statsLogo from "./assets/stats.svg";
 import rulesLogo from "./assets/rules.svg";
 import RulesModal from "./components/RulesModal";
+import Banner from "./components/banner";
 
 const App = () => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -43,7 +44,7 @@ const App = () => {
 
   React.useEffect(() => {
     const dayCount = getDayCount();
-    fetch(`${s3Bucket}/${dayCount}/meta-data.json`)
+    fetch(`${process.env.REACT_APP_CDN_URL}/${dayCount}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => setMovie(json.movie))
       .catch((error) => console.log(error));
@@ -56,6 +57,7 @@ const App = () => {
   }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
+      <Banner></Banner>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
@@ -106,6 +108,7 @@ const App = () => {
           stats={stats}
           gameStats={statsObj}
           movie={movie}
+          setOpenStatsModal={setOpenStatsModal}
         />
       </div>
     </div>

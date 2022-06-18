@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getTimeDifference } from "../utils/constants";
+import { getDateTimeInUTC, getTimeDifference } from "../utils/constants";
 const NextGameTimer = () => {
   const [diff, setDiff] = useState({ days: "--", hours: "--", minutes: "--", seconds: "--" });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const diff = getTimeDifference(
-        new Date(`${getNextGameDate().toISOString().split("T")[0]}T00:00:14.000Z`)
-      );
+      const nextGameDate = getNextGameDate();
+      const diff = getTimeDifference(nextGameDate, getDateTimeInUTC(new Date()));
       if (diff.hours === 0 && diff.minutes === 0 && diff.seconds === 0) {
         window.location.reload();
       }
@@ -20,11 +19,11 @@ const NextGameTimer = () => {
 
   function getNextGameDate() {
     let today = new Date();
-    let todayInUTC = new Date(`${today.toISOString().split("T")[0]}T00:00:14.000Z`);
-    const todayDiff = getTimeDifference(todayInUTC);
+    let todayInUTC = new Date(`${today.toISOString().split("T")[0]}T18:30:00.000Z`);
+    const todayDiff = getTimeDifference(todayInUTC, getDateTimeInUTC(new Date()));
     if (todayDiff.hours < 0) {
       today.setDate(today.getDate() + 1);
-      return new Date(`${today.toISOString().split("T")[0]}T00:00:14.000Z`);
+      return new Date(`${today.toISOString().split("T")[0]}T18:30:00.000Z`);
     }
     return todayInUTC;
   }
