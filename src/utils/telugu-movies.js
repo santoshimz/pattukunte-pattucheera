@@ -780,6 +780,7 @@ const moviesDataset = [
   "Money",
   "Mooga Manasulu",
   "Morning Raga",
+  "Mosagallu",
   "Mosagalaku Mosagaadu",
   "Mosagallaku Mosagadu",
   "Mr Perfect",
