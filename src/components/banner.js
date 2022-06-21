@@ -10,9 +10,8 @@ const Banner = () => {
           <span style={bannerStyles.infoIcon} className="material-symbols-outlined">
             info
           </span>
-          {bannerText}
+          <span className="banner-text" dangerouslySetInnerHTML={{ __html: bannerText }}></span>
         </div>
-
         <div className="">
           <button style={bannerStyles.closeIcon} onClick={() => setBannerText("")}>
             <span className="material-symbols-outlined">close</span>

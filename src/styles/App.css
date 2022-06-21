@@ -297,3 +297,7 @@ header {
   width: 100%;
   margin: 2px 0px;
 }
+.banner-text a{
+    color: #93ddff;
+    text-decoration: underline;
+}
