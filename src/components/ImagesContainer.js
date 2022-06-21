@@ -2,7 +2,7 @@ import range from "lodash/range";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
-import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import { GAME_STATUS, isProduction, MAX_ATTEMPTS } from "../utils/constants";
 
 const ImagesContainer = ({
   buttonLogic,
@@ -14,6 +14,12 @@ const ImagesContainer = ({
   dayCount
 }) => {
   //eslint-disable-next-line react/prop-types
+
+  const buildImageUrl = (index) =>
+    `${process.env.REACT_APP_CDN_URL}${
+      isProduction() ? "/" + dayCount : ""
+    }/${index.toString()}.jpg`;
+
   return (
     <div className="searchbox-container">
       <img
@@ -21,12 +27,8 @@ const ImagesContainer = ({
         className="movie-frame"
         src={
           buttonLogic
-            ? `${
-                process.env.REACT_APP_CDN_URL
-              }/${dayCount}/${currentIndexFromButton.toString()}.jpg`
-            : `${
-                process.env.REACT_APP_CDN_URL
-              }/${dayCount}/${currentIndexFromStorage.toString()}.jpg`
+            ? buildImageUrl(currentIndexFromButton)
+            : buildImageUrl(currentIndexFromStorage)
         }
         width="100%"
         height="100%"
