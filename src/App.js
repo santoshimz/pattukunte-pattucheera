@@ -24,6 +24,7 @@ const App = () => {
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
   const [movie, setMovie] = React.useState("");
+  const [contributor, setContributor] = React.useState("");
   const [guessDistribution, setGuessDistribution] = useLocalStorage(
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
@@ -46,7 +47,10 @@ const App = () => {
     const dayCount = getDayCount();
     fetch(`${process.env.REACT_APP_CDN_URL}/${dayCount}/meta-data.json`)
       .then((response) => response.json())
-      .then((json) => setMovie(json.movie))
+      .then((json) => {
+        setMovie(json.movie);
+        setContributor(json.contributor);
+      })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
       setGameStatus(GAME_STATUS.RUNNING);
@@ -109,6 +113,7 @@ const App = () => {
           gameStats={statsObj}
           movie={movie}
           setOpenStatsModal={setOpenStatsModal}
+          contributor={contributor}
         />
       </div>
     </div>
