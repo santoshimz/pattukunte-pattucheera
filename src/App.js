@@ -3,7 +3,7 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { GAME_STATUS, getDayCount, intialGuessDistribution } from "./utils/constants";
+import { GAME_STATUS, getDayCount, intialGuessDistribution, isProduction } from "./utils/constants";
 
 import Game from "./components/Game";
 import Stats from "./components/Stats";
@@ -45,7 +45,7 @@ const App = () => {
 
   React.useEffect(() => {
     const dayCount = getDayCount();
-    fetch(`${process.env.REACT_APP_CDN_URL}/${dayCount}/meta-data.json`)
+    fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
         setMovie(json.movie);
