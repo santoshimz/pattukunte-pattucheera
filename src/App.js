@@ -61,7 +61,7 @@ const App = () => {
   }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
-      <Banner></Banner>
+      {process.env.REACT_APP_BANNER && <Banner></Banner>}
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
