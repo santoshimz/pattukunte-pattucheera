@@ -32,19 +32,8 @@ export const GAME_STATUS = {
   RUNNING: "running"
 };
 
-export function getTimeDifference(date) {
-  var now = new Date();
-  var dateNow = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours(),
-      now.getUTCMinutes(),
-      now.getUTCSeconds()
-    )
-  );
-  var diffSeconds = (date.getTime() - dateNow.getTime()) / 1000;
+export function getTimeDifference(date1, date2) {
+  var diffSeconds = (date1.getTime() - date2.getTime()) / 1000;
   const days = Math.floor(diffSeconds / (24 * 60 * 60));
   const hours = Math.floor((diffSeconds % (24 * 60 * 60)) / (60 * 60));
   const minutes = Math.floor((diffSeconds % (60 * 60)) / 60);
@@ -53,9 +42,30 @@ export function getTimeDifference(date) {
 }
 
 export function getDayCount() {
-  return Math.abs(getTimeDifference(new Date("2022-05-23T19:30:00.000Z")).days);
+  const diff = getTimeDifference(
+    getDateTimeInUTC(new Date()),
+    new Date("2022-05-22T18:30:00.000Z")
+  );
+  return Math.abs(diff.days);
 }
 export const intialGuessDistribution = new Array(MAX_ATTEMPTS).fill().reduce((acc, _, index) => {
   acc[index + 1] = 0;
   return acc;
 }, {});
+
+export const getDateTimeInUTC = (date) => {
+  return new Date(
+    Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds()
+    )
+  );
+};
+
+export const isProduction = () => {
+  return process.env.NODE_ENV && process.env.NODE_ENV === "production";
+};
