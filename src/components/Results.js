@@ -4,7 +4,7 @@ import range from "lodash/range";
 import PropTypes from "prop-types";
 import { GAME_STATUS, greenSquare, redSquare } from "../utils/constants";
 
-const Results = ({ currentGuesses, gameStatus, currentIndex, movie }) => {
+const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor }) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
 
   return (
@@ -54,6 +54,10 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie }) => {
         {gameStatus === GAME_STATUS.COMPLETED && <span className="square">{`${greenSquare}`}</span>}
         {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
       </div>
+      {contributor &&
+        (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
+          <small className="mt-4 text-center text-info">Contributed by @{contributor}</small>
+        )}
     </div>
   );
 };
@@ -62,7 +66,8 @@ Results.propTypes = {
   currentGuesses: PropTypes.string,
   gameStatus: PropTypes.string,
   currentIndex: PropTypes.number,
-  movie: PropTypes.string
+  movie: PropTypes.string,
+  contributor: PropTypes.string
 };
 
 export default Results;

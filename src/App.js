@@ -3,7 +3,7 @@ import "./styles/App.css";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PropTypes from "prop-types";
 import { customStyles } from "./styles/styles";
-import { GAME_STATUS, getDayCount, intialGuessDistribution } from "./utils/constants";
+import { GAME_STATUS, getDayCount, intialGuessDistribution, isProduction } from "./utils/constants";
 
 import Game from "./components/Game";
 import Stats from "./components/Stats";
@@ -24,6 +24,7 @@ const App = () => {
   const [openStatsModal, setOpenStatsModal] = React.useState(false);
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
   const [movie, setMovie] = React.useState("");
+  const [contributor, setContributor] = React.useState("");
   const [guessDistribution, setGuessDistribution] = useLocalStorage(
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
@@ -44,9 +45,12 @@ const App = () => {
 
   React.useEffect(() => {
     const dayCount = getDayCount();
-    fetch(`${process.env.REACT_APP_CDN_URL}/${dayCount}/meta-data.json`)
+    fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
-      .then((json) => setMovie(json.movie))
+      .then((json) => {
+        setMovie(json.movie);
+        setContributor(json.contributor);
+      })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
       setGameStatus(GAME_STATUS.RUNNING);
@@ -57,7 +61,7 @@ const App = () => {
   }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
-      <Banner></Banner>
+      {process.env.REACT_APP_BANNER && <Banner></Banner>}
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
@@ -109,6 +113,7 @@ const App = () => {
           gameStats={statsObj}
           movie={movie}
           setOpenStatsModal={setOpenStatsModal}
+          contributor={contributor}
         />
       </div>
     </div>
