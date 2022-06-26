@@ -61,7 +61,7 @@ header {
   height: 14rem;
 }
 
-.searchbox-container button {
+.searchbox-container .count-btn {
 
   border-radius: 0;
   border-radius: 2px;
