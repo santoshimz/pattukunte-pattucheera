@@ -1234,6 +1234,7 @@ const moviesDataset = [
   "Super",
   "Superman",
   "Superstar Kidnap",
+  "Super Heroes",
   "Supreme Khiladi",
   "Surya IPS",
   "Surya vs. Surya",
