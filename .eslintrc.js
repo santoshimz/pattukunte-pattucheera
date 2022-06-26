@@ -19,6 +19,13 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    // to get rid of prettier end of line errors
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto"
+      }
+    ]
   }
 };

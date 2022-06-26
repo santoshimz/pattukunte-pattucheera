@@ -1,8 +1,11 @@
 export const customStyles = {
-  backgroundStyle: {
-    backgroundColor: "black",
-    height: "100%"
+  // backgroundStyle: {
+  //   height: "100%"
+  // },
+  overlay: {
+    background: "rgba(39, 39, 39, 0.7)" // added a black modal overlay with 0.7 opacity
   },
+
   content: {
     top: "50%",
     left: "50%",
@@ -39,9 +42,12 @@ export const customStyles = {
   spaceBetween: {
     display: "flex",
     justifyContent: "space-between",
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center"
   },
   column: {
+    marginTop: "2rem",
+    gap: "1rem",
     display: "flex",
     flexDirection: "column"
   },

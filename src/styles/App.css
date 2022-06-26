@@ -38,7 +38,6 @@ header {
   display: block;
 }
 
-
 .searchbox-container .input-group {
   margin-top: 5px;
 }
@@ -54,7 +53,6 @@ header {
   border-radius: 2px;
   margin-bottom: 5px;
   width: 300px;
-
 }
 
 .searchbox-container .movie-frame {
@@ -62,7 +60,6 @@ header {
 }
 
 .searchbox-container button {
-
   border-radius: 0;
   border-radius: 2px;
   width: 28px;
@@ -100,7 +97,8 @@ header {
 .close:after {
   position: absolute;
   left: 15px;
-  content: ' ';
+  content: " ";
+  /* prettier single quote setting did the above change */
   height: 33px;
   width: 2px;
   background-color: #333;
@@ -115,7 +113,7 @@ header {
 }
 
 #share .square {
-  padding: 5px
+  padding: 5px;
 }
 
 .guess-box {
@@ -135,12 +133,22 @@ header {
 .header-icon {
   padding: 0px 16px;
 }
-
+.rules-header,
+.stats-header {
+  position: relative;
+}
+.rules-header h3,
+.stats-header h3 {
+  font-weight: bolder;
+}
+.stats-header .modal-close {
+  top: 0px;
+}
 .modal-close {
   background-color: transparent;
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 5px;
+  right: 0px;
   font-size: 18px;
 }
 
@@ -159,6 +167,7 @@ header {
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
 }
 
 .stats {
@@ -170,6 +179,7 @@ header {
   font-weight: 600;
   font-size: 1.5rem;
   line-height: 2rem;
+  min-width: 32px;
 }
 
 .stats-header {
@@ -213,11 +223,16 @@ header {
   font-size: 18px;
   padding: 10px;
 }
-
 .rules p {
   padding: 10px;
   background: #9aaae63b;
   border-radius: 5px;
+  display: flex;
+  gap: 0.3rem;
+}
+.rules img {
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .rule-icon {
@@ -251,31 +266,31 @@ header {
 .counter {
   padding: 5px;
 }
-.guess-graph{
+.guess-graph {
   letter-spacing: 1px;
   margin-top: 20px;
 }
 
-.graph-wrapper{
+.graph-wrapper {
   display: flex;
   flex-direction: column;
   padding: 0px 10px 0px 0px;
 }
 
-.guess-index{
+.guess-index {
   width: 5%;
   font-size: larger;
   font-weight: bold;
 }
-.guess-bar{
+.guess-bar {
   background-color: transparent;
   height: 20px;
   width: 95%;
   border-radius: 1px;
 }
 
-.graph-fill{
-  background: #787C7E;
+.graph-fill {
+  background: #787c7e;
   height: 20px;
   text-align: right;
   padding-right: 5px;
@@ -287,17 +302,17 @@ header {
   justify-content: flex-end;
 }
 
-.default-graph-width{
+.default-graph-width {
   width: 8%;
 }
 
-.guess-data{
+.guess-data {
   display: flex;
   align-items: center;
   width: 100%;
   margin: 2px 0px;
 }
-.banner-text a{
+.banner-text a {
   color: #93ddff;
   text-decoration: underline;
 }

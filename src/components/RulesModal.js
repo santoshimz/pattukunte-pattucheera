@@ -11,7 +11,7 @@ const RulesModal = ({ openRulesModal, setOpenRulesModal }) => {
     <Modal
       isOpen={openRulesModal}
       onRequestClose={() => setOpenRulesModal(false)}
-      style={customStyles}>
+      style={{ ...customStyles }}>
       <div className="rules-header" style={customStyles.spaceBetween}>
         <h3 className="rules" style={{ marginTop: "8px" }}>
           How to Play ?
