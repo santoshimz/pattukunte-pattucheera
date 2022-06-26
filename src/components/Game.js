@@ -116,19 +116,26 @@ const Game = ({
   return (
     <>
       {gameStatus === GAME_STATUS.RUNNING && (
-        <div className="searchbox-container movie-search-dropdown">
-          <AsyncSelect
-            placeholder="Enter a movie name"
-            cacheOptions
-            defaultValue={false}
-            className={!inputValue.length ? "hide-dropdown" : ""}
-            value={selectedValue}
-            getOptionLabel={(e) => e.title}
-            getOptionValue={(e) => e.title}
-            loadOptions={fetchData}
-            onInputChange={handleInputChange}
-            onChange={handleChange}
-          />
+        <div className="w-100 searchbox-container movie-search-dropdown row d-flex">
+          <div className="col-10">
+            <AsyncSelect
+              placeholder="Enter a movie name"
+              cacheOptions
+              defaultValue={false}
+              className={!inputValue.length ? "hide-dropdown" : ""}
+              value={selectedValue}
+              getOptionLabel={(e) => e.title}
+              getOptionValue={(e) => e.title}
+              loadOptions={fetchData}
+              onInputChange={handleInputChange}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-2 d-flex justify-content-end">
+            <button onClick={() => handleChange({ title: " " })} className="btn btn-primary">
+              Pass
+            </button>
+          </div>
         </div>
       )}
       <Results
