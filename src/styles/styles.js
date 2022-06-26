@@ -46,8 +46,7 @@ export const customStyles = {
     alignItems: "center"
   },
   column: {
-    marginTop: "2rem",
-    gap: "1rem",
+    gap: "0.5rem",
     display: "flex",
     flexDirection: "column"
   },

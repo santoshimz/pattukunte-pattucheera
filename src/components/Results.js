@@ -46,7 +46,10 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
             color: "white"
           }}>{`The answer was ${movie}`}</span>
       )}
-      <div id="share" style={{ ...customStyles.row, width: "1.2em", height: "1.2em" }}>
+      <div
+        className="mb-4"
+        id="share"
+        style={{ ...customStyles.row, width: "1.2em", height: "1.2em" }}>
         {range(1, currentIndex).map(() => {
           // eslint-disable-next-line react/jsx-key
           return <span className="square">{`${redSquare}`}</span>;
