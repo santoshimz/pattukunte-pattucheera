@@ -61,6 +61,15 @@ header {
   height: 14rem;
 }
 
+@media screen and (min-width: 768px) {
+  .searchbox-container{
+    max-width: unset;
+  }
+  .searchbox-container .movie-frame {
+    height: 25rem;
+  }
+}
+
 .searchbox-container button {
 
   border-radius: 0;
