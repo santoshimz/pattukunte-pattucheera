@@ -133,7 +133,7 @@ const Game = ({
           </div>
           <div className="col-2 d-flex justify-content-end">
             <button onClick={() => handleChange({ title: " " })} className="btn btn-primary">
-              Pass
+              Skip
             </button>
           </div>
         </div>
