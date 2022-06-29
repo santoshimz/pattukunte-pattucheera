@@ -12,6 +12,7 @@ const moviesDataset = [
   "365 Days",
   "7 Aum Arivu",
   "7/G Rainbow Colony",
+  "7/g Brundhavan Colony",
   "9 Nelalu",
   "90 ML",
   "Nartanasala",
