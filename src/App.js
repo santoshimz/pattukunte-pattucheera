@@ -12,6 +12,7 @@ import statsLogo from "./assets/stats.svg";
 import rulesLogo from "./assets/rules.svg";
 import RulesModal from "./components/RulesModal";
 import Banner from "./components/banner";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -116,6 +117,7 @@ const App = () => {
           contributor={contributor}
         />
       </div>
+      <Footer />
     </div>
   );
 };

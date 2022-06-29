@@ -69,3 +69,5 @@ export const getDateTimeInUTC = (date) => {
 export const isProduction = () => {
   return process.env.NODE_ENV && process.env.NODE_ENV === "production";
 };
+
+export const githubRepoLink = "https://github.com/santoshimz/pattukunte-pattucheera";
