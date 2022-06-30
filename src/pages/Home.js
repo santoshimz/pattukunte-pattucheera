@@ -22,6 +22,7 @@ import { Outlet } from "react-router-dom";
 
 const Home = ({ timeTravelDate }) => {
   console.log(timeTravelDate);
+
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -53,6 +54,7 @@ const Home = ({ timeTravelDate }) => {
 
   React.useEffect(() => {
     const dayCount = timeTravelDate ? timeTravelDate : getDayCount();
+    setDay(dayCount);
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
