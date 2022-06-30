@@ -57,13 +57,15 @@ const Home = ({ timeTravelDate, showLoader }) => {
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     console.log("in useEffect", dayCount);
     setDay(dayCount);
-    setLoading(true);
+    if (showLoader) {
+      setLoading(true);
+    }
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
-        setLoading(false);
+        setTimeout(() => setLoading(false), 500);
       })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
