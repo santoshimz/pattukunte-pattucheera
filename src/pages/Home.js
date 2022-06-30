@@ -101,7 +101,7 @@ const Home = ({ timeTravelDate, showLoader }) => {
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
         <div />
-        {showLoader && loading && (
+        {true && (
           <div className="d-flex p-200">
             <div className="p-4 m-auto spinner-border text-light spinner-border text-light"></div>
           </div>
