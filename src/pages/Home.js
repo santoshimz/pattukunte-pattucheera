@@ -54,7 +54,7 @@ const Home = ({ timeTravelDate }) => {
 
   React.useEffect(() => {
     console.log(day);
-    const dayCount = timeTravelDate ? timeTravelDate : getDayCount();
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     console.log("in useEffect", dayCount);
     setDay(dayCount);
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
