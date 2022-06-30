@@ -421,7 +421,6 @@ const moviesDataset = [
   "Gharana Mogudu",
   "Gharshana",
   "Ghatotkachudu",
-  "Gitanjali",
   "Godavari",
   "Gokulamlo Seetha",
   "Golimar",
