@@ -53,7 +53,9 @@ const Home = ({ timeTravelDate }) => {
   }, [stats]);
 
   React.useEffect(() => {
+    console.log(day);
     const dayCount = timeTravelDate ? timeTravelDate : getDayCount();
+    console.log("in useEffect", dayCount);
     setDay(dayCount);
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
@@ -68,7 +70,7 @@ const Home = ({ timeTravelDate }) => {
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
     }
-  }, [day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
+  }, [timeTravelDate, day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
       {process.env.REACT_APP_BANNER && <Banner></Banner>}
