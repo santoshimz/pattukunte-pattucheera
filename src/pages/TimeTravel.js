@@ -29,7 +29,7 @@ const TimeTravel = () => {
           type="date"
         />
       </div>
-      <Home timeTravelDate={timeTravelDate} />
+      <Home timeTravelDate={timeTravelDate} showLoader={true} />
     </div>
   );
 };

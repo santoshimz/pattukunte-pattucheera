@@ -16,11 +16,10 @@ import ImagesContainer from "../components/ImagesContainer";
 import statsLogo from "../assets/stats.svg";
 import rulesLogo from "../assets/rules.svg";
 import RulesModal from "../components/RulesModal";
-import Banner from "../components/banner";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
-const Home = ({ timeTravelDate }) => {
+const Home = ({ timeTravelDate, showLoader }) => {
   console.log(timeTravelDate);
 
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -38,6 +37,7 @@ const Home = ({ timeTravelDate }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
+  const [loading, setLoading] = React.useState(false);
 
   const initialStats = {
     gamesPlayed: 0,
@@ -57,11 +57,13 @@ const Home = ({ timeTravelDate }) => {
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     console.log("in useEffect", dayCount);
     setDay(dayCount);
+    setLoading(true);
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
+        setLoading(false);
       })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
@@ -73,7 +75,6 @@ const Home = ({ timeTravelDate }) => {
   }, [timeTravelDate, day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
   return (
     <div style={customStyles.backgroundStyle}>
-      {process.env.REACT_APP_BANNER && <Banner></Banner>}
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
         <img
@@ -98,35 +99,45 @@ const Home = ({ timeTravelDate }) => {
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
         <div />
-        <ImagesContainer
-          buttonLogic={buttonLogic}
-          setButtonLogic={setButtonLogic}
-          currentIndexFromButton={currentIndexFromButton}
-          currentIndexFromStorage={currentIndexFromStorage}
-          setCurrentIndexFromButton={setCurrentIndexFromButton}
-          gameStatus={gameStatus}
-          dayCount={day}
-        />
-        <Game
-          currentIndex={currentIndexFromStorage}
-          setCurrentIndex={setCurrentIndexFromStorage}
-          currentIndexFromButton={currentIndexFromButton}
-          setCurrentIndexFromButton={setCurrentIndexFromButton}
-          guessDistribution={guessDistribution}
-          setGuessDistribution={setGuessDistribution}
-          currentGuesses={currentGuesses}
-          setCurrentGuesses={setCurrentGuesses}
-          gameStatus={gameStatus}
-          setGameStatus={setGameStatus}
-          day={day}
-          setDay={setDay}
-          setStats={setStats}
-          stats={stats}
-          gameStats={statsObj}
-          movie={movie}
-          setOpenStatsModal={setOpenStatsModal}
-          contributor={contributor}
-        />
+        {showLoader && loading && (
+          <div className="d-flex p-200">
+            <div className="p-4 m-auto spinner-border text-light spinner-border text-light"></div>
+          </div>
+        )}
+        {!loading && (
+          <>
+            {showLoader}
+            <ImagesContainer
+              buttonLogic={buttonLogic}
+              setButtonLogic={setButtonLogic}
+              currentIndexFromButton={currentIndexFromButton}
+              currentIndexFromStorage={currentIndexFromStorage}
+              setCurrentIndexFromButton={setCurrentIndexFromButton}
+              gameStatus={gameStatus}
+              dayCount={day}
+            />
+            <Game
+              currentIndex={currentIndexFromStorage}
+              setCurrentIndex={setCurrentIndexFromStorage}
+              currentIndexFromButton={currentIndexFromButton}
+              setCurrentIndexFromButton={setCurrentIndexFromButton}
+              guessDistribution={guessDistribution}
+              setGuessDistribution={setGuessDistribution}
+              currentGuesses={currentGuesses}
+              setCurrentGuesses={setCurrentGuesses}
+              gameStatus={gameStatus}
+              setGameStatus={setGameStatus}
+              day={day}
+              setDay={setDay}
+              setStats={setStats}
+              stats={stats}
+              gameStats={statsObj}
+              movie={movie}
+              setOpenStatsModal={setOpenStatsModal}
+              contributor={contributor}
+            />
+          </>
+        )}
       </div>
       <Footer />
       <Outlet />
@@ -140,7 +151,8 @@ Home.propTypes = {
   onSearchStateChange: PropTypes.func,
   movie: PropTypes.string,
   setMovie: PropTypes.func,
-  timeTravelDate: PropTypes.number
+  timeTravelDate: PropTypes.number,
+  showLoader: PropTypes.bool
 };
 
 export default Home;
