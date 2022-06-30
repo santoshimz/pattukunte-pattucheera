@@ -18,7 +18,7 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
       style={customStyles}>
       <div className="stats-header" style={customStyles.spaceBetween}>
         <h4 className="stats" style={{ marginTop: "8px" }}>
-          Statistics
+          Stats
         </h4>
         <button className="btn modal-close" onClick={() => setOpenStatsModal(false)}>
           <img className="close-icon" src={closeIcon} alt="close" />
