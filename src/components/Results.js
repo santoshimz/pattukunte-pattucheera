@@ -2,7 +2,7 @@ import React from "react";
 import { customStyles } from "../styles/styles";
 import range from "lodash/range";
 import PropTypes from "prop-types";
-import { GAME_STATUS, greenSquare, redSquare } from "../utils/constants";
+import { GAME_STATUS } from "../utils/constants";
 
 const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor }) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
@@ -17,10 +17,25 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
         )}
         {gameStatus === GAME_STATUS.COMPLETED && (
           <span
+            className="fs-large"
             style={{
               ...customStyles.marginTop,
               color: "white"
-            }}>{`You got it - The answer was ${movie}`}</span>
+            }}>
+            You got it - The answer was
+            <span className="color-lawngreen"> {movie}</span>
+          </span>
+        )}
+        {gameStatus === GAME_STATUS.FAILED && (
+          <span
+            className="fs-large"
+            style={{
+              ...customStyles.marginTop,
+              color: "white"
+            }}>
+            The answer was
+            <span className="color-lawngreen"> {movie}</span>
+          </span>
         )}
         <div
           className="mb-4 justify-content-center"
@@ -28,12 +43,10 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
           style={{ ...customStyles.row, height: "1.2em" }}>
           {range(1, currentIndex).map(() => {
             // eslint-disable-next-line react/jsx-key
-            return <span className="square">{`${redSquare}`}</span>;
+            return <span className="square red"></span>;
           })}
-          {gameStatus === GAME_STATUS.COMPLETED && (
-            <span className="square">{`${greenSquare}`}</span>
-          )}
-          {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
+          {gameStatus === GAME_STATUS.COMPLETED && <span className="square green"></span>}
+          {gameStatus === GAME_STATUS.FAILED && <span className="square red"></span>}
         </div>
       </div>
       {allGuesses.map((allGuess, index) => {
@@ -56,13 +69,7 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
           </div>
         </div>
       )}
-      {gameStatus === GAME_STATUS.FAILED && (
-        <span
-          style={{
-            ...customStyles.marginTop,
-            color: "white"
-          }}>{`The answer was ${movie}`}</span>
-      )}
+
       {contributor &&
         (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
           <small className="mt-4 text-center text-info">Contributed by @{contributor}</small>

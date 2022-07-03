@@ -72,17 +72,17 @@ const TimeTravel = () => {
   return (
     <div style={customStyles.backgroundStyle}>
       <h1 className="text-white col-12 text-center underline-text">Time Travel to past!</h1>
-      <div className="pt-4 mt-4 row">
-        <div className="d-flex flex-column col-6 col-xs-12 col-10 col-md-6 form-group m-auto p-2 text-white">
+      <div className="pt-4 mt-4 row ml-1 mr-1">
+        <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
           <Link
-            type="button"
             to="/"
-            className="mb-4 fs-large col-3 btn btn-info d-flex align-items-center justify-content-evenly">
+            className="w-fit-content button-href mb-4 fs-large d-flex align-items-center justify-content-evenly">
             <span className="material-symbols-outlined">arrow_back</span>Go Back
           </Link>
           <label>Select the date you want to travel to:</label>
           <input
             className="form-control"
+            placeholder="mm/dd/yyyy"
             min="2022-05-23"
             max={yesterday}
             onChange={handleChangeFromDate}

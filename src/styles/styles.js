@@ -23,7 +23,6 @@ export const customStyles = {
     justifyContent: "center",
     fontSize: "32px",
     // marginTop: '20px',
-    fontFamily: "Rosmatika",
     color: "white"
   },
   statsStyle: {
