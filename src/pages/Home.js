@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "../styles/App.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import PropTypes from "prop-types";
@@ -13,11 +13,9 @@ import {
 import Game from "../components/Game";
 import Stats from "../components/Stats";
 import ImagesContainer from "../components/ImagesContainer";
-import statsLogo from "../assets/stats.svg";
-import rulesLogo from "../assets/rules.svg";
 import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
-import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ timeTravelDate }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -66,22 +64,25 @@ const Home = ({ timeTravelDate }) => {
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
+  const navigate = useNavigate();
+  const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
+
   return (
     <div style={customStyles.backgroundStyle}>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
-        <img
-          className="stats-icon"
+        <span
           onClick={() => setOpenStatsModal(true)}
-          src={statsLogo}
           alt="stats"
-        />
-        <img
-          className="rules-icon"
-          onClick={() => setOpenRulesModal(true)}
-          src={rulesLogo}
-          alt="rules"
-        />
+          className="fs-30 material-symbols-outlined">
+          equalizer
+        </span>
+        <span onClick={gotoArchives} className="fs-30 material-symbols-outlined">
+          update
+        </span>
+        <span onClick={() => setOpenRulesModal(true)} className="fs-30 material-symbols-outlined">
+          help
+        </span>
       </span>
       <Stats
         openStatsModal={openStatsModal}
@@ -125,7 +126,6 @@ const Home = ({ timeTravelDate }) => {
         </>
       </div>
       <Footer />
-      <Outlet />
     </div>
   );
 };
