@@ -19,9 +19,7 @@ import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
-const Home = ({ timeTravelDate, showLoader }) => {
-  console.log(timeTravelDate);
-
+const Home = ({ timeTravelDate }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -37,7 +35,6 @@ const Home = ({ timeTravelDate, showLoader }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
-  const [loading, setLoading] = React.useState(false);
 
   const initialStats = {
     gamesPlayed: 0,
@@ -53,19 +50,12 @@ const Home = ({ timeTravelDate, showLoader }) => {
   }, [stats]);
 
   React.useEffect(() => {
-    console.log(day);
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
-    console.log("in useEffect", dayCount);
-    setDay(dayCount);
-    if (showLoader) {
-      setLoading(true);
-    }
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
-        setTimeout(() => setLoading(false), 500);
       })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
@@ -74,7 +64,8 @@ const Home = ({ timeTravelDate, showLoader }) => {
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
     }
-  }, [timeTravelDate, day, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
+  }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
+
   return (
     <div style={customStyles.backgroundStyle}>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
@@ -101,45 +92,37 @@ const Home = ({ timeTravelDate, showLoader }) => {
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       <div style={customStyles.column}>
         <div />
-        {showLoader && loading && (
-          <div className="d-flex p-200">
-            <div className="p-4 m-auto spinner-border text-light spinner-border text-light"></div>
-          </div>
-        )}
-        {!loading && (
-          <>
-            {showLoader}
-            <ImagesContainer
-              buttonLogic={buttonLogic}
-              setButtonLogic={setButtonLogic}
-              currentIndexFromButton={currentIndexFromButton}
-              currentIndexFromStorage={currentIndexFromStorage}
-              setCurrentIndexFromButton={setCurrentIndexFromButton}
-              gameStatus={gameStatus}
-              dayCount={day}
-            />
-            <Game
-              currentIndex={currentIndexFromStorage}
-              setCurrentIndex={setCurrentIndexFromStorage}
-              currentIndexFromButton={currentIndexFromButton}
-              setCurrentIndexFromButton={setCurrentIndexFromButton}
-              guessDistribution={guessDistribution}
-              setGuessDistribution={setGuessDistribution}
-              currentGuesses={currentGuesses}
-              setCurrentGuesses={setCurrentGuesses}
-              gameStatus={gameStatus}
-              setGameStatus={setGameStatus}
-              day={day}
-              setDay={setDay}
-              setStats={setStats}
-              stats={stats}
-              gameStats={statsObj}
-              movie={movie}
-              setOpenStatsModal={setOpenStatsModal}
-              contributor={contributor}
-            />
-          </>
-        )}
+        <>
+          <ImagesContainer
+            buttonLogic={buttonLogic}
+            setButtonLogic={setButtonLogic}
+            currentIndexFromButton={currentIndexFromButton}
+            currentIndexFromStorage={currentIndexFromStorage}
+            setCurrentIndexFromButton={setCurrentIndexFromButton}
+            gameStatus={gameStatus}
+            dayCount={day}
+          />
+          <Game
+            currentIndex={currentIndexFromStorage}
+            setCurrentIndex={setCurrentIndexFromStorage}
+            currentIndexFromButton={currentIndexFromButton}
+            setCurrentIndexFromButton={setCurrentIndexFromButton}
+            guessDistribution={guessDistribution}
+            setGuessDistribution={setGuessDistribution}
+            currentGuesses={currentGuesses}
+            setCurrentGuesses={setCurrentGuesses}
+            gameStatus={gameStatus}
+            setGameStatus={setGameStatus}
+            day={day}
+            setDay={setDay}
+            setStats={setStats}
+            stats={stats}
+            gameStats={statsObj}
+            movie={movie}
+            setOpenStatsModal={setOpenStatsModal}
+            contributor={contributor}
+          />
+        </>
       </div>
       <Footer />
       <Outlet />

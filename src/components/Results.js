@@ -9,9 +9,36 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
 
   return (
     <div className="searchbox-container" style={customStyles.column}>
+      <div className="text-center">
+        {gameStatus === GAME_STATUS.RUNNING && (
+          <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
+            6 - currentIndex
+          } guesses remaining`}</span>
+        )}
+        {gameStatus === GAME_STATUS.COMPLETED && (
+          <span
+            style={{
+              ...customStyles.marginTop,
+              color: "white"
+            }}>{`You got it - The answer was ${movie}`}</span>
+        )}
+        <div
+          className="mb-4 justify-content-center"
+          id="share"
+          style={{ ...customStyles.row, height: "1.2em" }}>
+          {range(1, currentIndex).map(() => {
+            // eslint-disable-next-line react/jsx-key
+            return <span className="square">{`${redSquare}`}</span>;
+          })}
+          {gameStatus === GAME_STATUS.COMPLETED && (
+            <span className="square">{`${greenSquare}`}</span>
+          )}
+          {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
+        </div>
+      </div>
       {allGuesses.map((allGuess, index) => {
         return (
-          <div className="guessed-movie" key={index} style={customStyles.row}>
+          <div className="m-auto guessed-movie" key={index} style={customStyles.row}>
             <span role="img" aria-label="Error">
               &#10060;
             </span>
@@ -19,24 +46,14 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
           </div>
         );
       })}
-      {gameStatus === GAME_STATUS.RUNNING && (
-        <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
-          6 - currentIndex
-        } guesses remaining`}</span>
-      )}
       {gameStatus === GAME_STATUS.COMPLETED && (
         <div>
-          <div className="guessed-movie" style={customStyles.row}>
+          <div className="m-auto guessed-movie" style={customStyles.row}>
             <span role="img" aria-label="Error">
               ✅
             </span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{movie}</span>
           </div>
-          <span
-            style={{
-              ...customStyles.marginTop,
-              color: "white"
-            }}>{`You got it - The answer was ${movie}`}</span>
         </div>
       )}
       {gameStatus === GAME_STATUS.FAILED && (
@@ -46,17 +63,6 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
             color: "white"
           }}>{`The answer was ${movie}`}</span>
       )}
-      <div
-        className="mb-4"
-        id="share"
-        style={{ ...customStyles.row, width: "1.2em", height: "1.2em" }}>
-        {range(1, currentIndex).map(() => {
-          // eslint-disable-next-line react/jsx-key
-          return <span className="square">{`${redSquare}`}</span>;
-        })}
-        {gameStatus === GAME_STATUS.COMPLETED && <span className="square">{`${greenSquare}`}</span>}
-        {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
-      </div>
       {contributor &&
         (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
           <small className="mt-4 text-center text-info">Contributed by @{contributor}</small>
