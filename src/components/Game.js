@@ -109,7 +109,7 @@ const Game = ({
   };
 
   const fetchData = async (inputValue) => {
-    const vals = fuse.search(inputValue, { limit: 5 });
+    const vals = fuse.search(inputValue, { limit: 6 });
     return vals.map((val) => ({ title: val.item }));
   };
 
