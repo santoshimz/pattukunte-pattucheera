@@ -58,6 +58,10 @@ const TimeTravel = () => {
 
   const handleChangeFromDate = (event) => {
     const selectedDate = event.target.value;
+    if (!selectedDate) {
+      setTimeTravelDate(getDayCount(new Date()) - 1);
+      return;
+    }
     let diff = getTimeDifference(
       getDateTimeInUTC(new Date(selectedDate)),
       new Date("2022-05-22T18:30:00.000Z")
@@ -74,7 +78,7 @@ const TimeTravel = () => {
 
   return (
     <div style={customStyles.backgroundStyle}>
-      <h1 className="text-white col-12 text-center underline-text">Time Travel to past!</h1>
+      <h1 className="m-2 text-white col-12 text-center underline-text">Time Travel to past!</h1>
       <div className="pt-4 mt-2 row ml-1 mr-1">
         <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
           <button

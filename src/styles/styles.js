@@ -29,13 +29,11 @@ export const customStyles = {
     display: "flex",
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    marginTop: "20px",
-    marginBottom: "10px",
+    marginTop: "30px",
+    marginBottom: "30px",
     cursor: "pointer",
     color: "white",
-    width: "200px",
-    margin: "auto",
+    justifyContent: "center",
     fontSize: "12px",
     gap: "20px"
   },
@@ -74,5 +72,12 @@ export const customStyles = {
   },
   marginRight: {
     marginRight: "10px"
+  },
+  statsIcons: {
+    border: "2px solid #ffffff54",
+    borderRadius: "3px",
+    width: "fit-content",
+    padding: "5px",
+    marginBottom: "5px"
   }
 };

@@ -429,3 +429,10 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
 .instructions-icon{
   color: #e91e63;
 }
+
+.information-text{
+  text-align: center;
+  color: #ffebd8;
+  font-size: initial;
+  margin-top: 25px;
+}

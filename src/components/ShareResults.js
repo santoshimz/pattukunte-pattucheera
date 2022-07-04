@@ -25,7 +25,8 @@ const ShareResults = ({
       isTimeTravelled ? "(Time Travelled)" : ""
     }: ${currentIndex}/5\n\n${getShareText(
       currentIndex,
-      gameStatus
+      gameStatus,
+      isTimeTravelled
     )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
   };
 

@@ -69,26 +69,33 @@ const Home = ({ timeTravelDate }) => {
 
   return (
     <div style={customStyles.backgroundStyle}>
-      <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
+      <h1 className="m-2 font-weight-bold" style={customStyles.headerStyle}>
+        Pattukunte Pattucheera
+      </h1>
       <span style={customStyles.statsStyle}>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column align-items-center">
           <span
             onClick={() => setOpenStatsModal(true)}
             alt="stats"
+            style={customStyles.statsIcons}
             className="stats-icon fs-30 material-symbols-outlined">
             equalizer
           </span>
           <span>Stats</span>
         </div>
-        <div className="d-flex flex-column">
-          <span onClick={gotoArchives} className="time-travel-icon fs-30 material-symbols-outlined">
+        <div className="d-flex flex-column align-items-center">
+          <span
+            onClick={gotoArchives}
+            style={customStyles.statsIcons}
+            className="time-travel-icon fs-30 material-symbols-outlined">
             update
           </span>
           <span>Time Travel</span>
         </div>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column align-items-center">
           <span
             onClick={() => setOpenRulesModal(true)}
+            style={customStyles.statsIcons}
             className="instructions-icon fs-30 material-symbols-outlined">
             help
           </span>
@@ -102,6 +109,12 @@ const Home = ({ timeTravelDate }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
+      {/* used inline style as we this would be removed in future */}
+      <div className="information-text">
+        You know, you can time travel to past now! play the missed games using our
+        <span style={{ fontStyle: "italic", color: "#aaff64" }}> Time Travel </span>
+        option above.
+      </div>
       <div style={customStyles.column}>
         <div />
         <>
