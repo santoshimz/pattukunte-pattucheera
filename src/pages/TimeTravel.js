@@ -28,7 +28,7 @@ const TimeTravel = () => {
   const [contributor, setContributor] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
-  const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()));
+  const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
   const [showLoader, setShowLoader] = React.useState(true);
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
@@ -36,7 +36,7 @@ const TimeTravel = () => {
     .split("T")[0];
 
   React.useEffect(() => {
-    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1;
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     if (showLoader) {
       setLoading(true);
     }
