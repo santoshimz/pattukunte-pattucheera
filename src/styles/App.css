@@ -435,4 +435,6 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
   color: #ffebd8;
   font-size: initial;
   margin-top: 25px;
+  max-width: 400px;
+  margin: auto;
 }
