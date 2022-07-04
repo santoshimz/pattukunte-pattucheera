@@ -36,7 +36,7 @@ const TimeTravel = () => {
     .split("T")[0];
 
   React.useEffect(() => {
-    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1;
     if (showLoader) {
       setLoading(true);
     }
