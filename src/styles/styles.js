@@ -76,8 +76,8 @@ export const customStyles = {
   statsIcons: {
     border: "2px solid #ffffff54",
     borderRadius: "3px",
-    width: "fit-content",
     padding: "5px",
-    marginBottom: "5px"
+    marginBottom: "5px",
+    width: "70px"
   }
 };

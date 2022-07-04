@@ -74,31 +74,31 @@ const Home = ({ timeTravelDate }) => {
       </h1>
       <span style={customStyles.statsStyle}>
         <div className="d-flex flex-column align-items-center">
-          <span
+          <button
             onClick={() => setOpenStatsModal(true)}
             alt="stats"
             style={customStyles.statsIcons}
-            className="stats-icon fs-30 material-symbols-outlined">
+            className="bg-transparent btn-ripple stats-icon fs-30 material-symbols-outlined">
             equalizer
-          </span>
+          </button>
           <span>Stats</span>
         </div>
         <div className="d-flex flex-column align-items-center">
-          <span
+          <button
             onClick={gotoArchives}
             style={customStyles.statsIcons}
-            className="time-travel-icon fs-30 material-symbols-outlined">
+            className="bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined">
             update
-          </span>
+          </button>
           <span>Time Travel</span>
         </div>
         <div className="d-flex flex-column align-items-center">
-          <span
+          <button
             onClick={() => setOpenRulesModal(true)}
             style={customStyles.statsIcons}
-            className="instructions-icon fs-30 material-symbols-outlined">
+            className="bg-transparent btn-ripple instructions-icon fs-30 material-symbols-outlined">
             help
-          </span>
+          </button>
           <span>Instructions</span>
         </div>
       </span>
