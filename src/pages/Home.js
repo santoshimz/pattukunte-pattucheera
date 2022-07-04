@@ -71,18 +71,29 @@ const Home = ({ timeTravelDate }) => {
     <div style={customStyles.backgroundStyle}>
       <div style={customStyles.headerStyle}>Pattukunte Pattucheera</div>
       <span style={customStyles.statsStyle}>
-        <span
-          onClick={() => setOpenStatsModal(true)}
-          alt="stats"
-          className="fs-30 material-symbols-outlined">
-          equalizer
-        </span>
-        <span onClick={gotoArchives} className="fs-30 material-symbols-outlined">
-          update
-        </span>
-        <span onClick={() => setOpenRulesModal(true)} className="fs-30 material-symbols-outlined">
-          help
-        </span>
+        <div className="d-flex flex-column">
+          <span
+            onClick={() => setOpenStatsModal(true)}
+            alt="stats"
+            className="stats-icon fs-30 material-symbols-outlined">
+            equalizer
+          </span>
+          <span>Stats</span>
+        </div>
+        <div className="d-flex flex-column">
+          <span onClick={gotoArchives} className="time-travel-icon fs-30 material-symbols-outlined">
+            update
+          </span>
+          <span>Time Travel</span>
+        </div>
+        <div className="d-flex flex-column">
+          <span
+            onClick={() => setOpenRulesModal(true)}
+            className="instructions-icon fs-30 material-symbols-outlined">
+            help
+          </span>
+          <span>Instructions</span>
+        </div>
       </span>
       <Stats
         openStatsModal={openStatsModal}

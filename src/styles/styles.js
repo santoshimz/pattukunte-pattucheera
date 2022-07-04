@@ -30,13 +30,14 @@ export const customStyles = {
     textAlign: "center",
     alignItems: "center",
     justifyContent: "space-evenly",
-    fontSize: "16px",
     marginTop: "20px",
     marginBottom: "10px",
     cursor: "pointer",
     color: "white",
     width: "200px",
-    margin: "auto"
+    margin: "auto",
+    fontSize: "12px",
+    gap: "20px"
   },
   spaceBetween: {
     display: "flex",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   getTimeDifference,
   getDateTimeInUTC,
@@ -11,7 +11,7 @@ import Game from "../components/Game";
 import ImagesContainer from "../components/ImagesContainer";
 import { customStyles } from "../styles/styles";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TimeTravel = () => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
@@ -69,16 +69,22 @@ const TimeTravel = () => {
     return day !== null && day !== undefined && day >= 0;
   };
 
+  const navigate = useNavigate();
+  const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
+
   return (
     <div style={customStyles.backgroundStyle}>
       <h1 className="text-white col-12 text-center underline-text">Time Travel to past!</h1>
-      <div className="pt-4 mt-4 row ml-1 mr-1">
+      <div className="pt-4 mt-2 row ml-1 mr-1">
         <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
-          <Link
-            to="/"
-            className="w-fit-content button-href mb-4 fs-large d-flex align-items-center justify-content-evenly">
-            <span className="material-symbols-outlined">arrow_back</span>Go Back
-          </Link>
+          <button
+            onClick={goBack}
+            className="mb-4 btn btn-lg text-center p-0 w-fit-content text-white mb-2">
+            <span className="d-flex">
+              <i className="d-flex align-items-center fa fa-arrow-left fa-x"></i>
+              <span className="ml-2">Go back</span>
+            </span>
+          </button>
           <label>Select the date you want to travel to:</label>
           <input
             className="form-control"

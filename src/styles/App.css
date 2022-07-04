@@ -419,3 +419,13 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
 .fs-30{
   font-size: 30px;
 }
+
+.stats-icon{
+  color: #2196f3;
+}
+.time-travel-icon{
+  color: #aaff64;
+}
+.instructions-icon{
+  color: #e91e63;
+}

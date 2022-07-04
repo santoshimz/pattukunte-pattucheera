@@ -54,7 +54,7 @@ const ShareResults = ({
   return (
     <>
       <div className="timer-wrapper">
-        <NextGameTimer />
+        {!isTimeTravelled && <NextGameTimer />}
         <button style={customStyles.shareText} onClick={copyText}>
           {shareText}
         </button>
