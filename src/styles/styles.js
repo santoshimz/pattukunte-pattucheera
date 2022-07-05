@@ -23,21 +23,19 @@ export const customStyles = {
     justifyContent: "center",
     fontSize: "32px",
     // marginTop: '20px',
-    fontFamily: "Rosmatika",
     color: "white"
   },
   statsStyle: {
     display: "flex",
     textAlign: "center",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    fontSize: "16px",
-    marginTop: "20px",
-    marginBottom: "10px",
+    marginTop: "30px",
+    marginBottom: "30px",
     cursor: "pointer",
     color: "white",
-    width: "200px",
-    margin: "auto"
+    justifyContent: "center",
+    fontSize: "12px",
+    gap: "20px"
   },
   spaceBetween: {
     display: "flex",
@@ -74,5 +72,12 @@ export const customStyles = {
   },
   marginRight: {
     marginRight: "10px"
+  },
+  statsIcons: {
+    border: "2px solid #ffffff54",
+    borderRadius: "3px",
+    padding: "5px",
+    marginBottom: "5px",
+    width: "70px"
   }
 };

@@ -22,7 +22,8 @@ const Game = ({
   setGuessDistribution,
   day,
   setOpenStatsModal,
-  contributor
+  contributor,
+  timeTravelled
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -153,6 +154,7 @@ const Game = ({
           setShareText={setShareText}
           currentIndex={currentIndex}
           dayCount={day}
+          isTimeTravelled={timeTravelled}
         />
       )}
     </>
@@ -174,7 +176,8 @@ Game.propTypes = {
   guessDistribution: PropTypes.string,
   setGuessDistribution: PropTypes.func,
   setOpenStatsModal: PropTypes.func,
-  contributor: PropTypes.string
+  contributor: PropTypes.string,
+  timeTravelled: PropTypes.bool
 };
 
 export default Game;

@@ -6,7 +6,14 @@ import twitterShare from "../assets/twitter.png";
 import fbShare from "../assets/fb.png";
 import whatsappShare from "../assets/whatsapp.png";
 import NextGameTimer from "./NextGameTimer";
-const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus, dayCount }) => {
+const ShareResults = ({
+  shareText,
+  setShareText,
+  currentIndex,
+  gameStatus,
+  dayCount,
+  isTimeTravelled
+}) => {
   const copyText = () => {
     let str = composeShareText();
     navigator.clipboard.writeText(str);
@@ -14,9 +21,12 @@ const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus, dayCo
   };
 
   const composeShareText = () => {
-    return `Pattukunte Pattucheera Day ${dayCount}: ${currentIndex}/5\n\n${getShareText(
+    return `Pattukunte Pattucheera Day ${dayCount}${
+      isTimeTravelled ? "(Time Travelled)" : ""
+    }: ${currentIndex}/5\n\n${getShareText(
       currentIndex,
-      gameStatus
+      gameStatus,
+      isTimeTravelled
     )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
   };
 
@@ -45,7 +55,7 @@ const ShareResults = ({ shareText, setShareText, currentIndex, gameStatus, dayCo
   return (
     <>
       <div className="timer-wrapper">
-        <NextGameTimer />
+        {!isTimeTravelled && <NextGameTimer />}
         <button style={customStyles.shareText} onClick={copyText}>
           {shareText}
         </button>
@@ -81,7 +91,8 @@ ShareResults.propTypes = {
   setShareText: PropTypes.func,
   currentIndex: PropTypes.number,
   gameStatus: PropTypes.string,
-  dayCount: PropTypes.number
+  dayCount: PropTypes.number,
+  isTimeTravelled: PropTypes.bool
 };
 
 export default ShareResults;
