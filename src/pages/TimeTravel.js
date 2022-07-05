@@ -59,7 +59,7 @@ const TimeTravel = () => {
 
   const handleChangeFromDate = (event) => {
     const selectedDate = event.target.value;
-    if (!selectedDate || new Date(selectedDate) >= new Date()) {
+    if (!selectedDate) {
       setTimeTravelDate(getDayCount(new Date()) - 1);
       setSelectedDate(yesterday);
       return;
