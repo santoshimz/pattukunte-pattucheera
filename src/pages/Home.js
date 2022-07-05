@@ -111,7 +111,7 @@ const Home = ({ timeTravelDate }) => {
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
       <div className="information-text">
-        You know, you can time travel to past now! play the missed games using our
+        You can time travel to past now! Play the games you missed using our Time Travel link above
         <span style={{ fontStyle: "italic", color: "#aaff64" }}> Time Travel </span>
         option above.
       </div>

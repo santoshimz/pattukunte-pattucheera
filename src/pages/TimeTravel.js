@@ -34,6 +34,7 @@ const TimeTravel = () => {
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
     .toISOString()
     .split("T")[0];
+  const [selectedDate, setSelectedDate] = React.useState(yesterday);
 
   React.useEffect(() => {
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
@@ -60,8 +61,10 @@ const TimeTravel = () => {
     const selectedDate = event.target.value;
     if (!selectedDate) {
       setTimeTravelDate(getDayCount(new Date()) - 1);
+      setSelectedDate(yesterday);
       return;
     }
+    setSelectedDate(selectedDate);
     let diff = getTimeDifference(
       getDateTimeInUTC(new Date(selectedDate)),
       new Date("2022-05-22T18:30:00.000Z")
@@ -85,8 +88,7 @@ const TimeTravel = () => {
             onClick={goBack}
             className="mb-4 btn btn-lg text-center p-0 w-fit-content text-white mb-2">
             <span className="d-flex">
-              <i className="d-flex align-items-center fa fa-arrow-left fa-x"></i>
-              <span className="ml-2">Go back</span>
+              <i className="d-flex align-items-center fa fa-arrow-left fs-30"></i>
             </span>
           </button>
           <label>Select the date you want to travel to:</label>
@@ -94,6 +96,7 @@ const TimeTravel = () => {
             className="form-control"
             placeholder="mm/dd/yyyy"
             min="2022-05-23"
+            value={selectedDate}
             max={yesterday}
             onChange={handleChangeFromDate}
             type="date"
