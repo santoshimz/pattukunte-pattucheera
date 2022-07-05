@@ -65,7 +65,7 @@ const TimeTravel = () => {
       getDateTimeInUTC(new Date(selectedDate)),
       new Date("2022-05-22T18:30:00.000Z")
     );
-    if (!selectedDate || diff.days > getDayCount()) {
+    if (!selectedDate || diff.days > getDayCount() - 1) {
       setTimeTravelDate(getDayCount(new Date()) - 1);
       setSelectedDate(yesterday);
       return;
