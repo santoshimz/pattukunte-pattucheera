@@ -112,6 +112,9 @@ const TimeTravel = () => {
 
         {!loading && (
           <>
+            <div className="text-white text-center text-info m-auto time-travel-info">
+              <p>Note: This results will not be included in streak or any other daily game stats</p>
+            </div>
             <ImagesContainer
               buttonLogic={buttonLogic}
               setButtonLogic={setButtonLogic}

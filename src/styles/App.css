@@ -469,3 +469,7 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
 	transition: 0s;
 	transform: scale(0, 0);
 }
+
+.time-travel-info{
+  max-width: 400px;
+}
