@@ -54,6 +54,7 @@ const TimeTravel = () => {
       setDay(dayCount);
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
+      setCurrentIndexFromButton(1);
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
