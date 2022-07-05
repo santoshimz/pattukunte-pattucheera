@@ -35,9 +35,9 @@ const TimeTravel = () => {
     .toISOString()
     .split("T")[0];
   const [selectedDate, setSelectedDate] = React.useState(yesterday);
-
   React.useEffect(() => {
-    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
+    const dayCount =
+      timeTravelDate >= 0 && timeTravelDate < getDayCount() ? timeTravelDate : getDayCount();
     if (showLoader) {
       setLoading(true);
     }
