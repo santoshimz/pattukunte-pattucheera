@@ -83,6 +83,11 @@ const TimeTravel = () => {
   return (
     <div style={customStyles.backgroundStyle}>
       <h1 className="m-2 text-white col-12 text-center underline-text">Time Travel to past!</h1>
+      {timeTravelDate >= 0 && (
+        <h5 className="text-center text-white mt-4 mb-0 text-primary">
+          You are playing day #{timeTravelDate} game
+        </h5>
+      )}
       <div className="pt-4 mt-2 row ml-1 mr-1">
         <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
           <button
