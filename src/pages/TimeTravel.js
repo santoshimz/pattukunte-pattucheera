@@ -35,9 +35,10 @@ const TimeTravel = () => {
     .toISOString()
     .split("T")[0];
   const [selectedDate, setSelectedDate] = React.useState(yesterday);
+
+  console.log(getDayCount(), "two");
   React.useEffect(() => {
-    const dayCount =
-      timeTravelDate >= 0 && timeTravelDate < getDayCount() ? timeTravelDate : getDayCount();
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1;
     if (showLoader) {
       setLoading(true);
     }
@@ -60,16 +61,17 @@ const TimeTravel = () => {
 
   const handleChangeFromDate = (event) => {
     const selectedDate = event.target.value;
-    if (!selectedDate) {
+    let diff = getTimeDifference(
+      getDateTimeInUTC(new Date(selectedDate)),
+      new Date("2022-05-22T18:30:00.000Z")
+    );
+    if (!selectedDate || diff.days > getDayCount() - 1) {
       setTimeTravelDate(getDayCount(new Date()) - 1);
       setSelectedDate(yesterday);
       return;
     }
     setSelectedDate(selectedDate);
-    let diff = getTimeDifference(
-      getDateTimeInUTC(new Date(selectedDate)),
-      new Date("2022-05-22T18:30:00.000Z")
-    );
+
     setTimeTravelDate(diff.days);
   };
 
