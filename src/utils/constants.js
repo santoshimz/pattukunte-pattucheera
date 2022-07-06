@@ -11,7 +11,9 @@ export const MAX_ATTEMPTS = 5;
 export const getShareText = (attempts, gameStatus, isTimeTravelled = false) => {
   let shareText = "";
   if (gameStatus === GAME_STATUS.FAILED) {
-    shareText = Array(MAX_ATTEMPTS).fill(redSquare).join("");
+    shareText = Array(MAX_ATTEMPTS)
+      .fill(isTimeTravelled ? blueSquare : redSquare)
+      .join("");
     return shareText;
   }
   for (let i = 1; i <= MAX_ATTEMPTS; i++) {
