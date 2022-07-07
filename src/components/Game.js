@@ -23,7 +23,8 @@ const Game = ({
   day,
   setOpenStatsModal,
   contributor,
-  timeTravelled
+  timeTravelled,
+  contributorTwitterId
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -145,6 +146,7 @@ const Game = ({
         currentIndex={currentIndex}
         movie={movie}
         contributor={contributor}
+        contributorTwitterId={contributorTwitterId}
       />
 
       {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
@@ -177,7 +179,8 @@ Game.propTypes = {
   setGuessDistribution: PropTypes.func,
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
-  timeTravelled: PropTypes.bool
+  timeTravelled: PropTypes.bool,
+  contributorTwitterId: PropTypes.string
 };
 
 export default Game;
