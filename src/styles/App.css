@@ -47,9 +47,7 @@ header {
 }
 
 .searchbox-container .guessed-movie {
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 2px;
+  padding: 5px;
   margin-bottom: 5px;
   width: 300px;
 }
@@ -472,4 +470,19 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
 
 .time-travel-info{
   max-width: 400px;
+}
+
+.wrong-guess{
+  border-left: 5px solid red;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid red;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+}
+.correct-guess{
+  border-left: 5px solid lawngreen;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid lawngreen;
+  border-right: 1px solid lawngreen;
+  border-bottom: 1px solid lawngreen;
 }

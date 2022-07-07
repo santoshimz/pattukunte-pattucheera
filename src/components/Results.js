@@ -51,20 +51,16 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
       </div>
       {allGuesses.map((allGuess, index) => {
         return (
-          <div className="m-auto guessed-movie" key={index} style={customStyles.row}>
-            <span role="img" aria-label="Error">
-              &#10060;
-            </span>
+          <div className="m-auto guessed-movie wrong-guess" key={index} style={customStyles.row}>
+            <span className="text-danger material-symbols-outlined">close</span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{allGuess}</span>
           </div>
         );
       })}
       {gameStatus === GAME_STATUS.COMPLETED && (
         <div>
-          <div className="m-auto guessed-movie" style={customStyles.row}>
-            <span role="img" aria-label="Error">
-              ✅
-            </span>
+          <div className="m-auto guessed-movie correct-guess" style={customStyles.row}>
+            <span className="color-lawngreen material-symbols-outlined">check_circle</span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{movie}</span>
           </div>
         </div>
