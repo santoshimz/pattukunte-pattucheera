@@ -3,11 +3,10 @@ body {
   margin: 0;
   padding: 0;
   font-size: 14px;
+  font-family: 'Roboto', sans-serif;
 }
-
 body {
   min-height: 100%;
-  font-family: Roboto;
   background: black;
 }
 
@@ -48,9 +47,7 @@ header {
 }
 
 .searchbox-container .guessed-movie {
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 2px;
+  padding: 5px;
   margin-bottom: 5px;
   width: 300px;
 }
@@ -110,10 +107,6 @@ header {
 
 .close:after {
   transform: rotate(-45deg);
-}
-
-#share .square {
-  padding: 5px;
 }
 
 .guess-box {
@@ -315,4 +308,184 @@ header {
 .banner-text a {
   color: #93ddff;
   text-decoration: underline;
+}
+.p-200{
+  padding: 200px 0px;
+}
+.underline-text{
+  text-decoration: underline;
+}
+.fs-large{
+  font-size: large;
+}
+
+.square{
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 10px;
+}
+span.red{
+  background: red;
+}
+
+span.green{
+  background: springgreen;
+}
+
+.w-fit-content{
+  width: fit-content;
+}
+
+
+input[type="date"] {
+  display:block;
+  position:relative;
+  
+  font-size:1rem;
+  font-family:monospace;
+
+  align-items: center;
+  
+  border:1px solid #8292a2;
+  border-radius:0.25rem;
+  background:
+    white
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
+    right 1rem
+    center
+    no-repeat;
+  
+  cursor:pointer;
+}
+input[type="date"]:focus {
+  outline:none;
+  border-color:#3acfff;
+  box-shadow:0 0 0 0.25rem rgba(0, 120, 250, 0.1);
+}
+
+::-webkit-datetime-edit {}
+::-webkit-datetime-edit-fields-wrapper {}
+::-webkit-datetime-edit-month-field:hover,
+::-webkit-datetime-edit-day-field:hover,
+::-webkit-datetime-edit-year-field:hover {
+  background:rgba(0, 120, 250, 0.1);
+}
+::-webkit-datetime-edit-text {
+  opacity:0;
+}
+::-webkit-clear-button,
+::-webkit-inner-spin-button {
+  display:none;
+}
+::-webkit-calendar-picker-indicator {
+  position:absolute;
+  width:2.5rem;
+  height:100%;
+  top:0;
+  right:0;
+  bottom:0;
+  opacity:0;
+  cursor:pointer;
+  color:rgba(0, 120, 250, 1);
+  background:rgba(0, 120, 250, 1);
+ 
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator { opacity:0.05; }
+input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15; }
+
+.text-black{
+  color: black;
+}
+
+.button-href{
+  background-color: #3acfff;
+  padding: 4px 5px;
+  border-radius: 2px;
+  color: black;
+}
+.button-href:hover{
+  text-decoration: none;
+}
+
+.color-lawngreen{
+  color: lawngreen;
+}
+
+.fs-30{
+  font-size: 30px;
+}
+
+.stats-icon{
+  color: #2196f3;
+}
+.time-travel-icon{
+  color: #aaff64;
+}
+.instructions-icon{
+  color: #e91e63;
+}
+
+.information-text{
+  text-align: center;
+  color: #ffebd8;
+  font-size: initial;
+  margin-top: 25px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.btn-ripple {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	transition: all ease-in-out .5s;
+}
+
+.btn-ripple::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 25%;
+	height: 100%;
+	width: 50%;
+	background-color: rgb(251, 242, 242);
+	border-radius: 50%;
+	opacity: 0;
+	pointer-events: none;
+	transition: all ease-in-out 0.2s;
+	transform: scale(5, 5);
+}
+
+.btn-ripple:active::after {
+	padding: 0;
+	margin: 0;
+	opacity: .2;
+	transition: 0s;
+	transform: scale(0, 0);
+}
+
+.time-travel-info{
+  max-width: 400px;
+}
+
+.wrong-guess{
+  border-left: 5px solid red;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid red;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+}
+.correct-guess{
+  border-left: 5px solid lawngreen;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid lawngreen;
+  border-right: 1px solid lawngreen;
+  border-bottom: 1px solid lawngreen;
+}
+.text-red{
+  color: red;
 }

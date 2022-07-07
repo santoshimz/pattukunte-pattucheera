@@ -22,7 +22,9 @@ const Game = ({
   setGuessDistribution,
   day,
   setOpenStatsModal,
-  contributor
+  contributor,
+  timeTravelled,
+  contributorTwitterId
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -109,7 +111,7 @@ const Game = ({
   };
 
   const fetchData = async (inputValue) => {
-    const vals = fuse.search(inputValue, { limit: 5 });
+    const vals = fuse.search(inputValue, { limit: 6 });
     return vals.map((val) => ({ title: val.item }));
   };
 
@@ -144,6 +146,7 @@ const Game = ({
         currentIndex={currentIndex}
         movie={movie}
         contributor={contributor}
+        contributorTwitterId={contributorTwitterId}
       />
 
       {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
@@ -153,6 +156,7 @@ const Game = ({
           setShareText={setShareText}
           currentIndex={currentIndex}
           dayCount={day}
+          isTimeTravelled={timeTravelled}
         />
       )}
     </>
@@ -174,7 +178,9 @@ Game.propTypes = {
   guessDistribution: PropTypes.string,
   setGuessDistribution: PropTypes.func,
   setOpenStatsModal: PropTypes.func,
-  contributor: PropTypes.string
+  contributor: PropTypes.string,
+  timeTravelled: PropTypes.bool,
+  contributorTwitterId: PropTypes.string
 };
 
 export default Game;

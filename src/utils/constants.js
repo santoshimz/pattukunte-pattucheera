@@ -4,17 +4,21 @@ export const redSquare = "🟥";
 
 export const graySquare = "⬛";
 
+export const blueSquare = "🟦";
+
 export const MAX_ATTEMPTS = 5;
 
-export const getShareText = (attempts, gameStatus) => {
+export const getShareText = (attempts, gameStatus, isTimeTravelled = false) => {
   let shareText = "";
   if (gameStatus === GAME_STATUS.FAILED) {
-    shareText = Array(MAX_ATTEMPTS).fill(redSquare).join("");
+    shareText = Array(MAX_ATTEMPTS)
+      .fill(isTimeTravelled ? blueSquare : redSquare)
+      .join("");
     return shareText;
   }
   for (let i = 1; i <= MAX_ATTEMPTS; i++) {
     if (i < attempts) {
-      shareText += redSquare;
+      shareText += isTimeTravelled ? blueSquare : redSquare;
     } else if (i === attempts) {
       shareText += greenSquare;
     } else {
@@ -25,6 +29,8 @@ export const getShareText = (attempts, gameStatus) => {
 };
 
 export const SITE_URL = "https://pattukunte-pattucheera.netlify.app";
+
+export const TIME_TRAVEL_URL = `${SITE_URL}/time-travel`;
 
 export const GAME_STATUS = {
   COMPLETED: "completed",

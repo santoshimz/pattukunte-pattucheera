@@ -2,64 +2,96 @@ import React from "react";
 import { customStyles } from "../styles/styles";
 import range from "lodash/range";
 import PropTypes from "prop-types";
-import { GAME_STATUS, greenSquare, redSquare } from "../utils/constants";
+import { GAME_STATUS } from "../utils/constants";
 
-const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor }) => {
+const Results = ({
+  currentGuesses,
+  gameStatus,
+  currentIndex,
+  movie,
+  contributor,
+  contributorTwitterId
+}) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
+
+  const getTwitterProfile = (twitterId) => {
+    return (
+      <a
+        className="text-primary underline-text"
+        href={"https://twitter.com/" + cleanTwitterId(twitterId)}>
+        @{cleanTwitterId(twitterId)}
+      </a>
+    );
+  };
+
+  const cleanTwitterId = (id) => {
+    return id.replaceAll("@", "");
+  };
 
   return (
     <div className="searchbox-container" style={customStyles.column}>
+      <div className="text-center">
+        {gameStatus === GAME_STATUS.RUNNING && (
+          <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
+            6 - currentIndex
+          } guesses remaining`}</span>
+        )}
+        {gameStatus === GAME_STATUS.COMPLETED && (
+          <span
+            className="fs-large"
+            style={{
+              ...customStyles.marginTop,
+              color: "white"
+            }}>
+            You got it - The answer was
+            <span className="color-lawngreen"> {movie}</span>
+          </span>
+        )}
+        {gameStatus === GAME_STATUS.FAILED && (
+          <span
+            className="fs-large"
+            style={{
+              ...customStyles.marginTop,
+              color: "white"
+            }}>
+            The answer was
+            <span className="color-lawngreen"> {movie}</span>
+          </span>
+        )}
+        <div
+          className="mb-4 justify-content-center"
+          id="share"
+          style={{ ...customStyles.row, height: "1.2em" }}>
+          {range(1, currentIndex).map(() => {
+            // eslint-disable-next-line react/jsx-key
+            return <span className="square red"></span>;
+          })}
+          {gameStatus === GAME_STATUS.COMPLETED && <span className="square green"></span>}
+          {gameStatus === GAME_STATUS.FAILED && <span className="square red"></span>}
+        </div>
+      </div>
       {allGuesses.map((allGuess, index) => {
         return (
-          <div className="guessed-movie" key={index} style={customStyles.row}>
-            <span role="img" aria-label="Error">
-              &#10060;
-            </span>
+          <div className="m-auto guessed-movie wrong-guess" key={index} style={customStyles.row}>
+            <span className="text-red material-symbols-outlined">close</span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{allGuess}</span>
           </div>
         );
       })}
-      {gameStatus === GAME_STATUS.RUNNING && (
-        <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
-          6 - currentIndex
-        } guesses remaining`}</span>
-      )}
       {gameStatus === GAME_STATUS.COMPLETED && (
         <div>
-          <div className="guessed-movie" style={customStyles.row}>
-            <span role="img" aria-label="Error">
-              ✅
-            </span>
+          <div className="m-auto guessed-movie correct-guess" style={customStyles.row}>
+            <span className="color-lawngreen material-symbols-outlined">check_circle</span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{movie}</span>
           </div>
-          <span
-            style={{
-              ...customStyles.marginTop,
-              color: "white"
-            }}>{`You got it - The answer was ${movie}`}</span>
         </div>
       )}
-      {gameStatus === GAME_STATUS.FAILED && (
-        <span
-          style={{
-            ...customStyles.marginTop,
-            color: "white"
-          }}>{`The answer was ${movie}`}</span>
-      )}
-      <div
-        className="mb-4"
-        id="share"
-        style={{ ...customStyles.row, width: "1.2em", height: "1.2em" }}>
-        {range(1, currentIndex).map(() => {
-          // eslint-disable-next-line react/jsx-key
-          return <span className="square">{`${redSquare}`}</span>;
-        })}
-        {gameStatus === GAME_STATUS.COMPLETED && <span className="square">{`${greenSquare}`}</span>}
-        {gameStatus === GAME_STATUS.FAILED && <span className="square">{`${redSquare}`}</span>}
-      </div>
-      {contributor &&
+      {(contributor || contributorTwitterId) &&
         (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
-          <small className="mt-4 text-center text-info">Contributed by @{contributor}</small>
+          <small className="mt-4 text-center text-white">
+            Contributed by &nbsp;
+            {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
+          </small>
         )}
     </div>
   );
@@ -70,7 +102,8 @@ Results.propTypes = {
   gameStatus: PropTypes.string,
   currentIndex: PropTypes.number,
   movie: PropTypes.string,
-  contributor: PropTypes.string
+  contributor: PropTypes.string,
+  contributorTwitterId: PropTypes.string
 };
 
 export default Results;

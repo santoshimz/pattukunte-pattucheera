@@ -47,13 +47,10 @@ const ImagesContainer = ({
                 setButtonLogic(true);
               }}
               className={
-                buttonLogic
-                  ? index + 1 === currentIndexFromButton
-                    ? "count-btn current-movie-frame"
-                    : "count-btn"
-                  : index + 1 === currentIndexFromStorage
-                  ? "count-btn current-movie-frame"
-                  : "count-btn"
+                "count-btn " +
+                (index + 1 === (buttonLogic ? currentIndexFromButton : currentIndexFromStorage)
+                  ? "current-movie-frame"
+                  : "")
               }>
               {index + 1}
             </button>
