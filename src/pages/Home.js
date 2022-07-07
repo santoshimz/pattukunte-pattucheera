@@ -49,7 +49,8 @@ const Home = ({ timeTravelDate }) => {
   }, [stats]);
 
   React.useEffect(() => {
-    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
+    const routeParam = window.location.pathname.split("/")[1];
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : routeParam ? routeParam : getDayCount();
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
