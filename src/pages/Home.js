@@ -29,6 +29,7 @@ const Home = ({ timeTravelDate }) => {
   const [openRulesModal, setOpenRulesModal] = React.useState(false);
   const [movie, setMovie] = React.useState("");
   const [contributor, setContributor] = React.useState("");
+  const [contributorTwitterId, setContributorTwitterId] = React.useState("");
   const [guessDistribution, setGuessDistribution] = useLocalStorage(
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
@@ -54,6 +55,7 @@ const Home = ({ timeTravelDate }) => {
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
+        setContributorTwitterId(json.twitterId);
       })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
@@ -146,6 +148,7 @@ const Home = ({ timeTravelDate }) => {
             movie={movie}
             setOpenStatsModal={setOpenStatsModal}
             contributor={contributor}
+            contributorTwitterId={contributorTwitterId}
           />
         </>
       </div>

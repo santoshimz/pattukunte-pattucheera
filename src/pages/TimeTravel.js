@@ -31,6 +31,7 @@ const TimeTravel = () => {
   const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
   const [showLoader, setShowLoader] = React.useState(true);
+  const [contributorTwitterId, setContributorTwitterId] = React.useState("");
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
     .toISOString()
     .split("T")[0];
@@ -45,6 +46,7 @@ const TimeTravel = () => {
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
+        setContributorTwitterId(json.twitterId);
         setTimeout(() => setLoading(false), 500);
       })
       .catch((error) => console.log(error));
@@ -144,6 +146,7 @@ const TimeTravel = () => {
               movie={movie}
               contributor={contributor}
               timeTravelled={isTimeTravelled(timeTravelDate)}
+              contributorTwitterId={contributorTwitterId}
             />
           </>
         )}

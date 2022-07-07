@@ -4,8 +4,29 @@ import range from "lodash/range";
 import PropTypes from "prop-types";
 import { GAME_STATUS } from "../utils/constants";
 
-const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor }) => {
+const Results = ({
+  currentGuesses,
+  gameStatus,
+  currentIndex,
+  movie,
+  contributor,
+  contributorTwitterId
+}) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
+
+  const getTwitterProfile = (twitterId) => {
+    return (
+      <a
+        className="text-primary underline-text"
+        href={"https://twitter.com/" + cleanTwitterId(twitterId)}>
+        @{cleanTwitterId(twitterId)}
+      </a>
+    );
+  };
+
+  const cleanTwitterId = (id) => {
+    return id.replaceAll("@", "");
+  };
 
   return (
     <div className="searchbox-container" style={customStyles.column}>
@@ -65,10 +86,12 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
           </div>
         </div>
       )}
-
-      {contributor &&
+      {(contributor || contributorTwitterId) &&
         (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
-          <small className="mt-4 text-center text-info">Contributed by @{contributor}</small>
+          <small className="mt-4 text-center text-white">
+            Contributed by &nbsp;
+            {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
+          </small>
         )}
     </div>
   );
@@ -79,7 +102,8 @@ Results.propTypes = {
   gameStatus: PropTypes.string,
   currentIndex: PropTypes.number,
   movie: PropTypes.string,
-  contributor: PropTypes.string
+  contributor: PropTypes.string,
+  contributorTwitterId: PropTypes.string
 };
 
 export default Results;
