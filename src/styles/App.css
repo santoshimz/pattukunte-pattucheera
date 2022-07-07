@@ -486,3 +486,6 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15
   border-right: 1px solid lawngreen;
   border-bottom: 1px solid lawngreen;
 }
+.text-red{
+  color: red;
+}

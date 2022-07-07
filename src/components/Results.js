@@ -52,7 +52,7 @@ const Results = ({ currentGuesses, gameStatus, currentIndex, movie, contributor 
       {allGuesses.map((allGuess, index) => {
         return (
           <div className="m-auto guessed-movie wrong-guess" key={index} style={customStyles.row}>
-            <span className="text-danger material-symbols-outlined">close</span>
+            <span className="text-red material-symbols-outlined">close</span>
             <span style={{ ...customStyles.marginLeft, color: "white" }}>{allGuess}</span>
           </div>
         );
