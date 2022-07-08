@@ -31,13 +31,13 @@ const TimeTravel = () => {
   const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
   const [showLoader, setShowLoader] = React.useState(true);
+  const [contributorTwitterId, setContributorTwitterId] = React.useState("");
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
     .toISOString()
     .split("T")[0];
   const [selectedDate, setSelectedDate] = React.useState(yesterday);
   React.useEffect(() => {
-    const dayCount =
-      timeTravelDate >= 0 && timeTravelDate < getDayCount() ? timeTravelDate : getDayCount();
+    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1;
     if (showLoader) {
       setLoading(true);
     }
@@ -46,6 +46,7 @@ const TimeTravel = () => {
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
+        setContributorTwitterId(json.twitterId);
         setTimeout(() => setLoading(false), 500);
       })
       .catch((error) => console.log(error));
@@ -60,16 +61,17 @@ const TimeTravel = () => {
 
   const handleChangeFromDate = (event) => {
     const selectedDate = event.target.value;
-    if (!selectedDate) {
+    let diff = getTimeDifference(
+      getDateTimeInUTC(new Date(selectedDate)),
+      new Date("2022-05-22T18:30:00.000Z")
+    );
+    if (!selectedDate || diff.days > getDayCount() - 1) {
       setTimeTravelDate(getDayCount(new Date()) - 1);
       setSelectedDate(yesterday);
       return;
     }
     setSelectedDate(selectedDate);
-    let diff = getTimeDifference(
-      getDateTimeInUTC(new Date(selectedDate)),
-      new Date("2022-05-22T18:30:00.000Z")
-    );
+
     setTimeTravelDate(diff.days);
   };
 
@@ -83,6 +85,11 @@ const TimeTravel = () => {
   return (
     <div style={customStyles.backgroundStyle}>
       <h1 className="m-2 text-white col-12 text-center underline-text">Time Travel to past!</h1>
+      {timeTravelDate >= 0 && (
+        <h5 className="text-center text-white mt-4 mb-0 text-primary">
+          You are playing day #{timeTravelDate} game
+        </h5>
+      )}
       <div className="pt-4 mt-2 row ml-1 mr-1">
         <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
           <button
@@ -139,6 +146,7 @@ const TimeTravel = () => {
               movie={movie}
               contributor={contributor}
               timeTravelled={isTimeTravelled(timeTravelDate)}
+              contributorTwitterId={contributorTwitterId}
             />
           </>
         )}
