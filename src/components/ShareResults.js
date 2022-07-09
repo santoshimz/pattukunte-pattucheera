@@ -1,11 +1,11 @@
 import React from "react";
-import { customStyles } from "../styles/styles";
-import { GAME_STATUS, getShareText, SITE_URL } from "../utils/constants";
+import { composeShareText } from "../utils/constants";
 import PropTypes from "prop-types";
 import twitterShare from "../assets/twitter.png";
 import fbShare from "../assets/fb.png";
 import whatsappShare from "../assets/whatsapp.png";
 import NextGameTimer from "./NextGameTimer";
+import ShareButton from "./ShareButton";
 const ShareResults = ({
   shareText,
   setShareText,
@@ -14,39 +14,32 @@ const ShareResults = ({
   dayCount,
   isTimeTravelled
 }) => {
-  const copyText = () => {
-    let str = composeShareText();
-    navigator.clipboard.writeText(str);
-    setShareText("COPIED");
-  };
-
-  const composeShareText = () => {
-    return `Pattukunte Pattucheera Day ${dayCount}${isTimeTravelled ? "(Time Travelled)" : ""}\
-: ${gameStatus === GAME_STATUS.FAILED ? "0" : currentIndex}/5\n\n${getShareText(
-      currentIndex,
-      gameStatus,
-      isTimeTravelled
-    )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
-  };
-
   const socialShare = (app) => {
     switch (app) {
       case "twitter":
         window.open(
-          "https://twitter.com/intent/tweet?text=" + encodeURIComponent(composeShareText()),
+          "https://twitter.com/intent/tweet?text=" +
+            encodeURIComponent(
+              composeShareText(gameStatus, dayCount, isTimeTravelled, currentIndex)
+            ),
           "_blank"
         );
         break;
       case "facebook":
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=https://pattukunte-pattucheera.netlify.app/&quote=${encodeURIComponent(
-            composeShareText()
+            composeShareText(gameStatus, dayCount, isTimeTravelled, currentIndex)
           )}`,
           "_blank"
         );
         break;
       case "whatsapp":
-        window.open(`https://wa.me?text=${encodeURIComponent(composeShareText())}`, "_blank");
+        window.open(
+          `https://wa.me?text=${encodeURIComponent(
+            composeShareText(gameStatus, dayCount, isTimeTravelled, currentIndex)
+          )}`,
+          "_blank"
+        );
         break;
     }
   };
@@ -54,10 +47,19 @@ const ShareResults = ({
   return (
     <>
       <div className="timer-wrapper">
-        {!isTimeTravelled && <NextGameTimer />}
-        <button style={customStyles.shareText} onClick={copyText}>
-          {shareText}
-        </button>
+        {!isTimeTravelled && (
+          <div className="text-white">
+            <NextGameTimer />
+          </div>
+        )}
+        <ShareButton
+          shareText={shareText}
+          setShareText={setShareText}
+          currentIndex={currentIndex}
+          gameStatus={gameStatus}
+          dayCount={dayCount}
+          isTimeTravelled={isTimeTravelled}
+        />
       </div>
       <div className="social-icons">
         <img
