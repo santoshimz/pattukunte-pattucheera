@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import Modal from "react-modal";
-import React from "react";
+import React, { useMemo } from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
 import closeIcon from "../assets/close.svg";
@@ -24,6 +24,7 @@ const Stats = ({
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
   const sum = Object.keys(guessData).reduce((acc, val) => acc + guessData[val], 0);
   const DEFAULT_GRAPH_WIDTH = 7;
+  const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   return (
     <Modal
       isOpen={openStatsModal}
@@ -90,7 +91,7 @@ const Stats = ({
           );
         })}
       </div>
-      {isGameDone(gameStatus) && (
+      {gameFinished && (
         <div className="d-flex justify-content-around mt-4">
           <NextGameTimer className="text-black" />
           <ShareButton
