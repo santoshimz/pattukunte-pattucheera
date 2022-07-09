@@ -12,7 +12,7 @@
             "sizes": "144x144"
         }
     ],
-    "background_color": "#3E4EB8",
+    "background_color": "#000000",
     "display": "standalone",
-    "theme_color": "#317EFB"
+    "theme_color": "#000000"
 }
