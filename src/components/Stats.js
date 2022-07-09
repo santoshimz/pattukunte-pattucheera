@@ -4,7 +4,7 @@ import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
 import closeIcon from "../assets/close.svg";
-import { MAX_ATTEMPTS } from "../utils/constants";
+import { isGameDone, MAX_ATTEMPTS } from "../utils/constants";
 import { range } from "lodash";
 import ShareButton from "./ShareButton";
 import NextGameTimer from "./NextGameTimer";
@@ -90,17 +90,19 @@ const Stats = ({
           );
         })}
       </div>
-      <div className="d-flex justify-content-around p-1">
-        <NextGameTimer className="text-black" />
-        <ShareButton
-          shareText={shareText}
-          setShareText={setShareText}
-          currentIndex={currentIndex}
-          gameStatus={gameStatus}
-          dayCount={dayCount}
-          isTimeTravelled={isTimeTravelled}
-        />
-      </div>
+      {isGameDone(gameStatus) && (
+        <div className="d-flex justify-content-around mt-4">
+          <NextGameTimer className="text-black" />
+          <ShareButton
+            shareText={shareText}
+            setShareText={setShareText}
+            currentIndex={currentIndex}
+            gameStatus={gameStatus}
+            dayCount={dayCount}
+            isTimeTravelled={isTimeTravelled}
+          />
+        </div>
+      )}
     </Modal>
   );
 };

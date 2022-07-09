@@ -86,3 +86,7 @@ export const composeShareText = (gameStatus, dayCount, isTimeTravelled, currentI
     isTimeTravelled
   )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
 };
+
+export const isGameDone = (gameStatus) => {
+  return gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED;
+};
