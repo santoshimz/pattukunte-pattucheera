@@ -6,8 +6,21 @@ import PropTypes from "prop-types";
 import closeIcon from "../assets/close.svg";
 import { MAX_ATTEMPTS } from "../utils/constants";
 import { range } from "lodash";
+import ShareButton from "./ShareButton";
+import NextGameTimer from "./NextGameTimer";
 
-const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
+const Stats = ({
+  openStatsModal,
+  setOpenStatsModal,
+  statsObj,
+  guessData,
+  shareText,
+  setShareText,
+  currentIndex,
+  gameStatus,
+  dayCount,
+  isTimeTravelled
+}) => {
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
   const sum = Object.keys(guessData).reduce((acc, val) => acc + guessData[val], 0);
   const DEFAULT_GRAPH_WIDTH = 7;
@@ -77,6 +90,17 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
           );
         })}
       </div>
+      <div className="d-flex justify-content-around p-1">
+        <NextGameTimer className="text-black" />
+        <ShareButton
+          shareText={shareText}
+          setShareText={setShareText}
+          currentIndex={currentIndex}
+          gameStatus={gameStatus}
+          dayCount={dayCount}
+          isTimeTravelled={isTimeTravelled}
+        />
+      </div>
     </Modal>
   );
 };
@@ -85,7 +109,13 @@ Stats.propTypes = {
   openStatsModal: PropTypes.bool,
   setOpenStatsModal: PropTypes.func,
   statsObj: PropTypes.object,
-  guessData: PropTypes.object
+  guessData: PropTypes.object,
+  shareText: PropTypes.string,
+  setShareText: PropTypes.func,
+  currentIndex: PropTypes.number,
+  gameStatus: PropTypes.string,
+  dayCount: PropTypes.number,
+  isTimeTravelled: PropTypes.bool
 };
 
 export default Stats;

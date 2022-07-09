@@ -27,6 +27,7 @@ const TimeTravel = () => {
   const [movie, setMovie] = React.useState("");
   const [contributor, setContributor] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [shareText, setShareText] = React.useState("SHARE");
 
   const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
@@ -147,6 +148,8 @@ const TimeTravel = () => {
               contributor={contributor}
               timeTravelled={isTimeTravelled(timeTravelDate)}
               contributorTwitterId={contributorTwitterId}
+              shareText={shareText}
+              setShareText={setShareText}
             />
           </>
         )}

@@ -59,7 +59,8 @@ export const customStyles = {
     height: "40px",
     borderRadius: "2px",
     backgroundColor: "#069668",
-    cursor: "pointer"
+    cursor: "pointer",
+    alignSelf: "center"
   },
   marginTop: {
     marginTop: "20px"

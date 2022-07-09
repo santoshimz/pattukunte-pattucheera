@@ -24,9 +24,10 @@ const Game = ({
   setOpenStatsModal,
   contributor,
   timeTravelled,
-  contributorTwitterId
+  contributorTwitterId,
+  shareText,
+  setShareText
 }) => {
-  const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
   const statsModalTimeOut = 2000;
@@ -180,7 +181,9 @@ Game.propTypes = {
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
   timeTravelled: PropTypes.bool,
-  contributorTwitterId: PropTypes.string
+  contributorTwitterId: PropTypes.string,
+  shareText: PropTypes.string,
+  setShareText: PropTypes.func
 };
 
 export default Game;
