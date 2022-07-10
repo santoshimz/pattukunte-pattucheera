@@ -16,10 +16,8 @@ const Results = ({
 
   const getTwitterProfile = (twitterId) => {
     return (
-      <a
-        className="text-primary underline-text"
-        href={"https://twitter.com/" + cleanTwitterId(twitterId)}>
-        @{cleanTwitterId(twitterId)}
+      <a className="text-info" href={cleanTwitterId(twitterId)}>
+        @{cleanTwitterId(twitterId).split("/").pop()}
       </a>
     );
   };

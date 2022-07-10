@@ -46,7 +46,7 @@ const TimeTravel = () => {
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
-        setContributorTwitterId(json.twitterId);
+        setContributorTwitterId(json.applink + json.twitterId);
         setTimeout(() => setLoading(false), 500);
       })
       .catch((error) => console.log(error));
