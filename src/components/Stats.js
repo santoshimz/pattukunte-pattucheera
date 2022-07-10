@@ -85,7 +85,13 @@ Stats.propTypes = {
   openStatsModal: PropTypes.bool,
   setOpenStatsModal: PropTypes.func,
   statsObj: PropTypes.object,
-  guessData: PropTypes.object
+  guessData: PropTypes.object,
+  shareText: PropTypes.string,
+  setShareText: PropTypes.func,
+  currentIndex: PropTypes.number,
+  gameStatus: PropTypes.string,
+  dayCount: PropTypes.number,
+  isTimeTravelled: PropTypes.bool
 };
 
 export default Stats;

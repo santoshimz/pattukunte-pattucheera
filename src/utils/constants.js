@@ -77,3 +77,16 @@ export const isProduction = () => {
 };
 
 export const githubRepoLink = "https://github.com/santoshimz/pattukunte-pattucheera";
+
+export const composeShareText = (gameStatus, dayCount, isTimeTravelled, currentIndex) => {
+  return `Pattukunte Pattucheera Day ${dayCount}${isTimeTravelled ? "(Time Travelled)" : ""}\
+: ${gameStatus === GAME_STATUS.FAILED ? "0" : currentIndex}/5\n\n${getShareText(
+    currentIndex,
+    gameStatus,
+    isTimeTravelled
+  )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
+};
+
+export const isGameDone = (gameStatus) => {
+  return gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED;
+};

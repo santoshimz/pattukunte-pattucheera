@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { customStyles } from "../styles/styles";
 import range from "lodash/range";
 import PropTypes from "prop-types";
@@ -10,10 +10,13 @@ const Results = ({
   currentIndex,
   movie,
   contributor,
-  contributorTwitterId
+  contributorTwitterId,
+  gameFinished
 }) => {
   const allGuesses = currentGuesses !== "" ? currentGuesses.split(",") : [];
-
+  const gameSuccess = useMemo(() => gameStatus === GAME_STATUS.COMPLETED, [gameStatus]);
+  const gameFailed = useMemo(() => gameStatus === GAME_STATUS.FAILED, [gameStatus]);
+  const gameRunning = useMemo(() => gameStatus === GAME_STATUS.RUNNING, [gameStatus]);
   const getTwitterProfile = (twitterId) => {
     return (
       <a
@@ -31,12 +34,12 @@ const Results = ({
   return (
     <div className="searchbox-container" style={customStyles.column}>
       <div className="text-center">
-        {gameStatus === GAME_STATUS.RUNNING && (
+        {gameRunning && (
           <span style={{ ...customStyles.marginTop, color: "white" }}>{`You got ${
             6 - currentIndex
           } guesses remaining`}</span>
         )}
-        {gameStatus === GAME_STATUS.COMPLETED && (
+        {gameSuccess && (
           <span
             className="fs-large"
             style={{
@@ -47,7 +50,7 @@ const Results = ({
             <span className="color-lawngreen"> {movie}</span>
           </span>
         )}
-        {gameStatus === GAME_STATUS.FAILED && (
+        {gameFailed && (
           <span
             className="fs-large"
             style={{
@@ -66,8 +69,8 @@ const Results = ({
             // eslint-disable-next-line react/jsx-key
             return <span className="square red"></span>;
           })}
-          {gameStatus === GAME_STATUS.COMPLETED && <span className="square green"></span>}
-          {gameStatus === GAME_STATUS.FAILED && <span className="square red"></span>}
+          {gameSuccess && <span className="square green"></span>}
+          {gameFailed && <span className="square red"></span>}
         </div>
       </div>
       {allGuesses.map((allGuess, index) => {
@@ -78,7 +81,7 @@ const Results = ({
           </div>
         );
       })}
-      {gameStatus === GAME_STATUS.COMPLETED && (
+      {gameSuccess && (
         <div>
           <div className="m-auto guessed-movie correct-guess" style={customStyles.row}>
             <span className="color-lawngreen material-symbols-outlined">check_circle</span>
@@ -86,13 +89,12 @@ const Results = ({
           </div>
         </div>
       )}
-      {(contributor || contributorTwitterId) &&
-        (gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
-          <small className="mt-4 text-center text-white">
-            Contributed by &nbsp;
-            {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
-          </small>
-        )}
+      {(contributor || contributorTwitterId) && gameFinished && (
+        <small className="mt-4 text-center text-white">
+          Contributed by &nbsp;
+          {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
+        </small>
+      )}
     </div>
   );
 };
@@ -103,7 +105,8 @@ Results.propTypes = {
   currentIndex: PropTypes.number,
   movie: PropTypes.string,
   contributor: PropTypes.string,
-  contributorTwitterId: PropTypes.string
+  contributorTwitterId: PropTypes.string,
+  gameFinished: PropTypes.bool
 };
 
 export default Results;

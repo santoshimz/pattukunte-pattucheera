@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
-import React from "react";
-import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import React, { useMemo } from "react";
+import { GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
@@ -24,11 +24,13 @@ const Game = ({
   setOpenStatsModal,
   contributor,
   timeTravelled,
-  contributorTwitterId
+  contributorTwitterId,
+  shareText,
+  setShareText
 }) => {
-  const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
     setValue(value);
@@ -117,7 +119,7 @@ const Game = ({
 
   return (
     <>
-      {gameStatus === GAME_STATUS.RUNNING && (
+      {!gameFinished && (
         <div className="w-100 searchbox-container movie-search-dropdown row d-flex">
           <div className="col-10">
             <AsyncSelect
@@ -147,9 +149,10 @@ const Game = ({
         movie={movie}
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
+        gameFinished={gameFinished}
       />
 
-      {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
+      {gameFinished && (
         <ShareResults
           gameStatus={gameStatus}
           shareText={shareText}
@@ -180,7 +183,9 @@ Game.propTypes = {
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
   timeTravelled: PropTypes.bool,
-  contributorTwitterId: PropTypes.string
+  contributorTwitterId: PropTypes.string,
+  shareText: PropTypes.string,
+  setShareText: PropTypes.func
 };
 
 export default Game;
