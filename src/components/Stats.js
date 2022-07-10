@@ -1,30 +1,16 @@
 /* eslint-disable react/jsx-key */
 import Modal from "react-modal";
-import React, { useMemo } from "react";
+import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
 import closeIcon from "../assets/close.svg";
-import { isGameDone, MAX_ATTEMPTS } from "../utils/constants";
+import { MAX_ATTEMPTS } from "../utils/constants";
 import { range } from "lodash";
-import ShareButton from "./ShareButton";
-import NextGameTimer from "./NextGameTimer";
 
-const Stats = ({
-  openStatsModal,
-  setOpenStatsModal,
-  statsObj,
-  guessData,
-  shareText,
-  setShareText,
-  currentIndex,
-  gameStatus,
-  dayCount,
-  isTimeTravelled
-}) => {
+const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
   const sum = Object.keys(guessData).reduce((acc, val) => acc + guessData[val], 0);
   const DEFAULT_GRAPH_WIDTH = 7;
-  const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   return (
     <Modal
       isOpen={openStatsModal}
@@ -91,19 +77,6 @@ const Stats = ({
           );
         })}
       </div>
-      {gameFinished && (
-        <div className="d-flex justify-content-around mt-4">
-          <NextGameTimer className="text-black" />
-          <ShareButton
-            shareText={shareText}
-            setShareText={setShareText}
-            currentIndex={currentIndex}
-            gameStatus={gameStatus}
-            dayCount={dayCount}
-            isTimeTravelled={isTimeTravelled}
-          />
-        </div>
-      )}
     </Modal>
   );
 };
