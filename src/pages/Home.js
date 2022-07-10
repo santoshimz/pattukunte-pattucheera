@@ -55,7 +55,7 @@ const Home = ({ timeTravelDate }) => {
       .then((json) => {
         setMovie(json.movie);
         setContributor(json.contributor);
-        setContributorTwitterId(json.twitterId);
+        setContributorTwitterId(json.applink + json.twitterId);
       })
       .catch((error) => console.log(error));
     if (day !== dayCount) {
