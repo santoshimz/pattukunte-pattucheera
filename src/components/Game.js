@@ -65,6 +65,7 @@ const Game = ({
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === movie) {
+      window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
       setAttemptsInLocalStorage(currentIndex);
@@ -86,6 +87,7 @@ const Game = ({
       );
       setLastPlayedGame(day);
     } else if (currentIndex === MAX_ATTEMPTS) {
+      window.gtag("event", "GameFailed", { event_category: "game-stats" });
       setGameStatus(GAME_STATUS.FAILED);
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {

@@ -17,6 +17,7 @@ const ShareResults = ({
   const socialShare = (app) => {
     switch (app) {
       case "twitter":
+        window.gtag("event", "twitter_share", { event_category: "social_share" });
         window.open(
           "https://twitter.com/intent/tweet?text=" +
             encodeURIComponent(
@@ -26,6 +27,7 @@ const ShareResults = ({
         );
         break;
       case "facebook":
+        window.gtag("event", "facebook_share", { event_category: "social_share" });
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=https://pattukunte-pattucheera.netlify.app/&quote=${encodeURIComponent(
             composeShareText(gameStatus, dayCount, isTimeTravelled, currentIndex)
@@ -34,6 +36,7 @@ const ShareResults = ({
         );
         break;
       case "whatsapp":
+        window.gtag("event", "whatsapp_share", { event_category: "social_share" });
         window.open(
           `https://wa.me?text=${encodeURIComponent(
             composeShareText(gameStatus, dayCount, isTimeTravelled, currentIndex)

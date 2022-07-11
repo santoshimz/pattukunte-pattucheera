@@ -12,6 +12,7 @@ const ShareButton = ({
   isTimeTravelled
 }) => {
   const copyText = async () => {
+    window.gtag("event", "share_clicked", { event_category: "share_clicked" });
     if (navigator.share) {
       const shareData = {
         title: "Pattukunte PattuCheera",

@@ -61,6 +61,7 @@ const TimeTravel = () => {
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
   const handleChangeFromDate = (event) => {
+    window.gtag("event", "time-travelled", { event_category: "game-stats" });
     const selectedDate = event.target.value;
     let diff = getTimeDifference(
       getDateTimeInUTC(new Date(selectedDate)),
