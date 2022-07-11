@@ -43,7 +43,7 @@ const Home = ({ timeTravelDate }) => {
   };
 
   const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
-
+  const [lastPlayedGame, setLastPlayedGame] = useLocalStorage("lastPlayedGame", "");
   const statsObj = React.useMemo(() => {
     return typeof stats === "string" ? JSON.parse(stats) : stats;
   }, [stats]);
@@ -157,6 +157,8 @@ const Home = ({ timeTravelDate }) => {
             contributorTwitterId={contributorTwitterId}
             shareText={shareText}
             setShareText={setShareText}
+            lastPlayedGame={lastPlayedGame}
+            setLastPlayedGame={setLastPlayedGame}
           />
         </>
       </div>

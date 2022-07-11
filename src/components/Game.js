@@ -26,7 +26,10 @@ const Game = ({
   timeTravelled,
   contributorTwitterId,
   shareText,
-  setShareText
+  setShareText,
+  // eslint-disable-next-line no-unused-vars
+  lastPlayedGame,
+  setLastPlayedGame
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -81,6 +84,7 @@ const Game = ({
             : 1
         })
       );
+      setLastPlayedGame(day);
     } else if (currentIndex === MAX_ATTEMPTS) {
       setGameStatus(GAME_STATUS.FAILED);
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
@@ -101,6 +105,7 @@ const Game = ({
           currentStreak: 0
         })
       );
+      setLastPlayedGame(day);
     } else {
       setCurrentIndex(currentIndex + 1);
       setCurrentIndexFromButton(currentIndex + 1);
@@ -185,7 +190,9 @@ Game.propTypes = {
   timeTravelled: PropTypes.bool,
   contributorTwitterId: PropTypes.string,
   shareText: PropTypes.string,
-  setShareText: PropTypes.func
+  setShareText: PropTypes.func,
+  lastPlayedGame: PropTypes.string,
+  setLastPlayedGame: PropTypes.func
 };
 
 export default Game;
