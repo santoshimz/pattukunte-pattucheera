@@ -119,9 +119,9 @@ const Home = ({ timeTravelDate }) => {
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
       <div className="information-text">
-        You can time travel to past now! Play the games you missed using our
-        <span style={{ fontStyle: "italic", color: "#aaff64" }}> Time Travel link </span>
-        above.
+        Our application can be installed on your device now! check the
+        <a className="text-primary" href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">link</a>
+        for installation instructions.
       </div>
       <div style={customStyles.column}>
         <div />
