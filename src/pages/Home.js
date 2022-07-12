@@ -34,7 +34,7 @@ const Home = ({ timeTravelDate }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
-
+  const [shareText, setShareText] = React.useState("SHARE");
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -43,7 +43,7 @@ const Home = ({ timeTravelDate }) => {
   };
 
   const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
-
+  const [lastPlayedGame, setLastPlayedGame] = useLocalStorage("lastPlayedGame", "");
   const statsObj = React.useMemo(() => {
     return typeof stats === "string" ? JSON.parse(stats) : stats;
   }, [stats]);
@@ -105,6 +105,12 @@ const Home = ({ timeTravelDate }) => {
         </div>
       </span>
       <Stats
+        shareText={shareText}
+        setShareText={setShareText}
+        currentIndex={currentIndexFromStorage}
+        gameStatus={gameStatus}
+        dayCount={day}
+        isTimeTravelled={false}
         openStatsModal={openStatsModal}
         setOpenStatsModal={setOpenStatsModal}
         statsObj={statsObj}
@@ -149,6 +155,10 @@ const Home = ({ timeTravelDate }) => {
             setOpenStatsModal={setOpenStatsModal}
             contributor={contributor}
             contributorTwitterId={contributorTwitterId}
+            shareText={shareText}
+            setShareText={setShareText}
+            lastPlayedGame={lastPlayedGame}
+            setLastPlayedGame={setLastPlayedGame}
           />
         </>
       </div>
