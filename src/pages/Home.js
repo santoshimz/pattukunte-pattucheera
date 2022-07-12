@@ -118,10 +118,14 @@ const Home = ({ timeTravelDate }) => {
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
-      <div className="information-text">
-        Our application can be installed on your device now! check the
-        <a className="text-primary" href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">link</a>
-        for installation instructions.
+      <div className="information-text text-white">
+        Our application can be installed on your device now! check the &nbsp;
+        <a
+          className="text-primary"
+          href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">
+          link
+        </a>
+        &nbsp; for installation instructions.
       </div>
       <div style={customStyles.column}>
         <div />
