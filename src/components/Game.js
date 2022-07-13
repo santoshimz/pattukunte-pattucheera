@@ -73,16 +73,8 @@ const Game = ({
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon + 1,
-          currentStreak: gameStats.currentStreak
-            ? gameStats.currentStreak + 1
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1,
-          maxStreak: gameStats.maxStreak
-            ? gameStats.maxStreak + 1
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1
+          currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
+          maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
         })
       );
       setLastPlayedGame(day);
@@ -99,11 +91,7 @@ const Game = ({
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon,
-          maxStreak: gameStats.maxStreak
-            ? gameStats.maxStreak
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 1
-            : 0,
+          maxStreak: gameStats.maxStreak,
           currentStreak: 0
         })
       );
