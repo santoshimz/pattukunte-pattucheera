@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
-import React from "react";
-import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
+import React, { useMemo } from "react";
+import { GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
@@ -24,11 +24,16 @@ const Game = ({
   setOpenStatsModal,
   contributor,
   timeTravelled,
-  contributorTwitterId
+  contributorTwitterId,
+  shareText,
+  setShareText,
+  // eslint-disable-next-line no-unused-vars
+  lastPlayedGame,
+  setLastPlayedGame
 }) => {
-  const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
     setValue(value);
@@ -60,6 +65,7 @@ const Game = ({
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === movie) {
+      window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
       setAttemptsInLocalStorage(currentIndex);
@@ -67,19 +73,13 @@ const Game = ({
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon + 1,
-          currentStreak: gameStats.currentStreak
-            ? gameStats.currentStreak + 1
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1,
-          maxStreak: gameStats.maxStreak
-            ? gameStats.maxStreak + 1
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1
+          currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
+          maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
         })
       );
+      setLastPlayedGame(day);
     } else if (currentIndex === MAX_ATTEMPTS) {
+      window.gtag("event", "GameFailed", { event_category: "game-stats" });
       setGameStatus(GAME_STATUS.FAILED);
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {
@@ -91,14 +91,11 @@ const Game = ({
         JSON.stringify({
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon,
-          maxStreak: gameStats.maxStreak
-            ? gameStats.maxStreak
-            : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 1
-            : 0,
+          maxStreak: gameStats.maxStreak,
           currentStreak: 0
         })
       );
+      setLastPlayedGame(day);
     } else {
       setCurrentIndex(currentIndex + 1);
       setCurrentIndexFromButton(currentIndex + 1);
@@ -117,7 +114,7 @@ const Game = ({
 
   return (
     <>
-      {gameStatus === GAME_STATUS.RUNNING && (
+      {!gameFinished && (
         <div className="w-100 searchbox-container movie-search-dropdown row d-flex">
           <div className="col-10">
             <AsyncSelect
@@ -147,9 +144,10 @@ const Game = ({
         movie={movie}
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
+        gameFinished={gameFinished}
       />
 
-      {(gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED) && (
+      {gameFinished && (
         <ShareResults
           gameStatus={gameStatus}
           shareText={shareText}
@@ -180,7 +178,11 @@ Game.propTypes = {
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
   timeTravelled: PropTypes.bool,
-  contributorTwitterId: PropTypes.string
+  contributorTwitterId: PropTypes.string,
+  shareText: PropTypes.string,
+  setShareText: PropTypes.func,
+  lastPlayedGame: PropTypes.string,
+  setLastPlayedGame: PropTypes.func
 };
 
 export default Game;

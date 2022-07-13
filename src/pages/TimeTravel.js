@@ -27,6 +27,7 @@ const TimeTravel = () => {
   const [movie, setMovie] = React.useState("");
   const [contributor, setContributor] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [shareText, setShareText] = React.useState("SHARE");
 
   const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
@@ -60,6 +61,7 @@ const TimeTravel = () => {
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
   const handleChangeFromDate = (event) => {
+    window.gtag("event", "time-travelled", { event_category: "game-stats" });
     const selectedDate = event.target.value;
     let diff = getTimeDifference(
       getDateTimeInUTC(new Date(selectedDate)),
@@ -147,6 +149,8 @@ const TimeTravel = () => {
               contributor={contributor}
               timeTravelled={isTimeTravelled(timeTravelDate)}
               contributorTwitterId={contributorTwitterId}
+              shareText={shareText}
+              setShareText={setShareText}
             />
           </>
         )}

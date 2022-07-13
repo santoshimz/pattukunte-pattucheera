@@ -34,7 +34,8 @@ const Home = ({ timeTravelDate }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
-
+  const [shareText, setShareText] = React.useState("SHARE");
+  const [isPWAState, setPWAState] = React.useState(false);
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -43,7 +44,7 @@ const Home = ({ timeTravelDate }) => {
   };
 
   const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
-
+  const [lastPlayedGame, setLastPlayedGame] = useLocalStorage("lastPlayedGame", "");
   const statsObj = React.useMemo(() => {
     return typeof stats === "string" ? JSON.parse(stats) : stats;
   }, [stats]);
@@ -64,6 +65,9 @@ const Home = ({ timeTravelDate }) => {
       setDay(dayCount);
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
+    }
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setPWAState(true);
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
@@ -106,6 +110,12 @@ const Home = ({ timeTravelDate }) => {
         </div>
       </span>
       <Stats
+        shareText={shareText}
+        setShareText={setShareText}
+        currentIndex={currentIndexFromStorage}
+        gameStatus={gameStatus}
+        dayCount={day}
+        isTimeTravelled={false}
         openStatsModal={openStatsModal}
         setOpenStatsModal={setOpenStatsModal}
         statsObj={statsObj}
@@ -113,11 +123,19 @@ const Home = ({ timeTravelDate }) => {
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
-      <div className="information-text">
-        You can time travel to past now! Play the games you missed using our
-        <span style={{ fontStyle: "italic", color: "#aaff64" }}> Time Travel link </span>
-        above.
-      </div>
+      {isPWAState ? (
+        ""
+      ) : (
+        <div className="information-text text-white">
+          Our application can be installed on your device now! Check the &nbsp;
+          <a
+            className="text-primary"
+            href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">
+            link
+          </a>
+          &nbsp; for installation instructions.
+        </div>
+      )}
       <div style={customStyles.column}>
         <div />
         <>
@@ -150,6 +168,10 @@ const Home = ({ timeTravelDate }) => {
             setOpenStatsModal={setOpenStatsModal}
             contributor={contributor}
             contributorTwitterId={contributorTwitterId}
+            shareText={shareText}
+            setShareText={setShareText}
+            lastPlayedGame={lastPlayedGame}
+            setLastPlayedGame={setLastPlayedGame}
           />
         </>
       </div>
