@@ -308,6 +308,7 @@ const moviesDataset = [
   "Daana Veera Soora Karna",
   "Dabangg 3",
   "Daddy",
+  "Dalapathi",
   "Damarukam",
   "Danger",
   "Darling",
