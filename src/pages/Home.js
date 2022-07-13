@@ -35,6 +35,7 @@ const Home = ({ timeTravelDate }) => {
     JSON.stringify(intialGuessDistribution)
   );
   const [shareText, setShareText] = React.useState("SHARE");
+  const [isPWAState, setPWAState] = React.useState(false);
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -63,6 +64,9 @@ const Home = ({ timeTravelDate }) => {
       setDay(dayCount);
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
+    }
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setPWAState(true);
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
@@ -118,15 +122,19 @@ const Home = ({ timeTravelDate }) => {
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
-      <div className="information-text text-white">
-        Our application can be installed on your device now! check the &nbsp;
-        <a
-          className="text-primary"
-          href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">
-          link
-        </a>
-        &nbsp; for installation instructions.
-      </div>
+      {isPWAState ? (
+        ""
+      ) : (
+        <div className="information-text text-white">
+          Our application can be installed on your device now! Check the &nbsp;
+          <a
+            className="text-primary"
+            href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">
+            link
+          </a>
+          &nbsp; for installation instructions.
+        </div>
+      )}
       <div style={customStyles.column}>
         <div />
         <>
