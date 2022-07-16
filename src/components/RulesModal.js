@@ -2,7 +2,6 @@ import Modal from "react-modal";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
-import closeIcon from "../assets/close.svg";
 import imageIcon from "../assets/image.png";
 import viewIcon from "../assets/view.png";
 import numberFiveIcon from "../assets/number-five.png";
@@ -17,7 +16,7 @@ const RulesModal = ({ openRulesModal, setOpenRulesModal }) => {
           How to Play ?
         </h3>
         <button className="btn modal-close" onClick={() => setOpenRulesModal(false)}>
-          <img className="close-icon" src={closeIcon} alt="close" />
+          <span className="material-symbols-outlined">close</span>
         </button>
       </div>
       <div className="rules">
