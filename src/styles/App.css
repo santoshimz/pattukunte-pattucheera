@@ -140,7 +140,7 @@ header {
 .modal-close {
   background-color: transparent;
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 0px;
   font-size: 18px;
 }
@@ -283,10 +283,9 @@ header {
 }
 
 .graph-fill {
-  background: #787c7e;
+  background: #3a6e9c;
   height: 20px;
   text-align: right;
-  padding-right: 5px;
   color: white;
   font-weight: bold;
   font-size: large;
@@ -295,9 +294,6 @@ header {
   justify-content: flex-end;
 }
 
-.default-graph-width {
-  width: 8%;
-}
 
 .guess-data {
   display: flex;
