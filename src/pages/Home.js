@@ -67,6 +67,10 @@ const Home = ({ timeTravelDate }) => {
     }
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setPWAState(true);
+      if (localStorage.getItem("pwaInstall") == null) {
+        localStorage.setItem("pwaInstall", "installed");
+        window.gtag("event", "pwaInstall", { event_category: "pwaInstall" });
+      }
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
