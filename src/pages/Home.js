@@ -49,16 +49,6 @@ const Home = ({ timeTravelDate }) => {
     return typeof stats === "string" ? JSON.parse(stats) : stats;
   }, [stats]);
 
-  const checkForPWA = () => {
-    window.gtag("event", "accessFromPwa", { event_category: "accessFromPwa" });
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setPWAState(true);
-      if (localStorage.getItem("pwaInstall") == null) {
-        localStorage.setItem("pwaInstall", "installed");
-        window.gtag("event", "pwaInstall", { event_category: "pwaInstall" });
-      }
-    }
-  };
   React.useEffect(() => {
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
@@ -75,7 +65,14 @@ const Home = ({ timeTravelDate }) => {
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
     }
-    checkForPWA();
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setPWAState(true);
+      window.gtag("event", "playingUsingPWA", { event_category: "pwaInstall" });
+      if (localStorage.getItem("pwaInstall") == null) {
+        localStorage.setItem("pwaInstall", "installed");
+        window.gtag("event", "pwaInstall", { event_category: "pwaInstall" });
+      }
+    }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
   const navigate = useNavigate();
