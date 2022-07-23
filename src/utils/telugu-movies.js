@@ -1388,7 +1388,9 @@ const moviesDataset = [
   "Yuvakudu",
   "Yuvaraju",
   "Zanjeer",
-  "iSmart Shankar"
+  "iSmart Shankar",
+  "Colour Photo",
+  "Drona"
 ];
 
 export default moviesDataset;
