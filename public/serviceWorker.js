@@ -18,7 +18,11 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
-
+self.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") {
+    window.location.reload();
+  }
+});
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [];
   cacheWhitelist.push(CACHE_NAME);
