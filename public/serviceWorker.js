@@ -20,6 +20,7 @@ self.addEventListener("fetch", (event) => {
 });
 self.addEventListener("visibilitychange", function () {
   if (document.visibilityState === "visible") {
+    alert("In refresh mode");
     window.location.reload();
   }
 });
