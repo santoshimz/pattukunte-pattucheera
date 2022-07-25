@@ -72,6 +72,11 @@ const Home = ({ timeTravelDate }) => {
         localStorage.setItem("pwaInstall", "installed");
         window.gtag("event", "pwaInstall", { event_category: "pwaInstall" });
       }
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          window.location.reload();
+        }
+      });
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 
