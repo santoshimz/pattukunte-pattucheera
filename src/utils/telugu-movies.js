@@ -1,5 +1,6 @@
 const moviesDataset = [
   "Nee Manasu Naku Telusu",
+  "Raja Raja Chora",
   "Dalapathi",
   "1 - Nenokkadine",
   "100% Love",
