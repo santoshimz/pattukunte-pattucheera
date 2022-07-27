@@ -1025,6 +1025,7 @@ const moviesDataset = [
   "Ragile Gundelu",
   "Raja Cheyyi Vesthe",
   "Raja Kumarudu",
+  "Raja Raja Chora",
   "Raja The Great",
   "Raja Vaaru Rani Gaaru",
   "Raja Vikramarka",
