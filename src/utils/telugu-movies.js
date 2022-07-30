@@ -1391,7 +1391,10 @@ const moviesDataset = [
   "Zanjeer",
   "iSmart Shankar",
   "Colour Photo",
-  "Drona"
+  "Drona",
+  "Ashokavanam lo Arjuna Kalyanam",
+  "Shivaji",
+  "Premikula Roju",
 ];
 
 export default moviesDataset;
