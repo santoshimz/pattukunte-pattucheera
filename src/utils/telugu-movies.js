@@ -1394,7 +1394,7 @@ const moviesDataset = [
   "Drona",
   "Ashokavanam lo Arjuna Kalyanam",
   "Shivaji",
-  "Premikula Roju",
+  "Premikula Roju"
 ];
 
 export default moviesDataset;
