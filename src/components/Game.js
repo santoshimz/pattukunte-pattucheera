@@ -4,7 +4,6 @@ import { GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
-import moviesDataset from "../utils/telugu-movies";
 import Fuse from "fuse.js";
 
 const Game = ({
@@ -27,9 +26,9 @@ const Game = ({
   contributorTwitterId,
   shareText,
   setShareText,
-  // eslint-disable-next-line no-unused-vars
   lastPlayedGame,
-  setLastPlayedGame
+  setLastPlayedGame,
+  moviesList
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -54,7 +53,7 @@ const Game = ({
     // fieldNormWeight: 1,
   };
 
-  const fuse = new Fuse(moviesDataset, fuzzyOptions);
+  const fuse = new Fuse(moviesList, fuzzyOptions);
 
   const setAttemptsInLocalStorage = (attempts) => {
     let currentGuessDistribution = JSON.parse(guessDistribution);
@@ -182,7 +181,8 @@ Game.propTypes = {
   shareText: PropTypes.string,
   setShareText: PropTypes.func,
   lastPlayedGame: PropTypes.string,
-  setLastPlayedGame: PropTypes.func
+  setLastPlayedGame: PropTypes.func,
+  moviesList: PropTypes.array
 };
 
 export default Game;
