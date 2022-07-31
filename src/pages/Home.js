@@ -68,6 +68,16 @@ const Home = ({ timeTravelDate }) => {
     }
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setPWAState(true);
+      window.gtag("event", "playingUsingPWA", { event_category: "pwaInstall" });
+      if (localStorage.getItem("pwaInstall") == null) {
+        localStorage.setItem("pwaInstall", "installed");
+        window.gtag("event", "pwaInstall", { event_category: "pwaInstall" });
+      }
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          window.location.reload();
+        }
+      });
     }
   }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
 

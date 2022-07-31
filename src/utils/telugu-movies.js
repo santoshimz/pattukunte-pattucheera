@@ -1026,6 +1026,7 @@ const moviesDataset = [
   "Ragile Gundelu",
   "Raja Cheyyi Vesthe",
   "Raja Kumarudu",
+  "Raja Raja Chora",
   "Raja The Great",
   "Raja Vaaru Rani Gaaru",
   "Raja Vikramarka",
@@ -1389,7 +1390,12 @@ const moviesDataset = [
   "Yuvakudu",
   "Yuvaraju",
   "Zanjeer",
-  "iSmart Shankar"
+  "iSmart Shankar",
+  "Colour Photo",
+  "Drona",
+  "Ashokavanam lo Arjuna Kalyanam",
+  "Shivaji",
+  "Premikula Roju"
 ];
 
 export default moviesDataset;

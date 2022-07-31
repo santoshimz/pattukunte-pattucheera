@@ -1,16 +1,20 @@
-/* eslint-disable react/jsx-key */
 import Modal from "react-modal";
 import React from "react";
 import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
-import closeIcon from "../assets/close.svg";
 import { MAX_ATTEMPTS } from "../utils/constants";
 import { range } from "lodash";
 
 const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
   const { gamesPlayed, gamesWon, currentStreak, maxStreak } = statsObj;
   const sum = Object.keys(guessData).reduce((acc, val) => acc + guessData[val], 0);
-  const DEFAULT_GRAPH_WIDTH = 7;
+
+  const getGraphWidth = (index) => {
+    const percent = guessData[index + 1] !== 0 ? (guessData[index + 1] / sum) * 100 : 0;
+    return Math.round(percent);
+  };
+
+  const guessBars = Object.keys(guessData).map((key, ind) => getGraphWidth(ind));
   return (
     <Modal
       isOpen={openStatsModal}
@@ -21,7 +25,7 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
           Stats
         </h4>
         <button className="btn modal-close" onClick={() => setOpenStatsModal(false)}>
-          <img className="close-icon" src={closeIcon} alt="close" />
+          <span className="material-symbols-outlined">close</span>
         </button>
       </div>
       <div className="data-props">
@@ -43,13 +47,13 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
       <div className="data-props">
         <div className="data-group">
           <span className="data-value">
-            {currentStreak ? currentStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0}
+            {currentStreak ? currentStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0} 🔥
           </span>
           <span className="data-item">Current Streak</span>
         </div>
         <div className="data-group">
           <span className="data-value">
-            {maxStreak ? maxStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0}
+            {maxStreak ? maxStreak : gamesPlayed === gamesWon && gamesWon === 1 ? 1 : 0} 💪
           </span>
           <span className="data-item">Max Streak</span>
         </div>
@@ -58,20 +62,15 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
       <div className="graph-wrapper" style={customStyles.marginTop}>
         {range(0, MAX_ATTEMPTS).map(function (_, index) {
           return (
-            <div className="guess-data">
+            <div key={index} className="guess-data">
               <div className="guess-index">{index + 1}</div>{" "}
-              <div className="guess-bar">
+              <div className="guess-bar d-flex">
                 <div
                   className={`graph-fill ${guessData[index + 1] ? "" : "default-graph-width"}`}
                   style={{
-                    width: `${
-                      guessData[index + 1] !== 0
-                        ? (guessData[index + 1] / sum) * 100
-                        : DEFAULT_GRAPH_WIDTH
-                    }%`
-                  }}>
-                  {guessData[index + 1]}
-                </div>
+                    width: `${guessBars[index]}` + "%"
+                  }}></div>
+                <span className="ml-2">{guessBars[index]}%</span>
               </div>
             </div>
           );
