@@ -17,7 +17,7 @@ import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ timeTravelDate }) => {
+const Home = ({ timeTravelDate, moviesList }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -181,6 +181,7 @@ const Home = ({ timeTravelDate }) => {
             setShareText={setShareText}
             lastPlayedGame={lastPlayedGame}
             setLastPlayedGame={setLastPlayedGame}
+            moviesList={moviesList}
           />
         </>
       </div>
@@ -196,7 +197,8 @@ Home.propTypes = {
   movie: PropTypes.string,
   setMovie: PropTypes.func,
   timeTravelDate: PropTypes.number,
-  showLoader: PropTypes.bool
+  showLoader: PropTypes.bool,
+  moviesList: PropTypes.array
 };
 
 export default Home;
