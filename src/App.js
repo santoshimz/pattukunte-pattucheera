@@ -12,6 +12,9 @@ const App = () => {
     fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
       .then((response) => response.json())
       .then((movies) => {
+        if (movies && !movies.includes("Ashokavanam lo Arjuna Kalyanam")) {
+          movies.push("Ashokavanam lo Arjuna Kalyanam");
+        }
         setMoviesList(movies);
       })
       .catch((error) => console.log(error));
