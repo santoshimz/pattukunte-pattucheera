@@ -65,6 +65,21 @@ const Home = ({ timeTravelDate, moviesList }) => {
       setCurrentGuesses("");
       setCurrentIndexFromStorage(1);
     }
+    // We had a bug where movies.json was not updated correctly resulting in people losing their streak.
+    // This fix will make their current streak same as their max streak
+    // This will fix the issue for users whose max streak was their current streak
+    // This will be extra advantageous for people whose max streak is not their current streak
+    // Probably we should start storing previousStreak
+    if (day === 88 || day === 89) {
+      setStats(
+        JSON.stringify({
+          gamesPlayed: statsObj.gamesPlayed,
+          gamesWon: statsObj.gamesWon,
+          currentStreak: statsObj.maxStreak,
+          maxStreak: statsObj.maxStreak
+        })
+      );
+    }
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setPWAState(true);
       window.gtag("event", "playingUsingPWA", { event_category: "pwaInstall" });
