@@ -10,7 +10,13 @@ const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
 
   React.useEffect(() => {
-    fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
+    var customHeaders = new Headers();
+    customHeaders.append("pragma", "no-cache");
+    customHeaders.append("cache-control", "no-cache");
+    fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`, {
+      method: "GET",
+      headers: customHeaders
+    })
       .then((response) => response.json())
       .then((movies) => {
         console.log(movies);
