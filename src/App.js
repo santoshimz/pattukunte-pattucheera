@@ -15,6 +15,12 @@ const App = () => {
         if (movies && !movies.includes("Ashokavanam lo Arjuna Kalyanam")) {
           movies.push("Ashokavanam lo Arjuna Kalyanam");
         }
+        if (movies && !movies.includes("Shivaji")) {
+          movies.push("Shivaji");
+        }
+        if (movies && !movies.includes("Premikula Roju")) {
+          movies.push("Premikula Roju");
+        }
         setMoviesList(movies);
       })
       .catch((error) => console.log(error));
