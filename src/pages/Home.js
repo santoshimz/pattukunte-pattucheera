@@ -17,7 +17,8 @@ import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ timeTravelDate }) => {
+const Home = ({ timeTravelDate, moviesList }) => {
+  console.log(moviesList);
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -69,7 +70,7 @@ const Home = ({ timeTravelDate }) => {
 
   const navigate = useNavigate();
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
-
+  console.log(moviesList);
   return (
     <div style={customStyles.backgroundStyle}>
       <h1 className="m-2 font-weight-bold" style={customStyles.headerStyle}>
@@ -150,6 +151,7 @@ const Home = ({ timeTravelDate }) => {
             setOpenStatsModal={setOpenStatsModal}
             contributor={contributor}
             contributorTwitterId={contributorTwitterId}
+            moviesList={moviesList}
           />
         </>
       </div>
@@ -165,7 +167,8 @@ Home.propTypes = {
   movie: PropTypes.string,
   setMovie: PropTypes.func,
   timeTravelDate: PropTypes.number,
-  showLoader: PropTypes.bool
+  showLoader: PropTypes.bool,
+  moviesList: PropTypes.array
 };
 
 export default Home;

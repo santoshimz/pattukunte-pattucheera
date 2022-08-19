@@ -4,7 +4,6 @@ import { GAME_STATUS, MAX_ATTEMPTS } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
-import moviesDataset from "../utils/telugu-movies";
 import Fuse from "fuse.js";
 
 const Game = ({
@@ -24,7 +23,8 @@ const Game = ({
   setOpenStatsModal,
   contributor,
   timeTravelled,
-  contributorTwitterId
+  contributorTwitterId,
+  moviesList
 }) => {
   const [shareText, setShareText] = React.useState("SHARE");
   const [inputValue, setValue] = React.useState("");
@@ -49,7 +49,7 @@ const Game = ({
     // fieldNormWeight: 1,
   };
 
-  const fuse = new Fuse(moviesDataset, fuzzyOptions);
+  const fuse = new Fuse(moviesList, fuzzyOptions);
 
   const setAttemptsInLocalStorage = (attempts) => {
     let currentGuessDistribution = JSON.parse(guessDistribution);
@@ -180,7 +180,8 @@ Game.propTypes = {
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
   timeTravelled: PropTypes.bool,
-  contributorTwitterId: PropTypes.string
+  contributorTwitterId: PropTypes.string,
+  moviesList: PropTypes.array
 };
 
 export default Game;

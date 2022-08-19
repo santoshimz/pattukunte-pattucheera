@@ -12,8 +12,10 @@ import ImagesContainer from "../components/ImagesContainer";
 import { customStyles } from "../styles/styles";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const TimeTravel = () => {
+const TimeTravel = ({ moviesList }) => {
+  console.log(moviesList);
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
     "timeTravel-currentIndex",
     1
@@ -147,6 +149,7 @@ const TimeTravel = () => {
               contributor={contributor}
               timeTravelled={isTimeTravelled(timeTravelDate)}
               contributorTwitterId={contributorTwitterId}
+              moviesList={moviesList}
             />
           </>
         )}
@@ -156,6 +159,8 @@ const TimeTravel = () => {
   );
 };
 
-TimeTravel.propTypes = {};
+TimeTravel.propTypes = {
+  moviesList: PropTypes.array
+};
 
 export default TimeTravel;
