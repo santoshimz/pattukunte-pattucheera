@@ -34,6 +34,8 @@ const Home = ({ timeTravelDate, moviesList }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
+  // We want to update stats only once. This has to be idempotent
+  const [updateStats, setUpdateStats] = useLocalStorage("updateStats", false);
   const [shareText, setShareText] = React.useState("SHARE");
   const [isPWAState, setPWAState] = React.useState(false);
   const initialStats = {
@@ -59,6 +61,22 @@ const Home = ({ timeTravelDate, moviesList }) => {
         setContributorTwitterId(json.twitterId);
       })
       .catch((error) => console.log(error));
+    // We had a bug where movies.json was not updated correctly resulting in people losing their streak.
+    // This fix will make their current streak same as their max streak
+    // This will fix the issue for users whose max streak was their current streak
+    // This will be extra advantageous for people whose max streak is not their current streak
+    // Probably we should start storing previousStreak
+    if ((day === 88 || day === 89) && gameStatus === GAME_STATUS.FAILED && !updateStats) {
+      setStats(
+        JSON.stringify({
+          gamesPlayed: statsObj.gamesPlayed,
+          gamesWon: statsObj.gamesWon + 1,
+          currentStreak: statsObj.maxStreak + 1,
+          maxStreak: statsObj.maxStreak + 1
+        })
+      );
+      setUpdateStats(true);
+    }
     if (day !== dayCount) {
       setGameStatus(GAME_STATUS.RUNNING);
       setDay(dayCount);
