@@ -7,14 +7,8 @@ import Banner from "./components/banner";
 
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
-  let customHeaders = new Headers();
-  customHeaders.append("pragma", "no-cache");
-  customHeaders.append("cache-control", "no-cache");
   React.useEffect(() => {
-    fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`, {
-      method: "GET",
-      headers: customHeaders
-    })
+    fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
       .then((response) => response.json())
       .then((movies) => {
         if (movies && !movies.includes("Ashokavanam lo Arjuna Kalyanam")) {
