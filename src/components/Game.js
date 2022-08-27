@@ -5,6 +5,21 @@ import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import Fuse from "fuse.js";
+import Confetti from "react-dom-confetti";
+
+const config = {
+  angle: "180",
+  spread: 300,
+  startVelocity: "30",
+  elementCount: 70,
+  dragFriction: 0.12,
+  duration: "3000",
+  stagger: "2",
+  width: "10px",
+  height: "10px",
+  perspective: "900px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+};
 
 const Game = ({
   currentIndex,
@@ -32,6 +47,7 @@ const Game = ({
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const [isShowConfetti, setIsShowConfetti] = React.useState(null);
   const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
@@ -64,6 +80,7 @@ const Game = ({
   const handleChange = (value) => {
     setSelectedValue(value.title);
     if (value.title === movie) {
+      setIsShowConfetti(true);
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
@@ -145,6 +162,9 @@ const Game = ({
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
       />
+      <div className="d-flex justify-content-center">
+        <Confetti active={isShowConfetti} config={config} />
+      </div>
 
       {gameFinished && (
         <ShareResults
