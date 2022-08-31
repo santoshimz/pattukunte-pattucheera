@@ -61,9 +61,8 @@ const Game = ({
     setGuessDistribution(JSON.stringify(currentGuessDistribution));
   };
 
-  const handleChange = (value) => {
-    setSelectedValue(value.title);
-    if (value.title === movie) {
+  const submit = (value) => {
+    if ((selectedValue?.title ? selectedValue?.title : value.title) === movie) {
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
@@ -82,9 +81,11 @@ const Game = ({
       setGameStatus(GAME_STATUS.FAILED);
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {
-        setCurrentGuesses(currentGuesses + "," + value.title);
+        setCurrentGuesses(
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+        );
       } else {
-        setCurrentGuesses(value.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
       setStats(
         JSON.stringify({
@@ -95,15 +96,19 @@ const Game = ({
         })
       );
       setLastPlayedGame(day);
+      setSelectedValue(null);
     } else {
       setCurrentIndex(currentIndex + 1);
       setCurrentIndexFromButton(currentIndex + 1);
       if (currentGuesses !== "") {
-        setCurrentGuesses(currentGuesses + "," + value.title);
+        setCurrentGuesses(
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+        );
       } else {
-        setCurrentGuesses(value.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
     }
+    setSelectedValue(null);
   };
 
   const fetchData = async (inputValue) => {
@@ -126,14 +131,22 @@ const Game = ({
               getOptionValue={(e) => e.title}
               loadOptions={fetchData}
               onInputChange={handleInputChange}
-              onChange={handleChange}
+              onChange={(value) => {
+                console.log(value);
+                setSelectedValue(value);
+              }}
             />
           </div>
           <div className="col-2 d-flex justify-content-end">
-            <button onClick={() => handleChange({ title: "Skipped" })} className="btn btn-primary">
+            <button onClick={() => submit({ title: "Skipped" })} className="btn btn-primary">
               Skip
             </button>
           </div>
+          <button
+            className="btn px-4 py-2 text-white w-full rounded bg-primary my-2 mx-auto"
+            onClick={() => submit()}>
+            submit
+          </button>
         </div>
       )}
       <Results
