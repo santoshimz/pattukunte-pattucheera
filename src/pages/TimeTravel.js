@@ -14,7 +14,7 @@ import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const TimeTravel = ({ moviesList }) => {
+const TimeTravel = ({ moviesList, theme }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
     "timeTravel-currentIndex",
     1
@@ -86,18 +86,28 @@ const TimeTravel = ({ moviesList }) => {
   const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
 
   return (
-    <div style={customStyles.backgroundStyle}>
-      <h1 className="m-2 text-white col-12 text-center underline-text">Time Travel to past!</h1>
+    <div
+      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
+      <h1
+        className="m-2 col-12 text-center underline-text"
+        style={{ color: theme === "dark" ? "white" : "black" }}>
+        Time Travel to past!
+      </h1>
       {timeTravelDate >= 0 && (
-        <h5 className="text-center text-white mt-4 mb-0 text-primary">
+        <h5
+          className="text-center mt-4 mb-0 text-primary"
+          style={{ color: theme === "dark" ? "white" : "black" }}>
           You are playing day #{timeTravelDate} game
         </h5>
       )}
       <div className="pt-4 mt-2 row ml-1 mr-1">
-        <div className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2 text-white">
+        <div
+          className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2"
+          style={{ color: theme === "dark" ? "white" : "black" }}>
           <button
             onClick={goBack}
-            className="mb-4 btn btn-lg text-center p-0 w-fit-content text-white mb-2">
+            className="mb-4 btn btn-lg text-center p-0 w-fit-content mb-2"
+            style={{ color: theme === "dark" ? "white" : "black" }}>
             <span className="d-flex">
               <i className="d-flex align-items-center fa fa-arrow-left fs-30"></i>
             </span>
@@ -123,7 +133,9 @@ const TimeTravel = ({ moviesList }) => {
 
         {!loading && (
           <>
-            <div className="text-white text-center text-info m-auto time-travel-info">
+            <div
+              className="text-center text-info m-auto time-travel-info"
+              style={{ color: theme === "dark" ? "white" : "black" }}>
               <p>Note: This results will not be included in streak or any other daily game stats</p>
             </div>
             <ImagesContainer
@@ -153,16 +165,18 @@ const TimeTravel = ({ moviesList }) => {
               shareText={shareText}
               setShareText={setShareText}
               moviesList={moviesList}
+              theme={theme}
             />
           </>
         )}
       </div>
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 };
 TimeTravel.propTypes = {
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  theme: PropTypes.string
 };
 
 export default TimeTravel;

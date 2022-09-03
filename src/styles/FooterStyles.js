@@ -6,5 +6,13 @@ export const FooterStyles = {
     padding: "10px",
     marginTop: "60px",
     marginBottom: "20px"
+  },
+  footerLight: {
+    color: "black",
+    position: "relative",
+    bottom: "0px",
+    padding: "10px",
+    marginTop: "60px",
+    marginBottom: "20px"
   }
 };

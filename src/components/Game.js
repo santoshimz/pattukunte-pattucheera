@@ -28,7 +28,8 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList
+  moviesList,
+  theme
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -62,7 +63,7 @@ const Game = ({
   };
 
   const submit = (value) => {
-    if ((selectedValue?.title ? selectedValue?.title : value.title) === movie) {
+    if ((selectedValue?.title ? selectedValue?.title : value?.title) === movie) {
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
@@ -82,10 +83,10 @@ const Game = ({
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {
         setCurrentGuesses(
-          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue?.title)
         );
       } else {
-        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue?.title);
       }
       setStats(
         JSON.stringify({
@@ -102,10 +103,10 @@ const Game = ({
       setCurrentIndexFromButton(currentIndex + 1);
       if (currentGuesses !== "") {
         setCurrentGuesses(
-          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue?.title)
         );
       } else {
-        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue?.title);
       }
     }
     setSelectedValue(null);
@@ -132,7 +133,6 @@ const Game = ({
               loadOptions={fetchData}
               onInputChange={handleInputChange}
               onChange={(value) => {
-                console.log(value);
                 setSelectedValue(value);
               }}
             />
@@ -157,6 +157,7 @@ const Game = ({
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
+        theme={theme}
       />
 
       {gameFinished && (
@@ -167,6 +168,7 @@ const Game = ({
           currentIndex={currentIndex}
           dayCount={day}
           isTimeTravelled={timeTravelled}
+          theme={theme}
         />
       )}
     </>
@@ -183,7 +185,7 @@ Game.propTypes = {
   setStats: PropTypes.func,
   day: PropTypes.number,
   gameStats: PropTypes.object,
-  setCurrentIndexFromButton: PropTypes.number,
+  setCurrentIndexFromButton: PropTypes.func,
   movie: PropTypes.string,
   guessDistribution: PropTypes.string,
   setGuessDistribution: PropTypes.func,
@@ -195,7 +197,8 @@ Game.propTypes = {
   setShareText: PropTypes.func,
   lastPlayedGame: PropTypes.string,
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  theme: PropTypes.string
 };
 
 export default Game;
