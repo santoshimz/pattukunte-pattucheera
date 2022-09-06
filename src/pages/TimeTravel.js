@@ -87,10 +87,9 @@ const TimeTravel = ({ moviesList, theme }) => {
 
   return (
     <div
-      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}
-      className="px-5 py-3">
+      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
       <h1
-        className="m-2 col-12 text-center underline-text"
+        className="m-2 col-12 text-center underline-text px-5"
         style={{ color: theme === "dark" ? "white" : "black" }}>
         Time Travel to past!
       </h1>

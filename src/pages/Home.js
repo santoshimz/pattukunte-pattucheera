@@ -103,10 +103,9 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
 
   return (
     <div
-      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}
-      className="px-5 py-3">
+      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
       <h1
-        className="font-weight-bold"
+        className="font-weight-bold px-5"
         style={theme === "dark" ? customStyles.headerStyle : customStyles.headerStyleLight}>
         Pattukunte Pattucheera
       </h1>
