@@ -103,7 +103,8 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
 
   return (
     <div
-      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
+      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}
+      className="px-5 py-3">
       <h1
         className="font-weight-bold"
         style={theme === "dark" ? customStyles.headerStyle : customStyles.headerStyleLight}>
@@ -124,7 +125,11 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
           <button
             onClick={gotoArchives}
             style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
-            className="bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined">
+            className={
+              theme == "dark"
+                ? "bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined"
+                : "bg-transparent btn-ripple time-travel-icon-light fs-30 material-symbols-outlined"
+            }>
             update
           </button>
           <span>Time Travel</span>
