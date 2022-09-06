@@ -51,7 +51,10 @@ const Results = ({
               color: theme === "dark" ? "white" : "black"
             }}>
             You got it - The answer was
-            <span className="color-lawngreen"> {movie}</span>
+            <span className={theme === "dark" ? "color-lawngreen" : "color-lawngreenLight"}>
+              {" "}
+              {movie}
+            </span>
           </span>
         )}
         {gameFailed && (
@@ -62,7 +65,10 @@ const Results = ({
               color: theme === "dark" ? "white" : "black"
             }}>
             The answer was
-            <span className="color-lawngreen"> {movie}</span>
+            <span className={theme === "dark" ? "color-lawngreen" : "color-lawngreenLight"}>
+              {" "}
+              {movie}
+            </span>
           </span>
         )}
         <div
@@ -73,7 +79,9 @@ const Results = ({
             // eslint-disable-next-line react/jsx-key
             return <span className="square red"></span>;
           })}
-          {gameSuccess && <span className="square green"></span>}
+          {gameSuccess && (
+            <span className={theme === "dark" ? "square green" : "square green-light"}></span>
+          )}
           {gameFailed && <span className="square red"></span>}
         </div>
       </div>
@@ -90,8 +98,21 @@ const Results = ({
       })}
       {gameSuccess && (
         <div>
-          <div className="m-auto guessed-movie correct-guess" style={customStyles.row}>
-            <span className="color-lawngreen material-symbols-outlined">check_circle</span>
+          <div
+            className={
+              theme === "dark"
+                ? "m-auto guessed-movie correct-guess"
+                : "m-auto guessed-movie correct-guess-light"
+            }
+            style={customStyles.row}>
+            <span
+              className={
+                theme === "dark"
+                  ? "color-lawngreen material-symbols-outlined"
+                  : "color-lawngreenLight material-symbols-outlined"
+              }>
+              check_circle
+            </span>
             <span
               style={{ ...customStyles.marginLeft, color: theme === "dark" ? "white" : "black" }}>
               {movie}

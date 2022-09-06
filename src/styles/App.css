@@ -329,6 +329,10 @@ span.green {
   background: springgreen;
 }
 
+span.green-light {
+  background: green;
+}
+
 .w-fit-content {
   width: fit-content;
 }
@@ -410,6 +414,10 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
   color: lawngreen;
 }
 
+.color-lawngreenLight {
+  color: green;
+}
+
 .fs-30 {
   font-size: 30px;
 }
@@ -419,6 +427,9 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 }
 .time-travel-icon {
   color: #aaff64;
+}
+.time-travel-icon-light {
+  color: green;
 }
 .instructions-icon {
   color: #e91e63;
@@ -481,6 +492,13 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
   border-top: 1px solid lawngreen;
   border-right: 1px solid lawngreen;
   border-bottom: 1px solid lawngreen;
+}
+.correct-guess-light {
+  border-left: 5px solid green;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid green;
+  border-right: 1px solid green;
+  border-bottom: 1px solid green;
 }
 .text-red {
   color: red;

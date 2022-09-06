@@ -127,7 +127,7 @@ export const customStyles = {
     border: "none",
     color: "gray",
     position: "absolute",
-    top: "1%",
+    top: "2.5%",
     right: "2%",
     zIndex: "1"
   },
