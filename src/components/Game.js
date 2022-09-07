@@ -162,7 +162,7 @@ const Game = ({
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
       />
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center" style={{ width: "180px" }}>
         <Confetti active={isShowConfetti} config={config} />
       </div>
 
