@@ -13,7 +13,7 @@ const config = {
   startVelocity: "30",
   elementCount: 70,
   dragFriction: 0.12,
-  duration: "3000",
+  duration: "2000",
   stagger: "2",
   width: "10px",
   height: "10px",
@@ -162,7 +162,13 @@ const Game = ({
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
       />
-      <div className="d-flex justify-content-center">
+      <div
+        className="d-flex justify-content-center"
+        style={{
+          position: "absolute",
+          top: "55%",
+          left: "50%"
+        }}>
         <Confetti active={isShowConfetti} config={config} />
       </div>
 
