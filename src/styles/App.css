@@ -5,13 +5,10 @@ body {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
 }
+
 body {
   min-height: 100%;
   /* background: black; */
-}
-
-a {
-  color: #333333;
 }
 
 header {
@@ -126,17 +123,21 @@ header {
 .header-icon {
   padding: 0px 16px;
 }
+
 .rules-header,
 .stats-header {
   position: relative;
 }
+
 .rules-header h3,
 .stats-header h3 {
   font-weight: bolder;
 }
+
 .stats-header .modal-close {
   top: 0px;
 }
+
 .modal-close {
   background-color: transparent;
   position: absolute;
@@ -216,6 +217,7 @@ header {
   font-size: 18px;
   padding: 10px;
 }
+
 .rules p {
   padding: 10px;
   background: #9aaae63b;
@@ -223,6 +225,7 @@ header {
   display: flex;
   gap: 0.3rem;
 }
+
 .rules img {
   flex-shrink: 0;
   margin-top: 4px;
@@ -259,6 +262,7 @@ header {
 .counter {
   padding: 5px;
 }
+
 .guess-graph {
   letter-spacing: 1px;
   margin-top: 20px;
@@ -275,6 +279,7 @@ header {
   font-size: larger;
   font-weight: bold;
 }
+
 .guess-bar {
   background-color: transparent;
   height: 20px;
@@ -300,8 +305,8 @@ header {
   width: 100%;
   margin: 2px 0px;
 }
+
 .banner-text a {
-  color: #93ddff;
   text-decoration: underline;
 }
 .p-200 {
@@ -354,6 +359,7 @@ input[type="date"] {
 
   cursor: pointer;
 }
+
 input[type="date"]:focus {
   outline: none;
   border-color: #3acfff;
@@ -369,13 +375,16 @@ input[type="date"]:focus {
 ::-webkit-datetime-edit-year-field:hover {
   background: rgba(0, 120, 250, 0.1);
 }
+
 ::-webkit-datetime-edit-text {
   opacity: 0;
 }
+
 ::-webkit-clear-button,
 ::-webkit-inner-spin-button {
   display: none;
 }
+
 ::-webkit-calendar-picker-indicator {
   position: absolute;
   width: 2.5rem;
