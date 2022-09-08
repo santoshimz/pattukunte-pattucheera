@@ -6,6 +6,17 @@ export const customStyles = {
     background: "rgba(39, 39, 39, 0.7)" // added a black modal overlay with 0.7 opacity
   },
 
+  backgroundStyle: {
+    background: "black",
+    minHeight: "100vh",
+    padding: "1rem"
+  },
+
+  backgroundStyleLight: {
+    background: "#fff",
+    padding: "1rem"
+  },
+
   content: {
     top: "50%",
     left: "50%",
@@ -25,6 +36,15 @@ export const customStyles = {
     // marginTop: '20px',
     color: "white"
   },
+  headerStyleLight: {
+    display: "flex",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "32px",
+    // marginTop: '20px',
+    color: "black"
+  },
   statsStyle: {
     display: "flex",
     textAlign: "center",
@@ -33,6 +53,18 @@ export const customStyles = {
     marginBottom: "30px",
     cursor: "pointer",
     color: "white",
+    justifyContent: "center",
+    fontSize: "12px",
+    gap: "20px"
+  },
+  statsStyleLight: {
+    display: "flex",
+    textAlign: "center",
+    alignItems: "center",
+    marginTop: "30px",
+    marginBottom: "30px",
+    cursor: "pointer",
+    color: "black",
     justifyContent: "center",
     fontSize: "12px",
     gap: "20px"
@@ -80,5 +112,29 @@ export const customStyles = {
     padding: "5px",
     marginBottom: "5px",
     width: "70px"
+  },
+  statsIconsLight: {
+    border: "2px solid gray",
+    borderRadius: "3px",
+    padding: "5px",
+    marginBottom: "5px",
+    width: "70px"
+  },
+  themeIcon: {
+    // border: "2px solid gray",
+    // borderRadius: "5px",
+    // padding: "5px 8px",
+    border: "none",
+    color: "gray",
+    position: "absolute",
+    top: "2.5%",
+    right: "2%",
+    zIndex: "1"
+  },
+  install: {
+    color: "white"
+  },
+  installLight: {
+    color: "#000"
   }
 };

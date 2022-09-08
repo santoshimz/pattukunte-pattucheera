@@ -43,7 +43,8 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList
+  moviesList,
+  theme
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -161,6 +162,7 @@ const Game = ({
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
+        theme={theme}
       />
       <div
         className="d-flex justify-content-center"
@@ -180,6 +182,7 @@ const Game = ({
           currentIndex={currentIndex}
           dayCount={day}
           isTimeTravelled={timeTravelled}
+          theme={theme}
         />
       )}
     </>
@@ -196,7 +199,7 @@ Game.propTypes = {
   setStats: PropTypes.func,
   day: PropTypes.number,
   gameStats: PropTypes.object,
-  setCurrentIndexFromButton: PropTypes.number,
+  setCurrentIndexFromButton: PropTypes.func,
   movie: PropTypes.string,
   guessDistribution: PropTypes.string,
   setGuessDistribution: PropTypes.func,
@@ -208,7 +211,8 @@ Game.propTypes = {
   setShareText: PropTypes.func,
   lastPlayedGame: PropTypes.string,
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  theme: PropTypes.string
 };
 
 export default Game;

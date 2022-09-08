@@ -12,7 +12,8 @@ const ShareResults = ({
   currentIndex,
   gameStatus,
   dayCount,
-  isTimeTravelled
+  isTimeTravelled,
+  theme
 }) => {
   const socialShare = (app) => {
     switch (app) {
@@ -52,7 +53,7 @@ const ShareResults = ({
       <div className="timer-wrapper">
         {!isTimeTravelled && (
           <div className="text-white">
-            <NextGameTimer />
+            <NextGameTimer theme={theme} />
           </div>
         )}
         <ShareButton
@@ -96,7 +97,8 @@ ShareResults.propTypes = {
   currentIndex: PropTypes.number,
   gameStatus: PropTypes.string,
   dayCount: PropTypes.number,
-  isTimeTravelled: PropTypes.bool
+  isTimeTravelled: PropTypes.bool,
+  theme: PropTypes.string
 };
 
 export default ShareResults;
