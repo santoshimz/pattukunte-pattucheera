@@ -80,6 +80,7 @@ const Game = ({
 
   const submit = (value) => {
     if ((selectedValue?.title ? selectedValue?.title : value.title) === movie) {
+      setIsShowConfetti(true);
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
@@ -136,8 +137,14 @@ const Game = ({
   return (
     <>
       {!gameFinished && (
-        <div className="w-100 searchbox-container movie-search-dropdown row d-flex">
-          <div className="col-10">
+        <div className="w-100 searchbox-container movie-search-dropdown row d-flex justify-content-center">
+          <div className="w-100 mb-4 px-4">
+            <button onClick={() => submit({ title: "Skipped" })} className="btn btn-danger col-3">
+              Skip
+            </button>
+          </div>
+
+          <div className="col-9 p-0 pl-4">
             <AsyncSelect
               placeholder="Enter a movie name"
               cacheOptions
@@ -154,16 +161,12 @@ const Game = ({
               }}
             />
           </div>
-          <div className="col-2 d-flex justify-content-end">
-            <button onClick={() => submit({ title: "Skipped" })} className="btn btn-primary">
-              Skip
+
+          <div className="col-3">
+            <button className="btn bg-primary text-white px-2.5 py-2" onClick={() => submit()}>
+              submit
             </button>
           </div>
-          <button
-            className="btn px-4 py-2 text-white w-full rounded bg-primary my-2 mx-auto"
-            onClick={() => submit()}>
-            submit
-          </button>
         </div>
       )}
       <Results

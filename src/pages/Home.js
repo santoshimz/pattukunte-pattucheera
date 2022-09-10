@@ -172,6 +172,17 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
           &nbsp; for installation instructions.
         </div>
       )}
+      <div
+        className="information-text mt-3 font-italic d-flex"
+        style={{ color: theme === "light" ? "black" : "white" }}>
+        <span className="material-symbols-outlined text-xl">info</span>
+        <p>
+          You can now submit your responses after selecting from the dropdown.{" "}
+          <strong style={{ color: theme === "light" ? "green" : "lawngreen" }}>
+            Say no more to accidental taps!!!
+          </strong>
+        </p>
+      </div>
       <div style={customStyles.column}>
         <div />
         <>
