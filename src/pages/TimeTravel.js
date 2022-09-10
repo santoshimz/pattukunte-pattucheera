@@ -14,7 +14,8 @@ import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const TimeTravel = ({ moviesList, theme }) => {
+const TimeTravel = ({ moviesList }) => {
+  const theme = localStorage.getItem("theme");
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
     "timeTravel-currentIndex",
     1

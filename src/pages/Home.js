@@ -17,7 +17,8 @@ import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ timeTravelDate, moviesList, theme }) => {
+const Home = ({ timeTravelDate, moviesList }) => {
+  const theme = localStorage.getItem("theme");
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =

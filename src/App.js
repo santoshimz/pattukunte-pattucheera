@@ -8,8 +8,13 @@ import { customStyles } from "./styles/styles";
 
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = React.useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "dark"
+  );
   React.useEffect(() => {
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", "dark");
+    }
     fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
       .then((response) => response.json())
       .then((movies) => {
@@ -32,6 +37,7 @@ const App = () => {
       {theme === "dark" && (
         <button
           onClick={() => {
+            localStorage.setItem("theme", "light");
             setTheme("light");
           }}
           alt="stats"
@@ -43,6 +49,7 @@ const App = () => {
       {theme === "light" && (
         <button
           onClick={() => {
+            localStorage.setItem("theme", "dark");
             setTheme("dark");
           }}
           alt="stats"
@@ -54,12 +61,8 @@ const App = () => {
       {process.env.REACT_APP_BANNER && <Banner />}
       <BrowserRouter>
         <Routes>
-          <Route
-            exact
-            path="/timetravel"
-            element={<TimeTravel theme={theme} moviesList={moviesList} />}
-          />
-          <Route path="/*" element={<Home theme={theme} moviesList={moviesList} />} />
+          <Route exact path="/timetravel" element={<TimeTravel moviesList={moviesList} />} />
+          <Route path="/*" element={<Home moviesList={moviesList} />} />
         </Routes>
       </BrowserRouter>
     </div>
