@@ -17,7 +17,7 @@ import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ timeTravelDate, moviesList }) => {
+const Home = ({ timeTravelDate, moviesList, theme }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -102,16 +102,19 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
 
   return (
-    <div style={customStyles.backgroundStyle}>
-      <h1 className="m-2 font-weight-bold" style={customStyles.headerStyle}>
+    <div
+      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
+      <h1
+        className="font-weight-bold px-5"
+        style={theme === "dark" ? customStyles.headerStyle : customStyles.headerStyleLight}>
         Pattukunte Pattucheera
       </h1>
-      <span style={customStyles.statsStyle}>
+      <span style={theme === "dark" ? customStyles.statsStyle : customStyles.statsStyleLight}>
         <div className="d-flex flex-column align-items-center">
           <button
             onClick={() => setOpenStatsModal(true)}
             alt="stats"
-            style={customStyles.statsIcons}
+            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
             className="bg-transparent btn-ripple stats-icon fs-30 material-symbols-outlined">
             equalizer
           </button>
@@ -120,8 +123,12 @@ const Home = ({ timeTravelDate, moviesList }) => {
         <div className="d-flex flex-column align-items-center">
           <button
             onClick={gotoArchives}
-            style={customStyles.statsIcons}
-            className="bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined">
+            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
+            className={
+              theme == "dark"
+                ? "bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined"
+                : "bg-transparent btn-ripple time-travel-icon-light fs-30 material-symbols-outlined"
+            }>
             update
           </button>
           <span>Time Travel</span>
@@ -129,7 +136,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
         <div className="d-flex flex-column align-items-center">
           <button
             onClick={() => setOpenRulesModal(true)}
-            style={customStyles.statsIcons}
+            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
             className="bg-transparent btn-ripple instructions-icon fs-30 material-symbols-outlined">
             help
           </button>
@@ -153,7 +160,9 @@ const Home = ({ timeTravelDate, moviesList }) => {
       {isPWAState ? (
         ""
       ) : (
-        <div className="information-text text-white">
+        <div
+          className="information-text"
+          style={theme === "dark" ? customStyles.install : customStyles.installLight}>
           Our application can be installed on your device now! Check the &nbsp;
           <a
             className="text-primary"
@@ -200,10 +209,11 @@ const Home = ({ timeTravelDate, moviesList }) => {
             lastPlayedGame={lastPlayedGame}
             setLastPlayedGame={setLastPlayedGame}
             moviesList={moviesList}
+            theme={theme}
           />
         </>
       </div>
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 };
@@ -216,7 +226,8 @@ Home.propTypes = {
   setMovie: PropTypes.func,
   timeTravelDate: PropTypes.number,
   showLoader: PropTypes.bool,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  theme: PropTypes.string
 };
 
 export default Home;

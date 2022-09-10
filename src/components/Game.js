@@ -5,6 +5,21 @@ import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import Fuse from "fuse.js";
+import Confetti from "react-dom-confetti";
+
+const config = {
+  angle: "180",
+  spread: 300,
+  startVelocity: "30",
+  elementCount: 70,
+  dragFriction: 0.12,
+  duration: "2000",
+  stagger: "2",
+  width: "10px",
+  height: "10px",
+  perspective: "900px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+};
 
 const Game = ({
   currentIndex,
@@ -28,10 +43,12 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList
+  moviesList,
+  theme
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const [isShowConfetti, setIsShowConfetti] = React.useState(null);
   const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
@@ -157,7 +174,17 @@ const Game = ({
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
+        theme={theme}
       />
+      <div
+        className="d-flex justify-content-center"
+        style={{
+          position: "absolute",
+          top: "55%",
+          left: "50%"
+        }}>
+        <Confetti active={isShowConfetti} config={config} />
+      </div>
 
       {gameFinished && (
         <ShareResults
@@ -167,6 +194,7 @@ const Game = ({
           currentIndex={currentIndex}
           dayCount={day}
           isTimeTravelled={timeTravelled}
+          theme={theme}
         />
       )}
     </>
@@ -183,7 +211,7 @@ Game.propTypes = {
   setStats: PropTypes.func,
   day: PropTypes.number,
   gameStats: PropTypes.object,
-  setCurrentIndexFromButton: PropTypes.number,
+  setCurrentIndexFromButton: PropTypes.func,
   movie: PropTypes.string,
   guessDistribution: PropTypes.string,
   setGuessDistribution: PropTypes.func,
@@ -195,7 +223,8 @@ Game.propTypes = {
   setShareText: PropTypes.func,
   lastPlayedGame: PropTypes.string,
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  theme: PropTypes.string
 };
 
 export default Game;
