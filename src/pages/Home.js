@@ -37,7 +37,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
   // We want to update stats only once. This has to be idempotent
   const [updateStats, setUpdateStats] = useLocalStorage("updateStats", false);
   const [shareText, setShareText] = React.useState("SHARE");
-  const [isPWAState, setPWAState] = React.useState(false);
+  // const [isPWAState, setPWAState] = React.useState(false);
   const initialStats = {
     gamesPlayed: 0,
     gamesWon: 0,
@@ -84,7 +84,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
       setCurrentIndexFromStorage(1);
     }
     if (window.matchMedia("(display-mode: standalone)").matches) {
-      setPWAState(true);
+      // setPWAState(true);
       window.gtag("event", "playingUsingPWA", { event_category: "pwaInstall" });
       if (localStorage.getItem("pwaInstall") == null) {
         localStorage.setItem("pwaInstall", "installed");
@@ -157,7 +157,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
       {/* used inline style as we this would be removed in future */}
-      {isPWAState ? (
+      {/* {isPWAState ? (
         ""
       ) : (
         <div
@@ -171,7 +171,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
           </a>
           &nbsp; for installation instructions.
         </div>
-      )}
+      )} */}
       <div
         className="information-text mt-3 font-italic d-flex"
         style={{ color: theme === "light" ? "black" : "white" }}>

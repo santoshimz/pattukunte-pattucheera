@@ -138,7 +138,7 @@ const Game = ({
     <>
       {!gameFinished && (
         <div className="w-100 searchbox-container movie-search-dropdown row d-flex justify-content-center">
-          <div className="w-100 mb-4 px-4">
+          <div className="w-100 mb-4 px-4 d-flex justify-content-center">
             <button onClick={() => submit({ title: "Skipped" })} className="btn btn-danger col-3">
               Skip
             </button>
@@ -156,7 +156,6 @@ const Game = ({
               loadOptions={fetchData}
               onInputChange={handleInputChange}
               onChange={(value) => {
-                console.log(value);
                 setSelectedValue(value);
               }}
             />
