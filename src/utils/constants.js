@@ -90,3 +90,15 @@ export const composeShareText = (gameStatus, dayCount, isTimeTravelled, currentI
 export const isGameDone = (gameStatus) => {
   return gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED;
 };
+
+export const missingMovies = [
+  "13 B",
+  "Mangalyam",
+  "Oke Okkadu",
+  "Robo",
+  "RRR",
+  "Veedokkade",
+  "Ashokavanam lo Arjuna Kalyanam",
+  "Shivaji",
+  "Premikula Roju"
+];

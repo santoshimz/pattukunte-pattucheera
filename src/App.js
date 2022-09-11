@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TimeTravel from "./pages/TimeTravel";
 import Banner from "./components/banner";
 import { customStyles } from "./styles/styles";
+import { missingMovies } from "./utils/constants";
 
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
@@ -18,15 +19,12 @@ const App = () => {
     fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
       .then((response) => response.json())
       .then((movies) => {
-        if (movies && !movies.includes("Ashokavanam lo Arjuna Kalyanam")) {
-          movies.push("Ashokavanam lo Arjuna Kalyanam");
-        }
-        if (movies && !movies.includes("Shivaji")) {
-          movies.push("Shivaji");
-        }
-        if (movies && !movies.includes("Premikula Roju")) {
-          movies.push("Premikula Roju");
-        }
+        const moviesSet = new Set(movies);
+        missingMovies.forEach((mv) => {
+          if (!moviesSet.has(mv)) {
+            movies.push(mv);
+          }
+        });
         setMoviesList(movies);
       })
       .catch((error) => console.log(error));
