@@ -77,3 +77,16 @@ export const isProduction = () => {
 };
 
 export const githubRepoLink = "https://github.com/santoshimz/pattukunte-pattucheera";
+
+export const missingMovies = [
+  "13 B",
+  "Mangalyam",
+  "Oke Okkadu",
+  "Robo",
+  "RRR",
+  "Veedokkade",
+  "Ashokavanam lo Arjuna Kalyanam",
+  "Shivaji",
+  "Premikula Roju"
+];
+

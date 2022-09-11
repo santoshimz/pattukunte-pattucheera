@@ -19,7 +19,12 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((movies) => {
-        console.log(movies);
+        const moviesSet = new Set(movies);
+        missingMovies.forEach((mv) => {
+          if (!moviesSet.has(mv)) {
+            movies.push(mv);
+          }
+        });
         setMoviesList(movies);
       })
       .catch((error) => console.log(error));
