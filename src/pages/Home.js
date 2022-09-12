@@ -176,11 +176,8 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
         className="information-text mt-3 font-italic d-flex"
         style={{ color: theme === "light" ? "black" : "white" }}>
         <p>
-          <span className="material-symbols-outlined text-md">info</span>
-        </p>
-        <p>
           <strong style={{ color: theme === "light" ? "green" : "lawngreen" }}>
-            Say no more to accidental taps!!!
+            Say no more to accidental taps!!!{" "}
           </strong>
           You can now submit your responses after selecting from the dropdown.{" "}
         </p>
