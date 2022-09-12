@@ -78,9 +78,8 @@ const Game = ({
     setGuessDistribution(JSON.stringify(currentGuessDistribution));
   };
 
-  const handleChange = (value) => {
-    setSelectedValue(value.title);
-    if (value.title === movie) {
+  const submit = (value) => {
+    if ((selectedValue?.title ? selectedValue?.title : value.title) === movie) {
       setIsShowConfetti(true);
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
@@ -100,9 +99,11 @@ const Game = ({
       setGameStatus(GAME_STATUS.FAILED);
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       if (currentGuesses !== "") {
-        setCurrentGuesses(currentGuesses + "," + value.title);
+        setCurrentGuesses(
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+        );
       } else {
-        setCurrentGuesses(value.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
       setStats(
         JSON.stringify({
@@ -113,15 +114,19 @@ const Game = ({
         })
       );
       setLastPlayedGame(day);
+      setSelectedValue(null);
     } else {
       setCurrentIndex(currentIndex + 1);
       setCurrentIndexFromButton(currentIndex + 1);
       if (currentGuesses !== "") {
-        setCurrentGuesses(currentGuesses + "," + value.title);
+        setCurrentGuesses(
+          currentGuesses + "," + (value?.title ? value?.title : selectedValue.title)
+        );
       } else {
-        setCurrentGuesses(value.title);
+        setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
     }
+    setSelectedValue(null);
   };
 
   const fetchData = async (inputValue) => {
@@ -132,8 +137,14 @@ const Game = ({
   return (
     <>
       {!gameFinished && (
-        <div className="w-100 searchbox-container movie-search-dropdown row d-flex">
-          <div className="col-10">
+        <div className="w-100 searchbox-container movie-search-dropdown row d-flex justify-content-center">
+          <div className="w-100 mb-4 px-4 d-flex justify-content-center">
+            <button onClick={() => submit({ title: "Skipped" })} className="btn btn-danger col-3">
+              Skip
+            </button>
+          </div>
+
+          <div className="col-9 p-0 pl-4">
             <AsyncSelect
               placeholder="Enter a movie name"
               cacheOptions
@@ -144,12 +155,15 @@ const Game = ({
               getOptionValue={(e) => e.title}
               loadOptions={fetchData}
               onInputChange={handleInputChange}
-              onChange={handleChange}
+              onChange={(value) => {
+                setSelectedValue(value);
+              }}
             />
           </div>
-          <div className="col-2 d-flex justify-content-end">
-            <button onClick={() => handleChange({ title: "Skipped" })} className="btn btn-primary">
-              Skip
+
+          <div className="col-3">
+            <button className="btn bg-primary text-white px-2.5 py-2" onClick={() => submit()}>
+              submit
             </button>
           </div>
         </div>
