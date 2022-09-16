@@ -67,7 +67,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
     // This will fix the issue for users whose max streak was their current streak
     // This will be extra advantageous for people whose max streak is not their current streak
     // Probably we should start storing previousStreak
-    if ((day === 88 || day === 89) && gameStatus === GAME_STATUS.FAILED && !updateStats) {
+    if ((day === 117 || day === 118) && gameStatus === GAME_STATUS.FAILED && !updateStats) {
       setStats(
         JSON.stringify({
           gamesPlayed: statsObj.gamesPlayed,
