@@ -100,5 +100,6 @@ export const missingMovies = [
   "Veedokkade",
   "Ashokavanam lo Arjuna Kalyanam",
   "Shivaji",
-  "Premikula Roju"
+  "Premikula Roju",
+  "EESHWAR",
 ];
