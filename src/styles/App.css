@@ -512,3 +512,10 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 .text-red {
   color: red;
 }
+
+.new-icon,
+.app-name {
+  background: -webkit-linear-gradient(#e21143, #ffb03a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
