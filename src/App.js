@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TimeTravel from "./pages/TimeTravel";
 import Banner from "./components/banner";
+import { missingMovies } from "./utils/constants";
 
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
