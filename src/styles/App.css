@@ -443,6 +443,9 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 .instructions-icon {
   color: #e91e63;
 }
+.explore-icon {
+  color: #ed341e;
+}
 
 .information-text {
   text-align: center;

@@ -8,7 +8,7 @@ const Footer = ({ theme }) => {
     <div
       style={theme === "dark" ? FooterStyles.footer : FooterStyles.footerLight}
       className="col-12 text-center">
-      <div className="mb-4 d-flex align-items-start justify-content-center">
+      {/* <div className="mb-4 d-flex align-items-start justify-content-center">
         <span className="material-symbols-outlined new-icon" style={{ fontSize: "2rem" }}>
           new_releases
         </span>
@@ -22,7 +22,7 @@ const Footer = ({ theme }) => {
             </span>
           </a>
         </span>
-      </div>
+      </div> */}
       <span className="banner-text">
         We are opensource now! Want to contribute questions? Submit images through this{" "}
         <a href={process.env.REACT_APP_FormsLink}>forms</a> link

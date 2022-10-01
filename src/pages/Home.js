@@ -16,6 +16,7 @@ import ImagesContainer from "../components/ImagesContainer";
 import RulesModal from "../components/RulesModal";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import NewGamesModal from "../components/NewGamesModal";
 
 const Home = ({ timeTravelDate, moviesList, theme }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -34,6 +35,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
     "guessDistribution",
     JSON.stringify(intialGuessDistribution)
   );
+  const [openNewGamesModal, setOpenNewGamesModal] = React.useState(false);
   // We want to update stats only once. This has to be idempotent
   const [updateStats, setUpdateStats] = useLocalStorage("updateStats", false);
   const [shareText, setShareText] = React.useState("SHARE");
@@ -142,6 +144,15 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
           </button>
           <span>Instructions</span>
         </div>
+        <div className="d-flex flex-column align-items-center">
+          <button
+            onClick={() => setOpenNewGamesModal(true)}
+            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
+            className="bg-transparent btn-ripple explore-icon fs-30 material-symbols-outlined">
+            explore
+          </button>
+          <span>Explore new games</span>
+        </div>
       </span>
       <Stats
         shareText={shareText}
@@ -156,6 +167,10 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
+      <NewGamesModal
+        openNewGamesModal={openNewGamesModal}
+        setOpenNewGamesModal={setOpenNewGamesModal}
+      />
       {/* used inline style as we this would be removed in future */}
       {/* {isPWAState ? (
         ""
