@@ -443,6 +443,9 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 .instructions-icon {
   color: #e91e63;
 }
+.explore-icon {
+  color: #ed341e;
+}
 
 .information-text {
   text-align: center;
@@ -511,4 +514,11 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
 }
 .text-red {
   color: red;
+}
+
+.new-icon,
+.app-name {
+  background: -webkit-linear-gradient(#e21143, #ffb03a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
