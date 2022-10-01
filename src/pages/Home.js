@@ -151,7 +151,7 @@ const Home = ({ timeTravelDate, moviesList, theme }) => {
             className="bg-transparent btn-ripple explore-icon fs-30 material-symbols-outlined">
             explore
           </button>
-          <span>Explore new games</span>
+          <span>Explore more</span>
         </div>
       </span>
       <Stats
