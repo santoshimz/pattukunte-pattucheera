@@ -522,3 +522,7 @@ input[type="date"]:hover::-webkit-calendar-picker-indicator:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.w-98 {
+  width: 98%;
+}
