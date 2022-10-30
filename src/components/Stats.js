@@ -70,7 +70,7 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
                   style={{
                     width: `${guessBars[index]}` + "%"
                   }}></div>
-                <span className="ml-2">{guessBars[index]}%</span>
+                <span className="stats-percent ml-2">{guessBars[index]}%</span>
               </div>
             </div>
           );
