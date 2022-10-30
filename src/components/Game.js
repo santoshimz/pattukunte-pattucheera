@@ -79,7 +79,10 @@ const Game = ({
   };
 
   const submit = (value) => {
-    if ((selectedValue?.title ? selectedValue?.title : value.title) === movie) {
+    if (
+      (selectedValue?.title ? selectedValue.title : value.title).trim().toLowerCase() ===
+      movie.trim().toLowerCase()
+    ) {
       setIsShowConfetti(true);
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
