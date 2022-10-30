@@ -285,10 +285,11 @@ header {
   height: 20px;
   width: 95%;
   border-radius: 1px;
+  animation: progressAnimation 1.5s ease-in-out;
 }
 
 .graph-fill {
-  background: #3a6e9c;
+  background: #2196f3;
   height: 20px;
   text-align: right;
   color: white;
@@ -297,6 +298,24 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  border-radius: 5px;
+
+}
+
+@keyframes progressAnimation{
+  0% { width: 0%; }
+  100% { width: 95%; }
+}
+
+.stats-percent{
+  animation: opacityAnime 1.5s ease-in-out;
+}
+
+@keyframes opacityAnime {
+  0% {opacity: 0%;}
+  90%{opacity: 30%;}
+  95%{opacity: 50%;}
+  100% {opacity: 100%;}
 }
 
 .guess-data {
