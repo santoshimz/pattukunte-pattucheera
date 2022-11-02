@@ -12,8 +12,7 @@ const ShareResults = ({
   currentIndex,
   gameStatus,
   dayCount,
-  isTimeTravelled,
-  theme
+  isTimeTravelled
 }) => {
   const socialShare = (app) => {
     switch (app) {
@@ -50,10 +49,10 @@ const ShareResults = ({
 
   return (
     <>
-      <div className="timer-wrapper">
+      <div className="flex flex-col items-center">
         {!isTimeTravelled && (
-          <div className="text-white">
-            <NextGameTimer theme={theme} />
+          <div className="text-white my-4">
+            <NextGameTimer />
           </div>
         )}
         <ShareButton
@@ -65,23 +64,23 @@ const ShareResults = ({
           isTimeTravelled={isTimeTravelled}
         />
       </div>
-      <div className="social-icons">
+      <div className="flex justify-center items-center">
         <img
-          className="social twitter-icon"
+          className="w-12 h-12 mr-4"
           onClick={() => socialShare("twitter")}
           src={twitterShare}
           alt="twitter-share"
         />
 
         <img
-          className="social wa-icon"
+          className="w-12 h-12 mr-4"
           onClick={() => socialShare("whatsapp")}
           src={whatsappShare}
           alt="whatsapp-share"
         />
 
         <img
-          className="social facebook-icon"
+          className="w-12 h-12"
           onClick={() => socialShare("facebook")}
           src={fbShare}
           alt="facebook-share"
@@ -97,8 +96,7 @@ ShareResults.propTypes = {
   currentIndex: PropTypes.number,
   gameStatus: PropTypes.string,
   dayCount: PropTypes.number,
-  isTimeTravelled: PropTypes.bool,
-  theme: PropTypes.string
+  isTimeTravelled: PropTypes.bool
 };
 
 export default ShareResults;

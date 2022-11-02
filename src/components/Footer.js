@@ -1,26 +1,27 @@
 import React from "react";
-import { FooterStyles } from "../styles/FooterStyles";
 import { githubRepoLink } from "../utils/constants";
-import PropTypes from "prop-types";
 
-const Footer = ({ theme }) => {
+const Footer = () => {
   return (
-    <div
-      style={theme === "dark" ? FooterStyles.footer : FooterStyles.footerLight}
-      className="col-12 text-center">
-      <span className="banner-text">
+    <div className="w-full text-center text-black dark:text-white">
+      <span className="mb-3">
         We are opensource now! Want to contribute questions? Submit images through this{" "}
-        <a href={process.env.REACT_APP_FormsLink}>forms</a> link
+        <a className="underline text-blue-600" href={process.env.REACT_APP_FormsLink}>
+          forms
+        </a>{" "}
+        link
         <div>
-          Want to contribute through code - here is our <a href={githubRepoLink}>github</a> repo{" "}
+          Want to contribute through code - here is our{" "}
+          <a className="underline text-blue-600" href={githubRepoLink}>
+            github
+          </a>{" "}
+          repo{" "}
         </div>
       </span>
     </div>
   );
 };
 
-Footer.propTypes = {
-  theme: PropTypes.string
-};
+Footer.propTypes = {};
 
 export default Footer;

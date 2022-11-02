@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import "../styles/App.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import PropTypes from "prop-types";
-import { customStyles } from "../styles/styles";
 import {
   GAME_STATUS,
   getDayCount,
@@ -14,11 +13,10 @@ import Game from "../components/Game";
 import Stats from "../components/Stats";
 import ImagesContainer from "../components/ImagesContainer";
 import RulesModal from "../components/RulesModal";
-import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Home = ({ timeTravelDate, moviesList }) => {
-  const theme = localStorage.getItem("theme");
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
   const [buttonLogic, setButtonLogic] = React.useState(false);
   const [currentIndexFromButton, setCurrentIndexFromButton] =
@@ -103,47 +101,41 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
 
   return (
-    <div
-      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
-      <h1
-        className="font-weight-bold px-5"
-        style={theme === "dark" ? customStyles.headerStyle : customStyles.headerStyleLight}>
+    <div className="bg-white dark:bg-black min-h-screen pb-6">
+      <h1 className="text-3xl font-semibold text-center p-4 text-black dark:text-white">
         Pattukunte Pattucheera
       </h1>
-      <span style={theme === "dark" ? customStyles.statsStyle : customStyles.statsStyleLight}>
-        <div className="d-flex flex-column align-items-center">
+      {/* navbar here */}
+      <div className="flex justify-center mb-3 mx-2">
+        {/* equalizer */}
+        <div className="flex flex-col items-center justify-center w-fit mx-2">
           <button
             onClick={() => setOpenStatsModal(true)}
             alt="stats"
-            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
-            className="bg-transparent btn-ripple stats-icon fs-30 material-symbols-outlined">
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-red-400">
             equalizer
           </button>
-          <span>Stats</span>
+          <span className="w-fit text-sm mt-2 dark:text-white">Stats</span>
         </div>
-        <div className="d-flex flex-column align-items-center">
+        {/* Time Travel */}
+        <div className="flex flex-col items-center justify-center w-fit mx-2">
           <button
             onClick={gotoArchives}
-            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
-            className={
-              theme == "dark"
-                ? "bg-transparent btn-ripple time-travel-icon fs-30 material-symbols-outlined"
-                : "bg-transparent btn-ripple time-travel-icon-light fs-30 material-symbols-outlined"
-            }>
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-green-500">
             update
           </button>
-          <span>Time Travel</span>
+          <span className="w-fit text-sm mt-2 dark:text-white">Time Travel</span>
         </div>
-        <div className="d-flex flex-column align-items-center">
+        {/* Instructions */}
+        <div className="flex flex-col items-center justify-center w-fit mx-2">
           <button
             onClick={() => setOpenRulesModal(true)}
-            style={theme === "dark" ? customStyles.statsIcons : customStyles.statsIconsLight}
-            className="bg-transparent btn-ripple instructions-icon fs-30 material-symbols-outlined">
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-blue-400">
             help
           </button>
-          <span>Instructions</span>
+          <span className="w-fit text-sm mt-2 dark:text-white">Instructions</span>
         </div>
-      </span>
+      </div>
       <Stats
         shareText={shareText}
         setShareText={setShareText}
@@ -157,33 +149,10 @@ const Home = ({ timeTravelDate, moviesList }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
-      {/* used inline style as we this would be removed in future */}
-      {/* {isPWAState ? (
-        ""
-      ) : (
-        <div
-          className="information-text"
-          style={theme === "dark" ? customStyles.install : customStyles.installLight}>
-          Our application can be installed on your device now! Check the &nbsp;
-          <a
-            className="text-primary"
-            href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1">
-            link
-          </a>
-          &nbsp; for installation instructions.
-        </div>
-      )} */}
-      <div
-        className="information-text mt-3 font-italic d-flex"
-        style={{ color: theme === "light" ? "black" : "white" }}>
-        <p>
-          <strong style={{ color: theme === "light" ? "green" : "lawngreen" }}>
-            Say no more to accidental taps!!!{" "}
-          </strong>
-          You can now submit your responses after selecting from the dropdown.{" "}
-        </p>
+      <div className="italic mb-3 flex px-5 justify-center items-center text-black dark:text-white">
+        <Footer />
       </div>
-      <div style={customStyles.column}>
+      <div>
         <div />
         <>
           <ImagesContainer
@@ -220,11 +189,9 @@ const Home = ({ timeTravelDate, moviesList }) => {
             lastPlayedGame={lastPlayedGame}
             setLastPlayedGame={setLastPlayedGame}
             moviesList={moviesList}
-            theme={theme}
           />
         </>
       </div>
-      <Footer theme={theme} />
     </div>
   );
 };
@@ -237,8 +204,7 @@ Home.propTypes = {
   setMovie: PropTypes.func,
   timeTravelDate: PropTypes.number,
   showLoader: PropTypes.bool,
-  moviesList: PropTypes.array,
-  theme: PropTypes.string
+  moviesList: PropTypes.array
 };
 
 export default Home;

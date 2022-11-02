@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TimeTravel from "./pages/TimeTravel";
 import Banner from "./components/banner";
-import { customStyles } from "./styles/styles";
 import { missingMovies } from "./utils/constants";
 
 const App = () => {
@@ -15,6 +14,14 @@ const App = () => {
   React.useEffect(() => {
     if (!localStorage.getItem("theme")) {
       localStorage.setItem("theme", "dark");
+      document.querySelector("html").classList.add("dark");
+    } else {
+      if (
+        localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.querySelector("html").classList.add(localStorage.getItem("theme"));
+      }
     }
     fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
       .then((response) => response.json())
@@ -31,16 +38,16 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div id="content">
       {theme === "dark" && (
         <button
           onClick={() => {
             localStorage.setItem("theme", "light");
             setTheme("light");
+            document.querySelector("html").classList.remove("dark");
           }}
           alt="stats"
-          style={customStyles.themeIcon}
-          className="bg-transparent btn-ripple fs-30 material-symbols-outlined">
+          className="bg-transparent material-symbols-outlined absolute text-gray-500 z-1 top-[2.5%] right-[2%]">
           light_mode
         </button>
       )}
@@ -49,10 +56,10 @@ const App = () => {
           onClick={() => {
             localStorage.setItem("theme", "dark");
             setTheme("dark");
+            document.querySelector("html").classList.add("dark");
           }}
           alt="stats"
-          style={customStyles.themeIcon}
-          className="bg-transparent btn-ripple fs-30 material-symbols-outlined">
+          className="bg-transparent material-symbols-outlined absolute text-gray-500 z-1 top-[2.5%] right-[2%]">
           dark_mode
         </button>
       )}

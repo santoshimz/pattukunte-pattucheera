@@ -9,13 +9,11 @@ import {
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import Game from "../components/Game";
 import ImagesContainer from "../components/ImagesContainer";
-import { customStyles } from "../styles/styles";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const TimeTravel = ({ moviesList }) => {
-  const theme = localStorage.getItem("theme");
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
     "timeTravel-currentIndex",
     1
@@ -87,35 +85,24 @@ const TimeTravel = ({ moviesList }) => {
   const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
 
   return (
-    <div
-      style={theme === "dark" ? customStyles.backgroundStyle : customStyles.backgroundStyleLight}>
-      <h1
-        className="m-2 col-12 text-center underline-text px-5"
-        style={{ color: theme === "dark" ? "white" : "black" }}>
-        Time Travel to past!
-      </h1>
+    <div className="bg-white dark:bg-black min-h-screen text-black dark:text-white">
+      <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1>
       {timeTravelDate >= 0 && (
-        <h5
-          className="text-center mt-4 mb-0 text-primary"
-          style={{ color: theme === "dark" ? "white" : "black" }}>
-          You are playing day #{timeTravelDate} game
+        <h5 className="text-center text-lg">
+          You are playing day <strong className="text-blue-600">#{timeTravelDate}</strong> game
         </h5>
       )}
-      <div className="pt-4 mt-2 row ml-1 mr-1">
-        <div
-          className="d-flex flex-column col-xs-10 col-md-3 form-group m-auto p-2"
-          style={{ color: theme === "dark" ? "white" : "black" }}>
-          <button
-            onClick={goBack}
-            className="mb-4 btn btn-lg text-center p-0 w-fit-content mb-2"
-            style={{ color: theme === "dark" ? "white" : "black" }}>
-            <span className="d-flex">
-              <i className="d-flex align-items-center fa fa-arrow-left fs-30"></i>
+      <div className="w-10/2 md:w-1/3 m-auto px-4">
+        <div className="flex flex-col m-auto">
+          <button onClick={goBack} className="mb-3 w-fit">
+            <span className="flex items-center">
+              <i className="fa-solid fa-left-long text-md"></i>{" "}
+              <span className="underline ml-1 text-md">Go back</span>
             </span>
           </button>
-          <label>Select the date you want to travel to:</label>
+          <label className="text-sm mb-1">Select the date you want to travel to :</label>
           <input
-            className="form-control"
+            className="border-2 rounded text-black p-1"
             placeholder="mm/dd/yyyy"
             min="2022-05-23"
             value={selectedDate}
@@ -127,16 +114,14 @@ const TimeTravel = ({ moviesList }) => {
       </div>
       <div>
         {showLoader && loading && (
-          <div className="d-flex p-200">
-            <div className="p-4 m-auto spinner-border text-light spinner-border text-light"></div>
+          <div className="text-black dark:text-white flex justify-center items-center p-16 opacity-50 drak:opacity-10">
+            <i className="fa-solid fa-spinner text-6xl animate-spin"></i>
           </div>
         )}
 
         {!loading && (
           <>
-            <div
-              className="text-center text-info m-auto time-travel-info"
-              style={{ color: theme === "dark" ? "white" : "black" }}>
+            <div className="text-center m-auto text-cyan-400 text-sm px-2 my-3">
               <p>Note: This results will not be included in streak or any other daily game stats</p>
             </div>
             <ImagesContainer
@@ -166,18 +151,16 @@ const TimeTravel = ({ moviesList }) => {
               shareText={shareText}
               setShareText={setShareText}
               moviesList={moviesList}
-              theme={theme}
             />
           </>
         )}
       </div>
-      <Footer theme={theme} />
+      <Footer />
     </div>
   );
 };
 TimeTravel.propTypes = {
-  moviesList: PropTypes.array,
-  theme: PropTypes.string
+  moviesList: PropTypes.array
 };
 
 export default TimeTravel;

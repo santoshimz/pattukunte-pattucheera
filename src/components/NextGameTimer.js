@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getDateTimeInUTC, getTimeDifference } from "../utils/constants";
-import PropTypes from "prop-types";
-const NextGameTimer = ({ theme }) => {
+const NextGameTimer = () => {
   const [diff, setDiff] = useState({ days: "--", hours: "--", minutes: "--", seconds: "--" });
 
   useEffect(() => {
@@ -29,19 +28,16 @@ const NextGameTimer = ({ theme }) => {
     return todayInUTC;
   }
   return (
-    <div className="timer" style={{ color: theme === "dark" ? "white" : "black" }}>
+    <div className="text-center text-black dark:text-white">
       <span>Next Movie in</span>
       <div>
-        <span className="counter">{diff.hours} hrs</span>:
-        <span className="counter">{diff.minutes} mins</span>:
-        <span className="counter"> {diff.seconds} secs</span>
+        <span>{diff.hours} hrs</span> :<span> {diff.minutes} mins</span> :
+        <span> {diff.seconds} secs</span>
       </div>
     </div>
   );
 };
 
-NextGameTimer.propTypes = {
-  theme: PropTypes.string
-};
+NextGameTimer.propTypes = {};
 
 export default NextGameTimer;

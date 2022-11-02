@@ -43,8 +43,7 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList,
-  theme
+  moviesList
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -137,34 +136,40 @@ const Game = ({
   return (
     <>
       {!gameFinished && (
-        <div className="w-100 searchbox-container movie-search-dropdown row d-flex justify-content-center">
-          <div className="w-100 mb-4 px-4 d-flex justify-content-center">
-            <button onClick={() => submit({ title: "Skipped" })} className="btn btn-danger col-3">
+        <div className="w-full">
+          <div className="w-full flex justify-center mb-3">
+            <button
+              onClick={() => submit({ title: "Skipped" })}
+              className="block w-fit px-3 py-1 border-red-600 bg-red-600 rounded text-white">
               Skip
             </button>
           </div>
 
-          <div className="col-9 p-0 pl-4">
-            <AsyncSelect
-              placeholder="Enter a movie name"
-              cacheOptions
-              defaultValue={false}
-              className={!inputValue.length ? "hide-dropdown" : ""}
-              value={selectedValue}
-              getOptionLabel={(e) => e.title}
-              getOptionValue={(e) => e.title}
-              loadOptions={fetchData}
-              onInputChange={handleInputChange}
-              onChange={(value) => {
-                setSelectedValue(value);
-              }}
-            />
-          </div>
+          <div className="w-full flex justify-center items-center">
+            <div className="md:w-1/3">
+              <AsyncSelect
+                placeholder="Enter a movie name"
+                cacheOptions
+                defaultValue={false}
+                className={!inputValue.length ? "hide-dropdown w-full" : "w-full"}
+                value={selectedValue}
+                getOptionLabel={(e) => e.title}
+                getOptionValue={(e) => e.title}
+                loadOptions={fetchData}
+                onInputChange={handleInputChange}
+                onChange={(value) => {
+                  setSelectedValue(value);
+                }}
+              />
+            </div>
 
-          <div className="col-3">
-            <button className="btn bg-primary text-white px-2.5 py-2" onClick={() => submit()}>
-              submit
-            </button>
+            <div className="w-16">
+              <button
+                className="px-4 py-1.5 bg-blue-600 border-blue-600 rounded text-white ml-2"
+                onClick={() => submit()}>
+                submit
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -176,10 +181,9 @@ const Game = ({
         contributor={contributor}
         contributorTwitterId={contributorTwitterId}
         gameFinished={gameFinished}
-        theme={theme}
       />
       <div
-        className="d-flex justify-content-center"
+        className="flex justify-center"
         style={{
           position: "absolute",
           top: "55%",
@@ -196,7 +200,6 @@ const Game = ({
           currentIndex={currentIndex}
           dayCount={day}
           isTimeTravelled={timeTravelled}
-          theme={theme}
         />
       )}
     </>
@@ -225,8 +228,7 @@ Game.propTypes = {
   setShareText: PropTypes.func,
   lastPlayedGame: PropTypes.string,
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array,
-  theme: PropTypes.string
+  moviesList: PropTypes.array
 };
 
 export default Game;
