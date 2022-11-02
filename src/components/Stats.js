@@ -26,20 +26,20 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
           <span className="material-symbols-outlined">close</span>
         </button>
       </div>
-      <div className="flex justify-around mb-6">
-        <div className="text-white flex flex-col items-center">
+      <div className="flex justify-around mb-6 text-black dark:text-white">
+        <div className="flex flex-col items-center">
           <span className="min-w-10 p-2 border border-yellow-400 bg-yellow-400 rounded">
             {gamesPlayed}
           </span>
           <span className="text-sm mt-1">Played</span>
         </div>
-        <div className="text-white flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <span className="min-w-10 p-2 border border-green-500 bg-green-500 rounded">
             {gamesWon}
           </span>
           <span className="text-sm mt-1">Won</span>
         </div>
-        <div className="text-white flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <span className="min-w-10 p-2 border border-blue-400 bg-blue-400 rounded">
             {gamesPlayed > 0 ? ((gamesWon / gamesPlayed) * 100).toFixed(2) : 0}
           </span>
