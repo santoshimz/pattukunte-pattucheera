@@ -23,7 +23,7 @@ const App = () => {
         document.querySelector("html").classList.add(localStorage.getItem("theme"));
       }
     }
-    fetch(`${process.env.REACT_APP_CDN_URL}/movies.json`)
+    fetch(`${process.env.REACT_APP_S3}/movies.json`)
       .then((response) => response.json())
       .then((movies) => {
         const moviesSet = new Set(movies);
