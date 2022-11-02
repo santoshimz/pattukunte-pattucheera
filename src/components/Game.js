@@ -149,7 +149,7 @@ const Game = ({
           </div>
 
           <div className="w-full flex justify-center items-center">
-            <div className="md:w-1/3">
+            <div className="min-w-68 md:min-w-33">
               <AsyncSelect
                 placeholder="Enter a movie name"
                 cacheOptions
@@ -166,7 +166,7 @@ const Game = ({
               />
             </div>
 
-            <div className="w-16">
+            <div className="w-20">
               <button
                 className="px-4 py-1.5 bg-blue-600 border-blue-600 rounded text-white ml-2"
                 onClick={() => submit()}>

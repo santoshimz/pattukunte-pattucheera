@@ -13,7 +13,10 @@ module.exports = {
         2.75: "11px"
       },
       minWidth: {
-        10: "2.5rem"
+        10: "2.5rem",
+        33: "33.3333%",
+        50: "50%",
+        68: "68%"
       },
       animation: {
         progress: "progressAnimation 1.5s ease-in-out"
