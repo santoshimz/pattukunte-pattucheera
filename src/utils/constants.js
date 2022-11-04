@@ -102,5 +102,14 @@ export const missingMovies = [
   "Shivaji",
   "Premikula Roju",
   "EESHWAR",
-  "Nani"
+  "Nani",
+  "Mishan Impossible",
+  "Chandrahas",
+  "Sarkaru Vaari Paata",
+  "krishna vrinda vihari",
+  "Panchathantram",
+  "Rajendrudu Gajendrudu",
+  "Seenu Vasanthi Lakshmi",
+  "Snehitudu",
+  "Drushyam 2"
 ];
