@@ -1,5 +1,5 @@
 import React from "react";
-import { githubRepoLink } from "../utils/constants";
+// import { githubRepoLink } from "../utils/constants";
 
 const Footer = () => {
   return (
@@ -10,13 +10,13 @@ const Footer = () => {
           forms
         </a>{" "}
         link
-        <div>
+        {/* <div>
           Want to contribute through code - here is our{" "}
           <a className="underline text-blue-600" href={githubRepoLink}>
             github
           </a>{" "}
           repo{" "}
-        </div>
+        </div> */}
       </span>
     </div>
   );

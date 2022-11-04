@@ -9,7 +9,6 @@ import {
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import Game from "../components/Game";
 import ImagesContainer from "../components/ImagesContainer";
-import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -155,7 +154,6 @@ const TimeTravel = ({ moviesList }) => {
           </>
         )}
       </div>
-      <Footer />
     </div>
   );
 };

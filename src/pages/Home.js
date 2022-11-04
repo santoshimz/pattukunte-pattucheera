@@ -14,7 +14,6 @@ import Stats from "../components/Stats";
 import ImagesContainer from "../components/ImagesContainer";
 import RulesModal from "../components/RulesModal";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
 
 const Home = ({ timeTravelDate, moviesList }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage("currentIndex", 1);
@@ -149,9 +148,9 @@ const Home = ({ timeTravelDate, moviesList }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
-      <div className="italic mb-3 flex px-5 justify-center items-center text-black dark:text-white">
+      {/* <div className="italic mb-3 flex px-5 justify-center items-center text-black dark:text-white">
         <Footer />
-      </div>
+      </div> */}
       <div>
         <div />
         <>
