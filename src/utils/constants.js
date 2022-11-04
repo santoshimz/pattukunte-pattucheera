@@ -111,5 +111,7 @@ export const missingMovies = [
   "Rajendrudu Gajendrudu",
   "Seenu Vasanthi Lakshmi",
   "Snehitudu",
-  "Drushyam 2"
+  "Drushyam 2",
+  "Major",
+  "Shyam Singha Roy"
 ];
