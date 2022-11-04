@@ -1,5 +1,4 @@
 import React from "react";
-import { githubRepoLink } from "../utils/constants";
 
 const Footer = () => {
   return (
