@@ -87,5 +87,16 @@ export const missingMovies = [
   "Veedokkade",
   "Ashokavanam lo Arjuna Kalyanam",
   "Shivaji",
-  "Premikula Roju"
+  "Premikula Roju",
+  "EESHWAR",
+  "Nani",
+  "Mishan Impossible",
+  "Chandrahas",
+  "Sarkaru Vaari Paata",
+  "krishna vrinda vihari",
+  "Panchathantram",
+  "Rajendrudu Gajendrudu",
+  "Seenu Vasanthi Lakshmi",
+  "Snehitudu",
+  "Drushyam 2"
 ];
