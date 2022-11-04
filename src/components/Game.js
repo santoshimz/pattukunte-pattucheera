@@ -154,7 +154,9 @@ const Game = ({
                 placeholder="Enter a movie name"
                 cacheOptions
                 defaultValue={false}
-                className={!inputValue.length ? "hide-dropdown w-full" : "w-full"}
+                className={
+                  !inputValue.length ? "hide-dropdown w-full text-black" : "w-full text-black"
+                }
                 value={selectedValue}
                 getOptionLabel={(e) => e.title}
                 getOptionValue={(e) => e.title}

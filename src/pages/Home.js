@@ -101,7 +101,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
 
   return (
     <div className="bg-white dark:bg-black min-h-screen pb-6">
-      <h1 className="text-3xl font-semibold text-center p-4 text-black dark:text-white">
+      <h1 className="text-3xl font-semibold text-center p-4 text-black dark:text-white mx-24">
         Pattukunte Pattucheera
       </h1>
       {/* navbar here */}
