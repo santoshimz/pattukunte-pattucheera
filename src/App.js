@@ -39,16 +39,16 @@ const App = () => {
   }, []);
 
   return (
-    <div id="content">
+    <div id="content" className="relative">
       <div className="absolute bottom-0 right-0 mr-3 mb-3">
         {showUploadIcon && (
           <>
-            <a className="absolute bottom-12 right-12" href={process.env.REACT_APP_FormsLink}>
+            <a className="absolute bottom-16 right-3" href={process.env.REACT_APP_FormsLink}>
               <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-white dark:text-black"></i>
             </a>
 
-            <p className="text-black dark:text-white absolute bottom-14 right-24 text-xs w-60">
-              By clicking here, you will be navigated to Google forms to upload images
+            <p className="text-black dark:text-white absolute bottom-20 right-16 text-xs w-10">
+              upload movies
             </p>
           </>
         )}
