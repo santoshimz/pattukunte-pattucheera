@@ -137,14 +137,18 @@ const Game = ({
   };
   // custom styles
   const customStylesForAsyncSelect = {
-    menu: (provided) => {
-      return (
-        !inputValue.length && {
+    menu: (provided, state) => {
+      console.log(state);
+      if (!inputValue.length) {
+        return {
           ...provided,
-          visibility: "hidden",
-          border: "1px solid gray"
-        }
-      );
+          visibility: "hidden"
+        };
+      }
+      return {
+        ...provided,
+        border: "1px solid gray"
+      };
     }
   };
   return (
