@@ -182,6 +182,12 @@ const Game = ({
         ...provided,
         color: "white"
       };
+    },
+    menuList: (provided) => {
+      return {
+        ...provided,
+        color: "#808080"
+      };
     }
   };
   return (
