@@ -5,7 +5,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "modal-bg-dark": "#1a1b1a"
+        "modal-bg-dark": "#1a1b1a",
+        primary: "#000",
+        secondary: "#fff"
       },
       spacing: {
         90: "22.5rem",

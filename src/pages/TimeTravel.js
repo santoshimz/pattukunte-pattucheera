@@ -84,7 +84,7 @@ const TimeTravel = ({ moviesList }) => {
   const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
 
   return (
-    <div className="bg-white dark:bg-black min-h-screen text-black dark:text-white">
+    <div className="bg-secondary dark:bg-primary min-h-screen text-primary dark:text-secondary">
       <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1>
       {timeTravelDate >= 0 && (
         <h5 className="text-center text-lg">
@@ -101,7 +101,7 @@ const TimeTravel = ({ moviesList }) => {
           </button>
           <label className="text-sm mb-1">Select the date you want to travel to :</label>
           <input
-            className="border-2 rounded text-black p-1"
+            className="border-2 rounded text-primary p-1"
             placeholder="mm/dd/yyyy"
             min="2022-05-23"
             value={selectedDate}
@@ -113,7 +113,7 @@ const TimeTravel = ({ moviesList }) => {
       </div>
       <div>
         {showLoader && loading && (
-          <div className="text-black dark:text-white flex justify-center items-center p-16 opacity-50 drak:opacity-10">
+          <div className="text-primary dark:text-secondary flex justify-center items-center p-16 opacity-50 drak:opacity-10">
             <i className="fa-solid fa-spinner text-6xl animate-spin"></i>
           </div>
         )}

@@ -44,10 +44,10 @@ const App = () => {
         {showUploadIcon && (
           <>
             <a className="absolute bottom-16 right-3" href={process.env.REACT_APP_FormsLink}>
-              <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-white dark:text-black"></i>
+              <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-secondary dark:text-primary"></i>
             </a>
 
-            <p className="text-black dark:text-white absolute bottom-20 right-16 text-xs w-10">
+            <p className="text-primary dark:text-secondary absolute bottom-20 right-16 text-xs w-10">
               upload movies
             </p>
           </>

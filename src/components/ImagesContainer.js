@@ -30,7 +30,7 @@ const ImagesContainer = ({
             : buildImageUrl(currentIndexFromStorage)
         }
       />
-      <div className="text-white flex justify-center items-center my-3">
+      <div className="text-secondary flex justify-center items-center my-3">
         {range(
           0,
           gameStatus !== GAME_STATUS.COMPLETED ? currentIndexFromStorage : MAX_ATTEMPTS
@@ -45,8 +45,8 @@ const ImagesContainer = ({
               className={
                 "rounded-sm px-2.5 py-1.5 mx-1 " +
                 (index + 1 === (buttonLogic ? currentIndexFromButton : currentIndexFromStorage)
-                  ? "bg-gray-600 border-gray-600 text-white"
-                  : "border-slate-200 bg-slate-200 text-black")
+                  ? "bg-gray-600 border-gray-600 text-secondary"
+                  : "border-slate-200 bg-slate-200 text-primary")
               }>
               {index + 1}
             </button>

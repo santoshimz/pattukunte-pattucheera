@@ -158,7 +158,7 @@ const Game = ({
           <div className="w-full flex justify-center mb-3">
             <button
               onClick={() => submit({ title: "Skipped" })}
-              className="block w-fit px-3 py-1 border-red-600 bg-red-600 rounded text-white">
+              className="block w-fit px-3 py-1 border-red-600 bg-red-600 rounded text-secondary">
               Skip
             </button>
           </div>
@@ -170,7 +170,7 @@ const Game = ({
                 cacheOptions
                 defaultValue={false}
                 // className={
-                //   !inputValue.length ? "hide-dropdown w-full text-black" : "w-full text-black"
+                //   !inputValue.length ? "hide-dropdown w-full text-primary" : "w-full text-primary"
                 // }
                 styles={customStylesForAsyncSelect}
                 value={selectedValue}
@@ -186,7 +186,7 @@ const Game = ({
 
             <div className="w-20">
               <button
-                className="px-4 py-1.5 bg-blue-600 border-blue-600 rounded text-white ml-2"
+                className="px-4 py-1.5 bg-blue-600 border-blue-600 rounded text-secondary ml-2"
                 onClick={() => submit()}>
                 submit
               </button>

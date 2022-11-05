@@ -28,7 +28,7 @@ const NextGameTimer = () => {
     return todayInUTC;
   }
   return (
-    <div className="text-center text-black dark:text-white">
+    <div className="text-center text-primary dark:text-secondary">
       <span>Next Movie in</span>
       <div>
         <span>{diff.hours} hrs</span> :<span> {diff.minutes} mins</span> :

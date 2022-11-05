@@ -51,7 +51,7 @@ const ShareResults = ({
     <>
       <div className="flex flex-col items-center">
         {!isTimeTravelled && (
-          <div className="text-white my-4">
+          <div className="text-secondary my-4">
             <NextGameTimer />
           </div>
         )}

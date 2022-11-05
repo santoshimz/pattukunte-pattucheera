@@ -100,8 +100,8 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
 
   return (
-    <div className="bg-white dark:bg-black min-h-screen pb-6">
-      <h1 className="text-3xl font-semibold text-center p-4 text-black dark:text-white mx-24">
+    <div className="bg-secondary dark:bg-primary min-h-screen pb-6">
+      <h1 className="text-3xl font-semibold text-center p-4 text-primary dark:text-secondary mx-24">
         Pattukunte Pattucheera
       </h1>
       {/* navbar here */}
@@ -111,28 +111,28 @@ const Home = ({ timeTravelDate, moviesList }) => {
           <button
             onClick={() => setOpenStatsModal(true)}
             alt="stats"
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-red-400">
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-red-400">
             equalizer
           </button>
-          <span className="w-fit text-sm mt-2 dark:text-white">Stats</span>
+          <span className="w-fit text-sm mt-2 dark:text-secondary">Stats</span>
         </div>
         {/* Time Travel */}
         <div className="flex flex-col items-center justify-center w-fit mx-2">
           <button
             onClick={gotoArchives}
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-green-500">
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-green-500">
             update
           </button>
-          <span className="w-fit text-sm mt-2 dark:text-white">Time Travel</span>
+          <span className="w-fit text-sm mt-2 dark:text-secondary">Time Travel</span>
         </div>
         {/* Instructions */}
         <div className="flex flex-col items-center justify-center w-fit mx-2">
           <button
             onClick={() => setOpenRulesModal(true)}
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-black-800 text-blue-400">
+            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-blue-400">
             help
           </button>
-          <span className="w-fit text-sm mt-2 dark:text-white">Instructions</span>
+          <span className="w-fit text-sm mt-2 dark:text-secondary">Instructions</span>
         </div>
       </div>
       <Stats
@@ -148,7 +148,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
-      {/* <div className="italic mb-3 flex px-5 justify-center items-center text-black dark:text-white">
+      {/* <div className="italic mb-3 flex px-5 justify-center items-center text-primary dark:text-secondary">
         <Footer />
       </div> */}
       <div>

@@ -19,14 +19,14 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
       isOpen={openStatsModal}
       onRequestClose={() => setOpenStatsModal(false)}
       ariaHideApp={false}
-      className="w-90 mx-auto border-2 dark:border-black border-gray-300/50 rounded bg-slate-200 dark:bg-black text-black dark:text-white p-5 text-xl mt-48">
+      className="w-90 mx-auto border-2 dark:border-primary border-gray-300/50 rounded bg-slate-200 dark:bg-primary text-primary dark:text-secondary p-5 text-xl mt-48">
       <div className="flex mb-2">
         <h4 className="text-2xl w-11/12">Stats</h4>
         <button onClick={() => setOpenStatsModal(false)}>
           <span className="material-symbols-outlined">close</span>
         </button>
       </div>
-      <div className="flex justify-around mb-6 text-black dark:text-white">
+      <div className="flex justify-around mb-6 text-primary dark:text-secondary">
         <div className="flex flex-col items-center">
           <span className="py-2 px-3 border border-yellow-400 bg-yellow-400 rounded">
             {gamesPlayed}

@@ -32,7 +32,7 @@ const Results = ({
   };
 
   return (
-    <div className="text-center text-black dark:text-white">
+    <div className="text-center text-primary dark:text-secondary">
       <div>
         {gameRunning && (
           <span className="block my-3">
@@ -105,7 +105,7 @@ const Results = ({
         </div>
       )}
       {(contributor || contributorTwitterId) && gameFinished && (
-        <small className="block text-center text-black dark:text-white">
+        <small className="block text-center text-primary dark:text-secondary">
           Contributed by &nbsp;
           {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
         </small>
