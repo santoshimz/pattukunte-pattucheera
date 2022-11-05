@@ -135,7 +135,17 @@ const Game = ({
     const vals = fuse.search(inputValue, { limit: 6 });
     return vals.map((val) => ({ title: val.item }));
   };
-
+  // custom styles
+  const customStylesForAsyncSelect = {
+    menu: (provided) => {
+      return (
+        !inputValue.length && {
+          ...provided,
+          visibility: "hidden"
+        }
+      );
+    }
+  };
   return (
     <>
       {!gameFinished && (
@@ -154,9 +164,10 @@ const Game = ({
                 placeholder="Enter a movie name"
                 cacheOptions
                 defaultValue={false}
-                className={
-                  !inputValue.length ? "hide-dropdown w-full text-black" : "w-full text-black"
-                }
+                // className={
+                //   !inputValue.length ? "hide-dropdown w-full text-black" : "w-full text-black"
+                // }
+                styles={customStylesForAsyncSelect}
                 value={selectedValue}
                 getOptionLabel={(e) => e.title}
                 getOptionValue={(e) => e.title}
