@@ -141,7 +141,8 @@ const Game = ({
       return (
         !inputValue.length && {
           ...provided,
-          visibility: "hidden"
+          visibility: "hidden",
+          border: "1px solid gray"
         }
       );
     }
