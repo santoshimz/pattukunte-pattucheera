@@ -176,6 +176,12 @@ const Game = ({
         ...provided,
         color: "white"
       };
+    },
+    singleValue: (provided) => {
+      return {
+        ...provided,
+        color: "white"
+      };
     }
   };
   return (
