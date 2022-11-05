@@ -8,7 +8,7 @@ import numberFiveIcon from "../assets/number-five.png";
 const RulesModal = ({ openRulesModal, setOpenRulesModal }) => {
   return (
     <Modal
-      className="w-90 mx-auto border-2 dark:border-black border-gray-300/50 rounded bg-slate-200 dark:bg-black text-black dark:text-white p-5 text-xl mt-72"
+      className="w-90 mx-auto border-2 dark:border-black border-gray-300/50 rounded bg-slate-200 dark:bg-black text-black dark:text-white p-5 text-xl mt-56"
       isOpen={openRulesModal}
       onRequestClose={() => setOpenRulesModal(false)}
       ariaHideApp={false}>
