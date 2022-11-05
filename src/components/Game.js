@@ -137,8 +137,7 @@ const Game = ({
   };
   // custom styles
   const customStylesForAsyncSelect = {
-    menu: (provided, state) => {
-      console.log(state);
+    menu: (provided) => {
       if (!inputValue.length) {
         return {
           ...provided,
@@ -148,6 +147,34 @@ const Game = ({
       return {
         ...provided,
         border: "1px solid gray"
+      };
+    }
+  };
+  const customStylesForAsyncSelectDark = {
+    control: (provided) => {
+      return {
+        ...provided,
+        border: "1px solid #3d3d3d",
+        background: "#3d3d3d"
+      };
+    },
+    menu: (provided) => {
+      if (!inputValue.length) {
+        return {
+          ...provided,
+          visibility: "hidden"
+        };
+      }
+      return {
+        ...provided,
+        background: "#3d3d3d",
+        color: "white"
+      };
+    },
+    input: (provided) => {
+      return {
+        ...provided,
+        color: "white"
       };
     }
   };
@@ -172,7 +199,11 @@ const Game = ({
                 // className={
                 //   !inputValue.length ? "hide-dropdown w-full text-primary" : "w-full text-primary"
                 // }
-                styles={customStylesForAsyncSelect}
+                styles={
+                  localStorage.getItem("theme") === "dark"
+                    ? customStylesForAsyncSelectDark
+                    : customStylesForAsyncSelect
+                }
                 value={selectedValue}
                 getOptionLabel={(e) => e.title}
                 getOptionValue={(e) => e.title}
