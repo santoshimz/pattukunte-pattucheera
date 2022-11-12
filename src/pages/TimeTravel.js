@@ -85,23 +85,28 @@ const TimeTravel = ({ moviesList }) => {
 
   return (
     <div className="bg-secondary dark:bg-primary min-h-screen text-primary dark:text-secondary">
-      <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1>
+      {/* <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1> */}
       {timeTravelDate >= 0 && (
-        <h5 className="text-center text-lg">
-          You are playing day <strong className="text-blue-600">#{timeTravelDate}</strong> game
-        </h5>
+        <>
+          <div className="w-8/12 md:w-1/3 m-auto py-6">
+            {" "}
+            <button onClick={goBack}>
+              <span className="flex items-center">
+                <i className="fa-solid fa-left-long text-md"></i>{" "}
+                <span className="underline ml-1 text-md">Go back</span>
+              </span>
+            </button>
+          </div>
+          <h5 className="text-center text-lg py-6">
+            You are playing day <strong className="text-blue-600">#{timeTravelDate}</strong> game
+          </h5>
+        </>
       )}
-      <div className="w-10/2 md:w-1/3 m-auto px-4">
+      <div className="w-10/12 md:w-1/3 m-auto px-4">
         <div className="flex flex-col m-auto">
-          <button onClick={goBack} className="mb-3 w-fit">
-            <span className="flex items-center">
-              <i className="fa-solid fa-left-long text-md"></i>{" "}
-              <span className="underline ml-1 text-md">Go back</span>
-            </span>
-          </button>
           <label className="text-sm mb-1">Select the date you want to travel to :</label>
           <input
-            className="border-2 rounded text-primary p-1"
+            className="border-2 rounded dark:text-darkComponentText text-primary dar:text-secondary border-darkComponentBg p-1 dark:bg-darkComponentBg bg-white"
             placeholder="mm/dd/yyyy"
             min="2022-05-23"
             value={selectedDate}

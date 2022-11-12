@@ -8,7 +8,9 @@ module.exports = {
         "modal-bg-dark": "#1a1b1a",
         primary: "#000",
         secondary: "#fff",
-        transparentBg: "#0000004f"
+        transparentBg: "#0000004f",
+        darkComponentBg: "#3d3d3d",
+        darkComponentText: "#808080"
       },
       spacing: {
         90: "22.5rem",
