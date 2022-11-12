@@ -54,7 +54,7 @@ const App = () => {
   return (
     <>
       <div id="content" className="relative bg-secondary dark:bg-primary pb-3">
-        <div className="fixed left-3/4 md:left-90 top-90 w-20 h-20 rounded-full">
+        <div className="fixed left-3/4 md:left-90 top-85 w-20 h-20 rounded-full">
           {showUploadIcon && (
             <>
               <a className="absolute bottom-24 right-3" href={process.env.REACT_APP_FormsLink}>
