@@ -1,5 +1,4 @@
 import React from "react";
-import { customStyles } from "../styles/styles";
 import { composeShareText } from "../utils/constants";
 import PropTypes from "prop-types";
 
@@ -31,7 +30,9 @@ const ShareButton = ({
   };
   return (
     <>
-      <button style={customStyles.shareText} onClick={copyText}>
+      <button
+        className="px-4 py-1.5 rounded-sm bg-green-500/60 border-green-500/60 mx-auto mb-4 text-gray-600 dark:text-secondary"
+        onClick={copyText}>
         {shareText}
       </button>
     </>

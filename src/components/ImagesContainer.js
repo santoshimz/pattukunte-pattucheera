@@ -1,6 +1,5 @@
 import range from "lodash/range";
 import React from "react";
-import { customStyles } from "../styles/styles";
 import PropTypes from "prop-types";
 import { GAME_STATUS, isProduction, MAX_ATTEMPTS } from "../utils/constants";
 
@@ -21,19 +20,17 @@ const ImagesContainer = ({
     }/${index.toString()}.jpg`;
 
   return (
-    <div className="searchbox-container">
+    <div className="w-full">
       <img
         alt=""
-        className="movie-frame"
+        className="w-11/12 md:w-4/12 mx-auto my-0"
         src={
           buttonLogic
             ? buildImageUrl(currentIndexFromButton)
             : buildImageUrl(currentIndexFromStorage)
         }
-        width="100%"
-        height="100%"
       />
-      <div className="searchbox-container guess-box" style={customStyles.marginTop}>
+      <div className="text-secondary flex justify-center items-center my-3">
         {range(
           0,
           gameStatus !== GAME_STATUS.COMPLETED ? currentIndexFromStorage : MAX_ATTEMPTS
@@ -41,16 +38,15 @@ const ImagesContainer = ({
           return (
             <button
               key={index}
-              style={{ ...customStyles.marginLeft }}
               onClick={() => {
                 setCurrentIndexFromButton(index + 1);
                 setButtonLogic(true);
               }}
               className={
-                "count-btn " +
+                "rounded-sm px-2.5 py-1.5 mx-1 " +
                 (index + 1 === (buttonLogic ? currentIndexFromButton : currentIndexFromStorage)
-                  ? "current-movie-frame"
-                  : "")
+                  ? "bg-gray-600 border-gray-600 text-secondary"
+                  : "border-slate-200 bg-slate-200 text-primary")
               }>
               {index + 1}
             </button>
