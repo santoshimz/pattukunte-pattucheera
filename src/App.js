@@ -6,6 +6,19 @@ import TimeTravel from "./pages/TimeTravel";
 import Banner from "./components/banner";
 import { missingMovies } from "./utils/constants";
 
+const fabBtn = {
+  // border-radius: 50%;
+  backgroundImage: `url(
+    https://media.tenor.com/VWDktRQp0NQAAAAM/how-intermediate-students-watching-results-brahmi.gif
+  )`,
+  backgroundPosition: "-12px"
+  // width: 90px;
+  // height: 90px;
+  // position: sticky;
+  // left: 80%;
+  // top: 80%;
+};
+
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
   const [theme, setTheme] = React.useState(
@@ -72,23 +85,29 @@ const App = () => {
             <Route path="/*" element={<Home moviesList={moviesList} />} />
           </Routes>
         </BrowserRouter>
-        <div className="sticky left-85 bottom-3 w-fit">
+        <div className="sticky left-3/4 md:left-90 bottom-4 w-20 h-20 rounded-full">
           {showUploadIcon && (
             <>
-              <a className="absolute bottom-16 right-3" href={process.env.REACT_APP_FormsLink}>
+              <a className="absolute bottom-24 right-3" href={process.env.REACT_APP_FormsLink}>
                 <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-secondary dark:text-primary"></i>
               </a>
 
-              <p className="text-primary dark:text-secondary absolute bottom-20 right-16 text-xs w-10">
+              <p className="text-primary dark:text-secondary font-semibold absolute bottom-36 right-[-0.15rem] text-xs text-center bg-transparentBg px-2 py-1 rounded">
                 upload movies
               </p>
             </>
           )}
-          <i
+          {/* <i
             className="fas fa-plus-circle text-5xl text-red-500 cursor-pointer"
             onClick={() => {
               setShowUploadIcon(!showUploadIcon);
-            }}></i>
+            }}></i> */}
+          <div
+            onClick={() => {
+              setShowUploadIcon(!showUploadIcon);
+            }}
+            className="w-full h-full rounded-full"
+            style={fabBtn}></div>
         </div>
       </div>
     </>

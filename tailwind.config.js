@@ -7,12 +7,14 @@ module.exports = {
       colors: {
         "modal-bg-dark": "#1a1b1a",
         primary: "#000",
-        secondary: "#fff"
+        secondary: "#fff",
+        transparentBg: "#0000004f"
       },
       spacing: {
         90: "22.5rem",
         1.25: "5px",
         2.75: "11px",
+        90: "90%",
         85: "85%"
       },
       minWidth: {
