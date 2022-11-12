@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./styles/App.css";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -7,19 +7,15 @@ import Banner from "./components/banner";
 import { missingMovies } from "./utils/constants";
 
 const fabBtn = {
-  // border-radius: 50%;
   backgroundImage: `url(
     https://media.tenor.com/VWDktRQp0NQAAAAM/how-intermediate-students-watching-results-brahmi.gif
   )`,
   backgroundPosition: "-12px"
-  // width: 90px;
-  // height: 90px;
-  // position: sticky;
-  // left: 80%;
-  // top: 80%;
 };
 
 const App = () => {
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
   const [moviesList, setMoviesList] = React.useState([]);
   const [theme, setTheme] = React.useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "dark"
@@ -51,10 +47,26 @@ const App = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  function useOutsideAlerter(ref) {
+    React.useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowUploadIcon(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
   return (
     <>
       <div id="content" className="relative bg-secondary dark:bg-primary pb-3">
-        <div className="fixed left-3/4 md:left-90 top-85 w-20 h-20 rounded-full">
+        <div className="fixed left-3/4 md:left-90 top-85 w-20 h-20 rounded-full" ref={wrapperRef}>
           {showUploadIcon && (
             <>
               <a
