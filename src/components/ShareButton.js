@@ -31,7 +31,7 @@ const ShareButton = ({
   return (
     <>
       <button
-        className="px-4 py-1.5 rounded-sm bg-green-500/60 border-green-500/60 mx-auto mb-4 text-gray-600 dark:text-secondary"
+        className="px-4 py-1.5 rounded-sm bg-green-500 border-green-500 mx-auto mb-4 text-secondary"
         onClick={copyText}>
         {shareText}
       </button>
