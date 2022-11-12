@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <>
-      <div id="content" className="relative bg-secondary dark:bg-primary ">
+      <div id="content" className="relative bg-secondary dark:bg-primary overflow-scroll pb-3">
         {theme === "dark" && (
           <button
             onClick={() => {
