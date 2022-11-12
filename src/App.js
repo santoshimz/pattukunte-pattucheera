@@ -9,9 +9,10 @@ import { missingMovies } from "./utils/constants";
 const fabBtn = {
   // border-radius: 50%;
   backgroundImage: `url(
-    https://media.tenor.com/VWDktRQp0NQAAAAM/how-intermediate-students-watching-results-brahmi.gif
+    https://d2t2f7d530jwgo.cloudfront.net/bm.gif
   )`,
-  backgroundPosition: "-12px"
+  backgroundPosition: "-12px",
+  cursor: "pointer"
   // width: 90px;
   // height: 90px;
   // position: sticky;
@@ -77,6 +78,7 @@ const App = () => {
           <div
             onClick={() => {
               setShowUploadIcon(!showUploadIcon);
+              window.gtag("event", "UploadClicked", { event_category: "game-stats" });
             }}
             className="w-full h-full rounded-full"
             style={fabBtn}></div>
