@@ -8,10 +8,18 @@ import numberFiveIcon from "../assets/number-five.png";
 const RulesModal = ({ openRulesModal, setOpenRulesModal }) => {
   return (
     <Modal
-      className="w-90 md:w-1/4 min-w-96 mx-auto border-2 dark:border-primary border-gray-300/50 rounded bg-slate-200 dark:bg-primary text-primary dark:text-secondary p-5 text-xl mt-56"
+      className="w-90 md:w-1/3 lg:w-1/4 border-2 dark:border-primary border-gray-300/50 rounded bg-slate-200 dark:bg-primary text-primary dark:text-secondary p-5 text-xl"
       isOpen={openRulesModal}
       onRequestClose={() => setOpenRulesModal(false)}
-      ariaHideApp={false}>
+      ariaHideApp={false}
+      style={{
+        content: {
+          position: "absolute",
+          top: "50%",
+          right: "50%",
+          transform: "translate(50%,-50%)"
+        }
+      }}>
       <div className="flex mb-2">
         <h3 className="text-2xl w-11/12">How to Play ?</h3>
         <button onClick={() => setOpenRulesModal(false)}>

@@ -32,7 +32,7 @@ module.exports = {
         96: "24rem"
       },
       maxWidth: {
-        "10/12": "82%"
+        82: "78%"
       },
       animation: {
         progress: "progressAnimation 1.5s ease-in-out"
