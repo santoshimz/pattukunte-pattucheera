@@ -49,7 +49,7 @@ const ShareResults = ({
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-3">
         {!isTimeTravelled && (
           <div className="text-secondary my-4">
             <NextGameTimer />

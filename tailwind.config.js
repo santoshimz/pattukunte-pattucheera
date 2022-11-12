@@ -12,7 +12,8 @@ module.exports = {
       spacing: {
         90: "22.5rem",
         1.25: "5px",
-        2.75: "11px"
+        2.75: "11px",
+        85: "85%"
       },
       minWidth: {
         10: "2.5rem",
