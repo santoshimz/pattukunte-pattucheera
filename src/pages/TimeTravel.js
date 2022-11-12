@@ -84,7 +84,7 @@ const TimeTravel = ({ moviesList }) => {
   const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
 
   return (
-    <div className="bg-secondary dark:bg-primary min-h-screen h-auto text-primary dark:text-secondary">
+    <div className="bg-secondary dark:bg-primary min-h-screen h-auto text-primary dark:text-secondary overflow-scroll">
       {/* <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1> */}
       {timeTravelDate >= 0 && (
         <>

@@ -100,7 +100,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
 
   return (
-    <div className="bg-secondary dark:bg-primary min-h-screen h-auto pb-6">
+    <div className="bg-secondary dark:bg-primary min-h-screen h-auto pb-6 overflow-scroll">
       <h1 className="text-3xl font-semibold text-center p-4 text-primary dark:text-secondary mx-24">
         Pattukunte Pattucheera
       </h1>

@@ -53,7 +53,31 @@ const App = () => {
 
   return (
     <>
-      <div id="content" className="relative bg-secondary dark:bg-primary overflow-scroll pb-3">
+      <div id="content" className="relative bg-secondary dark:bg-primary pb-3">
+        <div className="sticky left-3/4 md:left-90 top-90 w-20 h-20 rounded-full">
+          {showUploadIcon && (
+            <>
+              <a className="absolute bottom-24 right-3" href={process.env.REACT_APP_FormsLink}>
+                <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-secondary dark:text-primary"></i>
+              </a>
+
+              <p className="text-primary dark:text-secondary font-semibold absolute bottom-36 right-[-0.15rem] text-xs text-center bg-transparentBg px-2 py-1 rounded">
+                upload movies
+              </p>
+            </>
+          )}
+          {/* <i
+            className="fas fa-plus-circle text-5xl text-red-500 cursor-pointer"
+            onClick={() => {
+              setShowUploadIcon(!showUploadIcon);
+            }}></i> */}
+          <div
+            onClick={() => {
+              setShowUploadIcon(!showUploadIcon);
+            }}
+            className="w-full h-full rounded-full"
+            style={fabBtn}></div>
+        </div>
         {theme === "dark" && (
           <button
             onClick={() => {
@@ -85,30 +109,6 @@ const App = () => {
             <Route path="/*" element={<Home moviesList={moviesList} />} />
           </Routes>
         </BrowserRouter>
-        <div className="sticky left-3/4 md:left-90 bottom-4 w-20 h-20 rounded-full">
-          {showUploadIcon && (
-            <>
-              <a className="absolute bottom-24 right-3" href={process.env.REACT_APP_FormsLink}>
-                <i className="fas fa-upload bg-green-500 px-3 py-2 rounded-full text-xl text-secondary dark:text-primary"></i>
-              </a>
-
-              <p className="text-primary dark:text-secondary font-semibold absolute bottom-36 right-[-0.15rem] text-xs text-center bg-transparentBg px-2 py-1 rounded">
-                upload movies
-              </p>
-            </>
-          )}
-          {/* <i
-            className="fas fa-plus-circle text-5xl text-red-500 cursor-pointer"
-            onClick={() => {
-              setShowUploadIcon(!showUploadIcon);
-            }}></i> */}
-          <div
-            onClick={() => {
-              setShowUploadIcon(!showUploadIcon);
-            }}
-            className="w-full h-full rounded-full"
-            style={fabBtn}></div>
-        </div>
       </div>
     </>
   );
