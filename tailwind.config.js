@@ -4,6 +4,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      keyframes: {
+        progressAnimation: {
+          "0%": { width: "0%" }
+        }
+      },
       colors: {
         "modal-bg-dark": "#1a1b1a",
         primary: "#000",
@@ -23,7 +28,11 @@ module.exports = {
         10: "2.5rem",
         33: "33.3333%",
         50: "50%",
-        68: "68%"
+        68: "68%",
+        96: "24rem"
+      },
+      maxWidth: {
+        "10/12": "82%"
       },
       animation: {
         progress: "progressAnimation 1.5s ease-in-out"

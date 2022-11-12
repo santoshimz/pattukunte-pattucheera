@@ -19,7 +19,7 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
       isOpen={openStatsModal}
       onRequestClose={() => setOpenStatsModal(false)}
       ariaHideApp={false}
-      className="w-90 mx-auto border-2 dark:border-primary border-gray-300/50 rounded bg-slate-200 dark:bg-primary text-primary dark:text-secondary p-5 text-xl mt-48">
+      className="w-90 md:w-1/4 min-w-96 mx-auto border-2 dark:border-primary border-gray-300/50 rounded bg-slate-200 dark:bg-primary text-primary dark:text-secondary p-5 text-xl mt-48">
       <div className="flex mb-2">
         <h4 className="text-2xl w-11/12">Stats</h4>
         <button onClick={() => setOpenStatsModal(false)}>
@@ -64,10 +64,10 @@ const Stats = ({ openStatsModal, setOpenStatsModal, statsObj, guessData }) => {
           return (
             <div key={index} className="flex my-2 w-full items-center">
               <div className="">{index + 1}</div>{" "}
-              <div className="flex animate-progress h-6 w-11/12 ml-3">
+              <div className="flex h-6 w-11/12 ml-3">
                 <div
                   className={`bg-blue-500 border border-blue-500 rounded-sm ${
-                    guessData[index + 1] ? "" : ""
+                    guessData[index + 1] ? "animate-progress" : ""
                   }`}
                   style={{
                     width: `${guessBars[index]}` + "%"
