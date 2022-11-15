@@ -113,5 +113,6 @@ export const missingMovies = [
   "Snehitudu",
   "Drushyam 2",
   "Major",
-  "Shyam Singha Roy"
+  "Shyam Singha Roy",
+  "Agniparvatham"
 ];
