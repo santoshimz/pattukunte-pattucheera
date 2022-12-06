@@ -59,7 +59,7 @@ const Game = ({
 
   const handleChange = (value) => {
     setSelectedValue(value.title);
-    if (value.title === movie) {
+    if (value.title.trim().toLowerCase() === movie.trim().toLowerCase()) {
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
       setAttemptsInLocalStorage(currentIndex);
@@ -70,13 +70,13 @@ const Game = ({
           currentStreak: gameStats.currentStreak
             ? gameStats.currentStreak + 1
             : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1,
+              ? 2
+              : 1,
           maxStreak: gameStats.maxStreak
             ? gameStats.maxStreak + 1
             : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 2
-            : 1
+              ? 2
+              : 1
         })
       );
     } else if (currentIndex === MAX_ATTEMPTS) {
@@ -94,8 +94,8 @@ const Game = ({
           maxStreak: gameStats.maxStreak
             ? gameStats.maxStreak
             : gameStats.gamesPlayed === gameStats.gamesWon && gameStats.gamesWon === 1
-            ? 1
-            : 0,
+              ? 1
+              : 0,
           currentStreak: 0
         })
       );
