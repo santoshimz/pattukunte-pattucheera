@@ -114,5 +114,19 @@ export const missingMovies = [
   "Drushyam 2",
   "Major",
   "Shyam Singha Roy",
-  "Agniparvatham"
+  "Agniparvatham",
+  "Nagaram",
+  "Narasimha Naidu",
+  "Laddu Babu",
+  "Bendu Theesta",
+  "Boys",
+  "GodFather",
+  "Kanulu Kanulanu Dochayante",
+  "Adbhutham",
+  "Remo",
+  "Khakee",
+  "Maine Pyar Kiya",
+  "Cheli",
+  "Jai Bhim",
+  "Roja"
 ];
