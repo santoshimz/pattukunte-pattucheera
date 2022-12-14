@@ -128,5 +128,6 @@ export const missingMovies = [
   "Maine Pyar Kiya",
   "Cheli",
   "Jai Bhim",
-  "Roja"
+  "Roja",
+  "Aawara"
 ];
