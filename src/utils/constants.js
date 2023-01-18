@@ -115,5 +115,13 @@ export const missingMovies = [
   "Maine Pyar Kiya",
   "Cheli",
   "Jai Bhim",
-  "Roja"
+  "Roja",
+  "K.G.F: Chapter 2",
+  "Radhe Shyam",
+  "Like, Share & Subscribe",
+  "Most Eligible Bachelor",
+  "College Don",
+  "Darbar",
+  "Happy Birthday",
+  "Viyyalavari Kayyalu"
 ];
