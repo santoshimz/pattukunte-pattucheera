@@ -130,12 +130,13 @@ export const missingMovies = [
   "Jai Bhim",
   "Roja",
   "Aawara",
-  "K.G.F: Chapter 2",
+  "KGF: Chapter 2",
   "Radhe Shyam",
   "Like, Share & Subscribe",
   "Most Eligible Bachelor",
   "College Don",
   "Darbar",
   "Happy Birthday",
-  "Viyyalavari Kayyalu"
+  "Viyyalavari Kayyalu",
+  "Mallanna"
 ];
