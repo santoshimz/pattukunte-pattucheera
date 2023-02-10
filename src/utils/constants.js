@@ -126,5 +126,6 @@ export const missingMovies = [
   "Viyyalavari Kayyalu",
   "Mallanna",
   "Gouravam",
-  "Raja Rani"
+  "Raja Rani",
+  "Konda Polam
 ];
