@@ -127,5 +127,5 @@ export const missingMovies = [
   "Mallanna",
   "Gouravam",
   "Raja Rani",
-  "Konda Polam
+  "Konda Polam"
 ];
