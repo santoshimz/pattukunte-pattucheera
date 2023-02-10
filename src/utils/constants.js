@@ -139,5 +139,6 @@ export const missingMovies = [
   "Happy Birthday",
   "Viyyalavari Kayyalu",
   "Mallanna",
-  "Gouravam"
+  "Gouravam",
+  "Raja Rani"
 ];
