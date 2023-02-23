@@ -136,5 +136,6 @@ export const missingMovies = [
   "Love Life & Pakodi",
   "Michael Madana Kama Raju",
   "Yuva",
-  "Bhagyalakshmi Bumper Draw"
+  "Bhagyalakshmi Bumper Draw",
+  "Mahaan"
 ];
