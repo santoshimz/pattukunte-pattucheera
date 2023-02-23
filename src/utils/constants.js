@@ -127,5 +127,14 @@ export const missingMovies = [
   "Mallanna",
   "Gouravam",
   "Raja Rani",
-  "Konda Polam"
+  "Konda Polam",
+  "Gopi Gopika Godavari",
+  "Naa Peru Shiva",
+  "Police Story",
+  "Sardar",
+  "Uppena",
+  "Love Life & Pakodi",
+  "Michael Madana Kama Raju",
+  "Yuva",
+  "Bhagyalakshmi Bumper Draw"
 ];
