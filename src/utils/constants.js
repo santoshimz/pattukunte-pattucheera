@@ -152,5 +152,9 @@ export const missingMovies = [
   "Yuva",
   "Bhagyalakshmi Bumper Draw",
   "Mahaan",
-  "Oke Oka Jeevitham"
+  "Oke Oka Jeevitham",
+  "Veera Simha Reddy",
+  "Krishna",
+  "The Legend",
+  "Aalasyam Amrutam"
 ];
