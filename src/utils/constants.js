@@ -152,5 +152,6 @@ export const missingMovies = [
   "Yuva",
   "Bhagyalakshmi Bumper Draw",
   "Mahaan",
-  "Oke Oka Jeevitham"
+  "Oke Oka Jeevitham",
+  "Rajakumarudu"
 ];
