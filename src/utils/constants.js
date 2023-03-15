@@ -137,5 +137,10 @@ export const missingMovies = [
   "Michael Madana Kama Raju",
   "Yuva",
   "Bhagyalakshmi Bumper Draw",
-  "Mahaan"
+  "Mahaan",
+  "Rajakumarudu",
+  "Veera Simha Reddy",
+  "Krishna",
+  "The Legend",
+  "Aalasyam Amrutam"
 ];
