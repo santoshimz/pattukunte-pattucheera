@@ -146,5 +146,6 @@ export const missingMovies = [
   "Dhamaka",
   "Waltair Veerayya",
   "Abbayitho Ammayi",
-  "Dopidi"
+  "Dopidi",
+  "Writer Padmabhushan"
 ];
