@@ -142,5 +142,9 @@ export const missingMovies = [
   "Veera Simha Reddy",
   "Krishna",
   "The Legend",
-  "Aalasyam Amrutam"
+  "Aalasyam Amrutam",
+  "Dhamaka",
+  "Waltair Veerayya",
+  "Abbayitho Ammayi",
+  "Dopidi"
 ];
