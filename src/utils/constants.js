@@ -166,5 +166,13 @@ export const missingMovies = [
   "Jeans",
   "Bangarraju",
   "Brahmalokam To Yamalokam Via Bhoolokam",
-  "Kuberulu"
+  "Kuberulu",
+  "Vakeel Saab",
+  "Bheemla Nayak",
+  "Dasara",
+  "Sir",
+  "Bombay",
+  "Premikudu",
+  "Mahanandi",
+  "Villain"
 ];
