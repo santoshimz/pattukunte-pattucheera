@@ -21,7 +21,7 @@ const Results = ({
       <a
         className="text-blue-500 underline"
         onClick={() => window.gtag("event", "checking-contributor", { event_category: "misc" })}
-        href={"https://twitter.com/" + cleanTwitterId(twitterId)}>
+        href={"https://twitter.com/" + cleanTwitterId(twitterId)} target="_blank">
         @{cleanTwitterId(twitterId)}
       </a>
     );
