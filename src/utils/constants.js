@@ -159,5 +159,12 @@ export const missingMovies = [
   "Bombay",
   "Premikudu",
   "Mahanandi",
-  "Villain"
+  "Villain",
+  "Das Ka Dhamki",
+  "Surya s/o Krishnan",
+  "Masooda",
+  "Tulasi",
+  "Nava Manmadhudu",
+  "DJ Tillu",
+  "Nee Manasu Naaku Telusu"
 ];
