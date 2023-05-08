@@ -166,5 +166,7 @@ export const missingMovies = [
   "Tulasi",
   "Nava Manmadhudu",
   "DJ Tillu",
-  "Nee Manasu Naaku Telusu"
+  "Nee Manasu Naaku Telusu",
+  "Gemini",
+  "Middle Class Melodies"
 ];
