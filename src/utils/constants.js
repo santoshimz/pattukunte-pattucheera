@@ -184,6 +184,5 @@ export const missingMovies = [
   "Nee Manasu Naaku Telusu",
   "Gemini",
   "Middle Class Melodies",
-  "Puttintiki Ra Chelli",
-  ""
+  "Puttintiki Ra Chelli"
 ];
