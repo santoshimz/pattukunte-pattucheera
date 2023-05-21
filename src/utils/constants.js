@@ -183,5 +183,6 @@ export const missingMovies = [
   "DJ Tillu",
   "Nee Manasu Naaku Telusu",
   "Gemini",
-  "Middle Class Melodies"
+  "Middle Class Melodies",
+  "Puttintiki Ra Chelli"
 ];
