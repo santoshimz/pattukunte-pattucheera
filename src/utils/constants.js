@@ -194,5 +194,7 @@ export const missingMovies = [
   "24",
   "Yentavaadu Gaani",
   "Thuppaki",
-  "Phalana Abbayi Phalana Ammayi"
+  "Phalana Abbayi Phalana Ammayi",
+  "Urvasivo Rakshasivo",
+  "Ravanasura",
 ];
