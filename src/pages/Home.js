@@ -33,7 +33,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
     JSON.stringify(intialGuessDistribution)
   );
   // We want to update stats only once. This has to be idempotent
-  const [updateStats, setUpdateStats] = useLocalStorage("updateStats", false);
+  const [updateStats, setUpdateStats] = useLocalStorage("updateStats-latest", false);
   const [shareText, setShareText] = React.useState("SHARE");
   // const [isPWAState, setPWAState] = React.useState(false);
   const initialStats = {
