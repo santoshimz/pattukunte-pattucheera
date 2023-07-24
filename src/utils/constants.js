@@ -204,5 +204,6 @@ export const missingMovies = [
   "Anandamanandamaye",
   "Vinaro Bhagyamu Vishnu Katha",
   "Maaro",
-  "Rowdy boys"
+  "Rowdy boys",
+  "Satya"
 ];
