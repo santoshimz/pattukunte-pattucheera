@@ -213,5 +213,13 @@ export const missingMovies = [
   "Inkokkadu",
   "Farhana",
   "Nootokka Jillala Andagadu",
-  "Thenali"
+  "Thenali",
+  "Adipurush",
+  "Amrutha",
+  "Cheliya",
+  "Kantara",
+  "Nayakudu",
+  "Pareshan",
+  "Ranga Ranga Vaibhavanga",
+  "Saradaga Ammaitho"
 ];
