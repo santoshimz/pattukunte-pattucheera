@@ -240,5 +240,16 @@ export const missingMovies = [
   "CoCo Kokila",
   "Karthikeya 2",
   "Comali",
-  "Skanda"
+  "Skanda",
+  "Akhanda",
+  "Acharya",
+  "Rangabali",
+  "Animal",
+  "Gandeevadhari Arjuna",
+  "Bhagavanth Kesari",
+  "Bedurulanka 2012",
+  "Bhola Shankar",
+  "Chinna",
+  "Sakhi",
+  "King of Kotha"
 ];
