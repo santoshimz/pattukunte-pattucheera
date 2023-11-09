@@ -1,6 +1,6 @@
 ## About The Project
 
-`Pattukunte Pattucheera` is another game inspired from Wordle. But for Tollywood 🎥.
+`Pattukunte Pattucheera` is another game inspired from Wordle. But for Tollywood 🎥
 
 ### Installation
 
