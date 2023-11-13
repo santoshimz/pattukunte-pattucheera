@@ -251,5 +251,8 @@ export const missingMovies = [
   "Bhola Shankar",
   "Chinna",
   "Sakhi",
-  "King of Kotha"
+  "King of Kotha",
+  "ABCD: Any Body Can Dance",
+  "Kushi",
+  "Tiger Nageswara Rao"
 ];
