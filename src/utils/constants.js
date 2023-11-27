@@ -254,5 +254,14 @@ export const missingMovies = [
   "King of Kotha",
   "Kushi",
   "ABCD: Any Body Can Dance",
-  "Tiger Nageswara Rao"
+  "Tiger Nageswara Rao",
+  "Goppinti Alludu",
+  "MAD",
+  "Bhamakalapam",
+  "Agent",
+  "Rama Rao On Duty",
+  "Bloody Mary",
+  "Month Of Madhu",
+  "Liger - Saala Crossbreed",
+  "Bimbisara"
 ];
