@@ -263,5 +263,11 @@ export const missingMovies = [
   "Bloody Mary",
   "Month Of Madhu",
   "Liger - Saala Crossbreed",
-  "Bimbisara"
+  "Bimbisara",
+  "Mangalavaaram",
+  "Mama Maschindra",
+  "Keedaa Cola",
+  "Chikkadu Dorakadu",
+  "Chandramukhi 2",
+  "The Road"
 ];
