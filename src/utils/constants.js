@@ -91,6 +91,12 @@ export const isGameDone = (gameStatus) => {
   return gameStatus === GAME_STATUS.COMPLETED || gameStatus === GAME_STATUS.FAILED;
 };
 
+export const Collections = {
+  USER_COLLECTION: "users",
+  STATS_COLLECTION: "stats",
+  GUESS_DISTRIBUTION_COLLECTION: "guessDistribution"
+};
+
 export const missingMovies = [
   "13 B",
   "Mangalyam",
