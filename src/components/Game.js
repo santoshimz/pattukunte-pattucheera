@@ -1,11 +1,14 @@
 import AsyncSelect from "react-select/async";
-import React, { useMemo } from "react";
-import { GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
+import React, { useEffect, useMemo } from "react";
+import { Collections, GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import Fuse from "fuse.js";
 import Confetti from "react-dom-confetti";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "../components/Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const config = {
   angle: "180",
@@ -48,11 +51,27 @@ const Game = ({
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
   const [isShowConfetti, setIsShowConfetti] = React.useState(null);
+  const [currentUserStats, setCurrentUserStats] = React.useState(null);
+  const [currentUserId, setCurrentUserId] = React.useState("");
   const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
     setValue(value);
   };
+
+  useEffect(async () => {
+    return onAuthStateChanged(auth, async (user) => {
+      if (user != null) {
+        setCurrentUserId(user.uid);
+        const statsRef = doc(db, Collections.STATS_COLLECTION, user.uid);
+        const statsSnap = await getDoc(statsRef);
+        var currentUserStats = {};
+        currentUserStats = statsSnap.data();
+        setCurrentUserStats(currentUserStats);
+      }
+    });
+  }, []);
+
   const fuzzyOptions = {
     isCaseSensitive: false
     // includeScore: false,
@@ -77,7 +96,7 @@ const Game = ({
     setGuessDistribution(JSON.stringify(currentGuessDistribution));
   };
 
-  const submit = (value) => {
+  const submit = async (value) => {
     if (
       (selectedValue?.title && !value ? selectedValue.title : value.title).trim().toLowerCase() ===
       movie.trim().toLowerCase()
@@ -87,15 +106,32 @@ const Game = ({
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
       setAttemptsInLocalStorage(currentIndex);
-      setStats(
-        JSON.stringify({
-          gamesPlayed: gameStats.gamesPlayed + 1,
-          gamesWon: gameStats.gamesWon + 1,
-          currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
-          maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
-        })
-      );
+      var updatedGameStats = {
+        gamesPlayed: gameStats.gamesPlayed + 1,
+        gamesWon: gameStats.gamesWon + 1,
+        currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
+        maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
+      };
+      setStats(JSON.stringify(gameStats));
       setLastPlayedGame(day);
+      // storing in the DB
+      if (currentUserStats != null) {
+        var updatedCurrentStats = {
+          ...currentUserStats,
+          gamesPlayed: updatedGameStats.gamesPlayed,
+          gamesWon: updatedGameStats.gamesWon,
+          maxStreak: updatedGameStats.maxStreak,
+          currentStreak: updatedGameStats.currentStreak,
+          [currentIndex.toString()]: currentUserStats[currentIndex.toString()] + 1
+        };
+        updatedCurrentStats.score =
+          updatedCurrentStats["1"] * 1000 +
+          updatedCurrentStats["2"] * 800 +
+          updatedCurrentStats["3"] * 600 +
+          updatedCurrentStats["4"] * 400 +
+          updatedCurrentStats["5"] * 200;
+        await setDoc(doc(db, Collections.STATS_COLLECTION, currentUserId), updatedCurrentStats);
+      }
     } else if (currentIndex === MAX_ATTEMPTS) {
       window.gtag("event", "GameFailed", { event_category: "game-stats" });
       setGameStatus(GAME_STATUS.FAILED);

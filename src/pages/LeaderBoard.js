@@ -253,7 +253,7 @@ const LeaderBoard = () => {
                           <div className="ps-3">
                             <div className="text-base font-semibold">
                               {user.displayName
-                                .split(" ")
+                                ?.split(" ")
                                 .map((name) => {
                                   return name[0].toUpperCase() + name.substring(1);
                                 })

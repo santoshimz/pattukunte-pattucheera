@@ -92,7 +92,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
         var guessDistributionJson =
           typeof guessDistribution === "string" ? JSON.parse(guessDistribution) : guessDistribution;
 
-        await setDoc(doc(db, Collections.STATS_COLLECTION, user.uid), {
+        var statsToStoreInDb = {
           gamesPlayed: statsJson.gamesPlayed,
           gamesWon: statsJson.gamesWon,
           maxStreak: statsJson.maxStreak,
@@ -110,7 +110,8 @@ const Home = ({ timeTravelDate, moviesList }) => {
             guessDistributionJson["3"] * 600 +
             guessDistributionJson["4"] * 400 +
             guessDistributionJson["5"] * 200
-        });
+        };
+        await setDoc(doc(db, Collections.STATS_COLLECTION, user.uid), statsToStoreInDb);
       }
     } catch (error) {
       console.error(error);
@@ -286,7 +287,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
                 contributorTwitterId={contributorTwitterId}
                 shareText={shareText}
                 setShareText={setShareText}
-                lastPlayedGame={lastPlayedGame}
+                lastPlayedGame={lastPlayedGame + ""}
                 setLastPlayedGame={setLastPlayedGame}
                 moviesList={moviesList}
               />
