@@ -35,7 +35,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const [contributorTwitterId, setContributorTwitterId] = useState("");
   const [guessDistribution, setGuessDistribution] = useLocalStorage(
     "guessDistribution",
-    intialGuessDistribution
+    JSON.stringify(intialGuessDistribution)
   );
   // We want to update stats only once. This has to be idempotent
   const [updateStats, setUpdateStats] = useLocalStorage("updateStats-latest", false);
@@ -52,7 +52,7 @@ const Home = ({ timeTravelDate, moviesList }) => {
     maxStreak: 0
   };
 
-  const [stats, setStats] = useLocalStorage("stats", initialStats);
+  const [stats, setStats] = useLocalStorage("stats", JSON.stringify(initialStats));
   const [lastPlayedGame, setLastPlayedGame] = useLocalStorage("lastPlayedGame", "");
   const statsObj = React.useMemo(() => {
     return typeof stats === "string" ? JSON.parse(stats) : stats;
@@ -60,69 +60,71 @@ const Home = ({ timeTravelDate, moviesList }) => {
 
   // Auth
   React.useEffect(async () => {
-    if (auth?.currentUser != null) {
-      setIsLoading(true);
-      setCurrentLoggedInUser(auth.currentUser);
-      // No need to check if we have the user in the db coz setDoc will create or update automatically
-      // NOTE: we need to update the data in those cases where user updates their Google/Twitter data
-      // before logging in. If we dont the we will end up with stale data.
-      // Add/Update a new document in collection "user"
-      try {
-        await setDoc(doc(db, Collections.USER_COLLECTION, auth.currentUser.uid), {
-          displayName: auth.currentUser.displayName,
-          profilePic: auth.currentUser.photoURL,
-          email: auth.currentUser.email
-        });
-
-        // Once loggedIn, try getting the stats for the current loggedIn user
-        const statsRef = doc(db, Collections.STATS_COLLECTION, auth.currentUser.uid);
-        const statsSnap = await getDoc(statsRef);
-
-        // if stats or guessDistribution is null then set the game stats - first time logging in
-        if (!statsSnap.exists()) {
-          var statsJson = typeof stats === "string" ? JSON.parse(stats) : stats;
-          var guessDistributionJson =
-            typeof guessDistribution === "string"
-              ? JSON.parse(guessDistribution)
-              : guessDistribution;
-
-          await setDoc(doc(db, Collections.STATS_COLLECTION, auth.currentUser.uid), {
-            gamesPlayed: statsJson.gamesPlayed,
-            gamesWon: statsJson.gamesWon,
-            maxStreak: statsJson.maxStreak,
-            currentStreak: statsJson.currentStreak,
-            displayName: auth.currentUser.displayName,
-            profilePic: auth.currentUser.photoURL,
-            1: guessDistributionJson["1"],
-            2: guessDistributionJson["2"],
-            3: guessDistributionJson["3"],
-            4: guessDistributionJson["4"],
-            5: guessDistributionJson["5"],
-            score:
-              guessDistributionJson["1"] * 1000 +
-              guessDistributionJson["2"] * 800 +
-              guessDistributionJson["3"] * 600 +
-              guessDistributionJson["4"] * 400 +
-              guessDistributionJson["5"] * 200
-          });
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
     return onAuthStateChanged(auth, (user) => {
       setCurrentLoggedInUser(user);
+      if (user != null) {
+        storeUserData(user);
+      }
     });
   }, []);
+
+  const storeUserData = async (user) => {
+    setIsLoading(true);
+    setCurrentLoggedInUser(user);
+    // No need to check if we have the user in the db coz setDoc will create or update automatically
+    // NOTE: we need to update the data in those cases where user updates their Google/Twitter data
+    // before logging in. If we dont the we will end up with stale data.
+    // Add/Update a new document in collection "user"
+    try {
+      await setDoc(doc(db, Collections.USER_COLLECTION, user.uid), {
+        displayName: user.displayName,
+        profilePic: user.photoURL,
+        email: user.email
+      });
+
+      // Once loggedIn, try getting the stats for the current loggedIn user
+      const statsRef = doc(db, Collections.STATS_COLLECTION, user.uid);
+      const statsSnap = await getDoc(statsRef);
+
+      // if stats or guessDistribution is null then set the game stats - first time logging in
+      if (!statsSnap.exists()) {
+        var statsJson = typeof stats === "string" ? JSON.parse(stats) : stats;
+        var guessDistributionJson =
+          typeof guessDistribution === "string" ? JSON.parse(guessDistribution) : guessDistribution;
+
+        await setDoc(doc(db, Collections.STATS_COLLECTION, user.uid), {
+          gamesPlayed: statsJson.gamesPlayed,
+          gamesWon: statsJson.gamesWon,
+          maxStreak: statsJson.maxStreak,
+          currentStreak: statsJson.currentStreak,
+          displayName: user.displayName,
+          profilePic: user.photoURL,
+          1: guessDistributionJson["1"],
+          2: guessDistributionJson["2"],
+          3: guessDistributionJson["3"],
+          4: guessDistributionJson["4"],
+          5: guessDistributionJson["5"],
+          score:
+            guessDistributionJson["1"] * 1000 +
+            guessDistributionJson["2"] * 800 +
+            guessDistributionJson["3"] * 600 +
+            guessDistributionJson["4"] * 400 +
+            guessDistributionJson["5"] * 200
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount();
     fetch(`${process.env.REACT_APP_CDN_URL}${isProduction() ? "/" + dayCount : ""}/meta-data.json`)
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         setMovie(json.movie);
         setContributor(json.contributor);
         setContributorTwitterId(json.twitterId);

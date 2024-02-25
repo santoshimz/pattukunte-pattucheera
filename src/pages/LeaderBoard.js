@@ -41,8 +41,6 @@ const LeaderBoard = () => {
   }, [currentProperty, currentSortOrder]);
 
   const handleSortChange = async (fieldName) => {
-    var sortOrder = "";
-
     if (fieldName === currentProperty) {
       setCurrentSortOrder((sortOrder) => {
         if (sortOrder == "desc") {
@@ -54,8 +52,6 @@ const LeaderBoard = () => {
       });
     }
     setCurrentProperty(fieldName);
-    console.log(currentSortOrder, sortOrder);
-    // await fetchUsersData(fieldName, sortOrder);
   };
 
   const fetchUsersData = async (fieldName, sortOrder) => {

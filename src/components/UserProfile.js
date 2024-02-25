@@ -4,24 +4,20 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
-  const [currentLoggedInUser, setCurrentLoggedInUser] = useState({});
+  const [currentLoggedInUser, setCurrentLoggedInUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.currentUser != null) {
-      setCurrentLoggedInUser(auth.currentUser);
-    }
     return onAuthStateChanged(auth, (user) => {
       setCurrentLoggedInUser(user);
     });
-  }, [auth]);
+  }, []);
 
   const handleSignOut = async () => {
     setIsLoading(true);
     await signOut(auth);
-    setIsLoading(false);
   };
 
   const navigetToLandingPage = () => {
@@ -53,8 +49,8 @@ const UserProfile = () => {
           <circle cx="12" cy="12" r="10" />
         </svg>
       )}
-      <ul className="hidden absolute right-[2%] w-52 dark:text-secondary text-primary list-none text-center group-hover:block dark:bg-slate-800 bg-zinc-100 py-4 px-2 top-[102%] rounded">
-        <li>
+      <ul className="hidden absolute right-[2%] w-52 dark:text-secondary text-primary list-none text-center group-hover:block dark:bg-slate-800 bg-zinc-100 top-[102%] rounded">
+        <li className="px-4 py-2">
           Hi,{" "}
           {currentLoggedInUser?.displayName != null
             ? currentLoggedInUser.displayName
@@ -66,12 +62,12 @@ const UserProfile = () => {
             : "Guest User"}
         </li>
         {currentLoggedInUser != null ? (
-          <li>
+          <li className="">
             {isLoading ? (
               <i className="animate-pulse" data-lucide="more-horizontal"></i>
             ) : (
               <button
-                className="w-full py-2 cursor-pointer mt-3 hover:bg-zinc-200 dark:hover:bg-gray-700 rounded"
+                className="w-full px-4 py-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-slate-900 rounded"
                 onClick={handleSignOut}>
                 Sign out
               </button>
@@ -79,7 +75,7 @@ const UserProfile = () => {
           </li>
         ) : (
           <button
-            className="w-full py-2 cursor-pointer mt-3 hover:bg-zinc-200 dark:hover:bg-gray-700 rounded"
+            className="w-full px-4 py-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-slate-900 rounded"
             onClick={navigetToLandingPage}>
             Wanna SignIn?
           </button>
