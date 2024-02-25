@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TimeTravel from "./pages/TimeTravel";
 import Banner from "./components/banner";
 import { missingMovies } from "./utils/constants";
+import Landing from "./pages/Landing";
+import LeaderBoard from "./pages/LeaderBoard";
 
 const fabBtn = {
   // border-radius: 50%;
@@ -22,9 +24,6 @@ const fabBtn = {
 
 const App = () => {
   const [moviesList, setMoviesList] = React.useState([]);
-  const [theme, setTheme] = React.useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "dark"
-  );
   const [showUploadIcon, setShowUploadIcon] = React.useState(false);
   React.useEffect(() => {
     if (!localStorage.getItem("theme")) {
@@ -83,35 +82,13 @@ const App = () => {
             className="w-full h-full rounded-full"
             style={fabBtn}></div>
         </div>
-        {theme === "dark" && (
-          <button
-            onClick={() => {
-              localStorage.setItem("theme", "light");
-              setTheme("light");
-              document.querySelector("html").classList.remove("dark");
-            }}
-            alt="stats"
-            className="bg-transparent material-symbols-outlined absolute text-gray-500 z-1 top-[2.5%] right-[2%]">
-            light_mode
-          </button>
-        )}
-        {theme === "light" && (
-          <button
-            onClick={() => {
-              localStorage.setItem("theme", "dark");
-              setTheme("dark");
-              document.querySelector("html").classList.add("dark");
-            }}
-            alt="stats"
-            className="bg-transparent material-symbols-outlined absolute text-gray-500 z-1 top-[2.5%] right-[2%]">
-            dark_mode
-          </button>
-        )}
         {process.env.REACT_APP_BANNER && <Banner />}
         <BrowserRouter>
           <Routes>
             <Route exact path="/timetravel" element={<TimeTravel moviesList={moviesList} />} />
-            <Route path="/*" element={<Home moviesList={moviesList} />} />
+            <Route path="/home" element={<Home moviesList={moviesList} />} />
+            <Route path="/*" element={<Landing />} />
+            <Route exact path="/leaderboard" element={<LeaderBoard />} />
           </Routes>
         </BrowserRouter>
       </div>

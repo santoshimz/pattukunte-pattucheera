@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   getTimeDifference,
   getDateTimeInUTC,
@@ -9,8 +9,9 @@ import {
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import Game from "../components/Game";
 import ImagesContainer from "../components/ImagesContainer";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import BackButton from "../components/BackButton";
+import Navbar from "../components/Navbar";
 
 const TimeTravel = ({ moviesList }) => {
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
@@ -80,23 +81,13 @@ const TimeTravel = ({ moviesList }) => {
     return day !== null && day !== undefined && day >= 0;
   };
 
-  const navigate = useNavigate();
-  const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
-
   return (
     <div className="bg-secondary dark:bg-primary min-h-screen h-auto text-primary dark:text-secondary overflow-scroll">
       {/* <h1 className="text-center underline text-3xl py-3">Time Travel to past!</h1> */}
       {timeTravelDate >= 0 && (
         <>
-          <div className="w-8/12 md:w-1/3 m-auto py-6">
-            {" "}
-            <button onClick={goBack}>
-              <span className="flex items-center">
-                <i className="fa-solid fa-left-long text-md"></i>{" "}
-                <span className="underline ml-1 text-md">Go back</span>
-              </span>
-            </button>
-          </div>
+          <Navbar />
+          <BackButton />
           <h5 className="text-center text-lg py-6">
             You are playing day <strong className="text-blue-600">#{timeTravelDate}</strong> game
           </h5>

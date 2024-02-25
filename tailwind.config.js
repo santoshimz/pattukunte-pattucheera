@@ -9,13 +9,23 @@ module.exports = {
           "0%": { width: "0%" }
         }
       },
+      height: {
+        "40vh": "40vh",
+        "50vh": "50vh",
+        "60vh": "60vh",
+        "87vh": "87vh",
+        "91vh": "91vh"
+      },
       colors: {
         "modal-bg-dark": "#1a1b1a",
         primary: "#000",
         secondary: "#fff",
         transparentBg: "#0000004f",
         darkComponentBg: "#3d3d3d",
-        darkComponentText: "#808080"
+        darkComponentText: "#808080",
+        gold: "#FFD700",
+        silver: "#C0C0C0",
+        bronze: "#CD7F32"
       },
       spacing: {
         90: "22.5rem",
@@ -39,6 +49,10 @@ module.exports = {
       },
       zIndex: {
         1: "1"
+      },
+      scale: {
+        101: "1.01",
+        102: "1.02"
       }
     },
     screens: {
