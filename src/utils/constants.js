@@ -275,5 +275,13 @@ export const missingMovies = [
   "Oka Raju Oka Rani",
   "Extra - Ordinary Man",
   "Ambajipeta Marriage Band",
-  "Prema Vimanam"
+  "Prema Vimanam",
+  "Trinetram",
+  "Mangatayaru tiffin center",
+  "Beast",
+  "Beeruva",
+  "Varun Doctor",
+  "Petta",
+  "Ayalaan",
+  "Hi Nanna"
 ];
