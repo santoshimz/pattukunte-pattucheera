@@ -283,5 +283,16 @@ export const missingMovies = [
   "Varun Doctor",
   "Petta",
   "Ayalaan",
-  "Hi Nanna"
+  "Hi Nanna",
+  "Hanu-Man",
+  "Istam",
+  "NET",
+  "Babai Hotel",
+  "Valari",
+  "Adhirindi",
+  "Pandem Kodi",
+  "Hungama",
+  "Prema Entha Madhuram",
+  "Eagle",
+  "Maestro"
 ];
