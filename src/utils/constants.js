@@ -294,5 +294,11 @@ export const missingMovies = [
   "Hungama",
   "Prema Entha Madhuram",
   "Eagle",
-  "Maestro"
+  "Maestro",
+  "Gaami",
+  "Geethanjali Malli Vachindi",
+  "The Family Star",
+  "Premalu",
+  "Om Bheem Bush",
+  "Valari"
 ];
