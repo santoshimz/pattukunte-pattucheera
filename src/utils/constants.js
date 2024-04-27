@@ -300,5 +300,15 @@ export const missingMovies = [
   "The Family Star",
   "Premalu",
   "Om Bheem Bush",
-  "Valari"
+  "Valari",
+  "My Dear Donga",
+  "Sundaram Master",
+  "Bhoothaddam Bhaskar Narayana",
+  "Tantra",
+  "Kajal Karthika",
+  "Matarani Mounamidi",
+  "Mix Up",
+  "Bubblegum",
+  "Rani Gari Bangala",
+  "Kota Bommali PS"
 ];
