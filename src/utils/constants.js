@@ -206,7 +206,6 @@ export const missingMovies = [
   "Maaro",
   "Rowdy boys",
   "Satya",
-  "A Aa",
   "Samajavaragamana",
   "Mounamelanoyi",
   "Naandhi",
