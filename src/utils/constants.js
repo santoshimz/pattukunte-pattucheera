@@ -310,5 +310,7 @@ export const missingMovies = [
   "Mix Up",
   "Bubblegum",
   "Rani Gari Bangala",
-  "Kota Bommali PS"
+  "Kota Bommali PS",
+  "Evandoi Srivaru",
+  "Love Mouli"
 ];
