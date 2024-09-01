@@ -47,6 +47,19 @@ export function getTimeDifference(date1, date2) {
   return { days: days, hours: hours, minutes: minutes, seconds: seconds };
 }
 
+export const getDateFromDayCount = (dayCount) => {
+  const startDate = new Date("2022-05-22T18:30:00.000Z");
+  startDate.setDate(startDate.getDate() + dayCount);
+  return startDate;
+};
+
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export function getDayCount() {
   const diff = getTimeDifference(
     getDateTimeInUTC(new Date()),
@@ -79,12 +92,14 @@ export const isProduction = () => {
 export const githubRepoLink = "https://github.com/santoshimz/pattukunte-pattucheera";
 
 export const composeShareText = (gameStatus, dayCount, isTimeTravelled, currentIndex) => {
+  const timeTravelUrl = `${SITE_URL}/timetravel?date=${formatDate(getDateFromDayCount(dayCount))}`;
+  console.log(timeTravelUrl);
   return `Pattukunte Pattucheera Day ${dayCount}${isTimeTravelled ? "(Time Travelled)" : ""}\
 : ${gameStatus === GAME_STATUS.FAILED ? "0" : currentIndex}/5\n\n${getShareText(
     currentIndex,
     gameStatus,
     isTimeTravelled
-  )}\n\n${SITE_URL}\n#PattukuntePattuCheera`;
+  )}\n\n${isTimeTravelled ? timeTravelUrl : SITE_URL}\n#PattukuntePattuCheera`;
 };
 
 export const isGameDone = (gameStatus) => {
