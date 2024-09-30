@@ -312,5 +312,7 @@ export const missingMovies = [
   "Rani Gari Bangala",
   "Kota Bommali PS",
   "Evandoi Srivaru",
-  "Love Mouli"
+  "Love Mouli",
+  "Salaar: Part 1 – Ceasefire",
+  "Kavya's Diary"
 ];
