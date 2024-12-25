@@ -314,5 +314,8 @@ export const missingMovies = [
   "Evandoi Srivaru",
   "Love Mouli",
   "Salaar: Part 1 – Ceasefire",
-  "Kavya's Diary"
+  "Kavya's Diary",
+  "Mathu Vadalara 2",
+  " Mr & Mrs Sailaja Krishnamurthy",
+  "Narasimha"
 ];
