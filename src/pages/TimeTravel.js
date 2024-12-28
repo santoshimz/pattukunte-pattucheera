@@ -1,18 +1,22 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   getTimeDifference,
   getDateTimeInUTC,
   getDayCount,
   GAME_STATUS,
-  isProduction
+  isProduction,
 } from "../utils/constants";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import Game from "../components/Game";
 import ImagesContainer from "../components/ImagesContainer";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const TimeTravel = ({ moviesList }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const dateFromUrl = queryParams.get('date');
   const [currentIndexFromStorage, setCurrentIndexFromStorage] = useLocalStorage(
     "timeTravel-currentIndex",
     1
@@ -30,14 +34,25 @@ const TimeTravel = ({ moviesList }) => {
 
   const [timeTravelDate, setTimeTravelDate] = React.useState(getDayCount(new Date()) - 1);
   // eslint-disable-next-line no-unused-vars
+  const isTimeTravelled = (timeTravelDate) => {
+    return timeTravelDate !== undefined && timeTravelDate !== null && timeTravelDate >= 0;
+  };
   const [showLoader, setShowLoader] = React.useState(true);
   const [contributorTwitterId, setContributorTwitterId] = React.useState("");
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
     .toISOString()
     .split("T")[0];
-  const [selectedDate, setSelectedDate] = React.useState(yesterday);
-  React.useEffect(() => {
-    const dayCount = timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1;
+  const [selectedDate, setSelectedDate] = React.useState(dateFromUrl || yesterday);
+
+  useEffect(() => {
+    const dayCount = dateFromUrl
+      ? getTimeDifference(getDateTimeInUTC(new Date(dateFromUrl)), new Date("2022-05-22T18:30:00.000Z")).days
+      : (timeTravelDate >= 0 ? timeTravelDate : getDayCount() - 1);
+    setTimeTravelDate(dayCount);
+    setSelectedDate(dateFromUrl || yesterday);
+
+    // ... (rest of the useEffect logic remains the same)
+    // }, [dateFromUrl, timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus, showLoader]);
     if (showLoader) {
       setLoading(true);
     }
@@ -57,8 +72,7 @@ const TimeTravel = ({ moviesList }) => {
       setCurrentIndexFromStorage(1);
       setCurrentIndexFromButton(1);
     }
-  }, [timeTravelDate, setCurrentGuesses, setCurrentIndexFromStorage, setDay, setGameStatus]);
-
+  }, [dateFromUrl, timeTravelDate, day, showLoader]);
   const handleChangeFromDate = (event) => {
     window.gtag("event", "time-travelled", { event_category: "game-stats" });
     const selectedDate = event.target.value;
@@ -67,20 +81,18 @@ const TimeTravel = ({ moviesList }) => {
       new Date("2022-05-22T18:30:00.000Z")
     );
     if (!selectedDate || diff.days > getDayCount() - 1) {
-      setTimeTravelDate(getDayCount(new Date()) - 1);
-      setSelectedDate(yesterday);
-      return;
+      const newDate = new Date(new Date().setDate(new Date().getDate() - 1))
+        .toISOString()
+        .split("T")[0];
+      navigate(`/timetravel?date=${newDate}`);
+      setSelectedDate(newDate);
+    } else {
+      navigate(`/timetravel?date=${selectedDate}`);
+      setSelectedDate(selectedDate);
+      setTimeTravelDate(diff.days);
     }
-    setSelectedDate(selectedDate);
-
-    setTimeTravelDate(diff.days);
   };
 
-  const isTimeTravelled = (day) => {
-    return day !== null && day !== undefined && day >= 0;
-  };
-
-  const navigate = useNavigate();
   const goBack = useCallback(() => navigate("/", { replace: true }), [navigate]);
 
   return (
