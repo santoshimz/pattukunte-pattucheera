@@ -317,5 +317,10 @@ export const missingMovies = [
   "Kavya's Diary",
   "Mathu Vadalara 2",
   " Mr & Mrs Sailaja Krishnamurthy",
-  "Narasimha"
+  "Narasimha",
+  "Red",
+  "35 Chinna Katha Kaadu",
+  "Maharaja",
+  "Chakkiligintha",
+  "Mazaka"
 ];
