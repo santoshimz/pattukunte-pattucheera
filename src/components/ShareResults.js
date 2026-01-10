@@ -48,13 +48,16 @@ const ShareResults = ({
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center mt-3">
-        {!isTimeTravelled && (
-          <div className="text-secondary my-4">
-            <NextGameTimer />
-          </div>
-        )}
+    <div className="space-y-6 lg:space-y-8">
+      {/* Next Game Timer */}
+      {!isTimeTravelled && (
+        <div className="card p-5 lg:p-6 text-center">
+          <NextGameTimer />
+        </div>
+      )}
+
+      {/* Share Button */}
+      <div className="card p-5 lg:p-6 text-center">
         <ShareButton
           shareText={shareText}
           setShareText={setShareText}
@@ -64,29 +67,43 @@ const ShareResults = ({
           isTimeTravelled={isTimeTravelled}
         />
       </div>
-      <div className="flex justify-center items-center">
-        <img
-          className="w-12 h-12 mr-4"
+
+      {/* Social Media Share Icons */}
+      <div className="flex justify-center items-center gap-5 lg:gap-6">
+        <button
           onClick={() => socialShare("twitter")}
-          src={twitterShare}
-          alt="twitter-share"
-        />
+          className="group hover:scale-110 transition-transform"
+          title="Share on Twitter">
+          <img
+            className="w-13 lg:w-14 h-13 lg:h-14 p-2 lg:p-3 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-all shadow-md"
+            src={twitterShare}
+            alt="twitter-share"
+          />
+        </button>
 
-        <img
-          className="w-12 h-12 mr-4"
+        <button
           onClick={() => socialShare("whatsapp")}
-          src={whatsappShare}
-          alt="whatsapp-share"
-        />
+          className="group hover:scale-110 transition-transform"
+          title="Share on WhatsApp">
+          <img
+            className="w-13 lg:w-14 h-13 lg:h-14 p-2 lg:p-3 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-green-100 dark:group-hover:bg-green-900 transition-all shadow-md"
+            src={whatsappShare}
+            alt="whatsapp-share"
+          />
+        </button>
 
-        <img
-          className="w-12 h-12"
+        <button
           onClick={() => socialShare("facebook")}
-          src={fbShare}
-          alt="facebook-share"
-        />
+          className="group hover:scale-110 transition-transform"
+          title="Share on Facebook">
+          <img
+            className="w-13 lg:w-14 h-13 lg:h-14 p-2 lg:p-3 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-all shadow-md"
+            src={fbShare}
+            alt="facebook-share"
+          />
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

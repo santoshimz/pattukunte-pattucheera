@@ -100,41 +100,58 @@ const Home = ({ timeTravelDate, moviesList }) => {
   const gotoArchives = useCallback(() => navigate("/timetravel", { replace: true }), [navigate]);
 
   return (
-    <div className="bg-secondary dark:bg-primary min-h-screen h-auto pb-6 overflow-scroll">
-      <h1 className="text-3xl font-semibold text-center p-4 text-primary dark:text-secondary mx-24">
-        Pattukunte Pattucheera
-      </h1>
-      {/* navbar here */}
-      <div className="flex justify-center mb-3 mx-2">
-        {/* equalizer */}
-        <div className="flex flex-col items-center justify-center w-fit mx-2">
-          <button
-            onClick={() => setOpenStatsModal(true)}
-            alt="stats"
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-red-400">
-            equalizer
-          </button>
-          <span className="w-fit text-sm mt-2 dark:text-secondary">Stats</span>
-        </div>
-        {/* Time Travel */}
-        <div className="flex flex-col items-center justify-center w-fit mx-2">
-          <button
-            onClick={gotoArchives}
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-green-500">
-            update
-          </button>
-          <span className="w-fit text-sm mt-2 dark:text-secondary">Time Travel</span>
-        </div>
-        {/* Instructions */}
-        <div className="flex flex-col items-center justify-center w-fit mx-2">
-          <button
-            onClick={() => setOpenRulesModal(true)}
-            className="material-symbols-outlined text-3xl border-2 rounded px-2 py-1 border-primary-800 text-blue-400">
-            help
-          </button>
-          <span className="w-fit text-sm mt-2 dark:text-secondary">Instructions</span>
-        </div>
+    <div className="page-container bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 min-h-screen h-auto pb-6 lg:pb-10 overflow-scroll">
+      {/* Hero Header */}
+      <div className="text-center py-6 lg:py-10 px-4">
+        <h1 className="hero-title mb-2 lg:mb-4 text-3xl lg:text-5xl">🎬 Pattukunte Pattucheera</h1>
+        <p className="text-sm lg:text-lg text-slate-600 dark:text-slate-400 font-medium">
+          Guess the Tollywood movie from the images
+        </p>
       </div>
+
+      {/* Navigation Bar */}
+      <nav className="flex justify-center gap-3 lg:gap-6 mb-8 lg:mb-12 px-4 flex-wrap">
+        {/* Stats Button */}
+        <button
+          onClick={() => setOpenStatsModal(true)}
+          className="btn-icon stats group"
+          title="View Statistics">
+          <span className="material-symbols-outlined text-3xl lg:text-4xl group-hover:scale-125 transition-transform">
+            equalizer
+          </span>
+          <span className="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-300 uppercase tracking-wider hidden lg:block">
+            Stats
+          </span>
+        </button>
+
+        {/* Time Travel Button */}
+        <button
+          onClick={gotoArchives}
+          className="btn-icon timetravel group"
+          title="Play Past Games">
+          <span className="material-symbols-outlined text-3xl lg:text-4xl group-hover:scale-125 transition-transform">
+            update
+          </span>
+          <span className="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-300 uppercase tracking-wider hidden lg:block">
+            Time Travel
+          </span>
+        </button>
+
+        {/* Instructions Button */}
+        <button
+          onClick={() => setOpenRulesModal(true)}
+          className="btn-icon rules group"
+          title="How to Play">
+          <span className="material-symbols-outlined text-3xl lg:text-4xl group-hover:scale-125 transition-transform">
+            help
+          </span>
+          <span className="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-300 uppercase tracking-wider hidden lg:block">
+            How to Play
+          </span>
+        </button>
+      </nav>
+
+      {/* Modals */}
       <Stats
         shareText={shareText}
         setShareText={setShareText}
@@ -148,48 +165,57 @@ const Home = ({ timeTravelDate, moviesList }) => {
         guessData={JSON.parse(guessDistribution)}
       />
       <RulesModal openRulesModal={openRulesModal} setOpenRulesModal={setOpenRulesModal} />
-      {/* <div className="italic mb-3 flex px-5 justify-center items-center text-primary dark:text-secondary">
-        <Footer />
-      </div> */}
-      <div>
-        <div />
-        <>
-          <ImagesContainer
-            buttonLogic={buttonLogic}
-            setButtonLogic={setButtonLogic}
-            currentIndexFromButton={currentIndexFromButton}
-            currentIndexFromStorage={currentIndexFromStorage}
-            setCurrentIndexFromButton={setCurrentIndexFromButton}
-            gameStatus={gameStatus}
-            dayCount={day}
-          />
-          <Game
-            currentIndex={currentIndexFromStorage}
-            setCurrentIndex={setCurrentIndexFromStorage}
-            currentIndexFromButton={currentIndexFromButton}
-            setCurrentIndexFromButton={setCurrentIndexFromButton}
-            guessDistribution={guessDistribution}
-            setGuessDistribution={setGuessDistribution}
-            currentGuesses={currentGuesses}
-            setCurrentGuesses={setCurrentGuesses}
-            gameStatus={gameStatus}
-            setGameStatus={setGameStatus}
-            day={day}
-            setDay={setDay}
-            setStats={setStats}
-            stats={stats}
-            gameStats={statsObj}
-            movie={movie}
-            setOpenStatsModal={setOpenStatsModal}
-            contributor={contributor}
-            contributorTwitterId={contributorTwitterId}
-            shareText={shareText}
-            setShareText={setShareText}
-            lastPlayedGame={lastPlayedGame}
-            setLastPlayedGame={setLastPlayedGame}
-            moviesList={moviesList}
-          />
-        </>
+
+      {/* Main Game Container */}
+      <div className="w-full px-2 lg:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+            {/* Image Section - Takes 3 columns on large screens */}
+            <div className="lg:col-span-3">
+              <>
+                <ImagesContainer
+                  buttonLogic={buttonLogic}
+                  setButtonLogic={setButtonLogic}
+                  currentIndexFromButton={currentIndexFromButton}
+                  currentIndexFromStorage={currentIndexFromStorage}
+                  setCurrentIndexFromButton={setCurrentIndexFromButton}
+                  gameStatus={gameStatus}
+                  dayCount={day}
+                />
+              </>
+            </div>
+
+            {/* Game & Results Section - Takes 2 columns on large screens */}
+            <div className="lg:col-span-2 flex flex-col gap-6 lg:gap-8">
+              <Game
+                currentIndex={currentIndexFromStorage}
+                setCurrentIndex={setCurrentIndexFromStorage}
+                currentIndexFromButton={currentIndexFromButton}
+                setCurrentIndexFromButton={setCurrentIndexFromButton}
+                guessDistribution={guessDistribution}
+                setGuessDistribution={setGuessDistribution}
+                currentGuesses={currentGuesses}
+                setCurrentGuesses={setCurrentGuesses}
+                gameStatus={gameStatus}
+                setGameStatus={setGameStatus}
+                day={day}
+                setDay={setDay}
+                setStats={setStats}
+                stats={stats}
+                gameStats={statsObj}
+                movie={movie}
+                setOpenStatsModal={setOpenStatsModal}
+                contributor={contributor}
+                contributorTwitterId={contributorTwitterId}
+                shareText={shareText}
+                setShareText={setShareText}
+                lastPlayedGame={lastPlayedGame ? lastPlayedGame.toString() : ""}
+                setLastPlayedGame={setLastPlayedGame}
+                moviesList={moviesList}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

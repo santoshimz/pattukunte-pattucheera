@@ -135,82 +135,147 @@ const Game = ({
     const vals = fuse.search(inputValue, { limit: 6 });
     return vals.map((val) => ({ title: val.item }));
   };
-  // custom styles
+  // custom styles for light mode
   const customStylesForAsyncSelect = {
+    control: (provided, state) => ({
+      ...provided,
+      border: state.isFocused ? "2px solid #ff006e" : "2px solid #e2e8f0",
+      borderRadius: "12px",
+      padding: "10px 14px",
+      backgroundColor: "#fff",
+      minHeight: "48px",
+      boxShadow: state.isFocused
+        ? "0 0 0 3px rgba(255, 0, 110, 0.1)"
+        : "0 1px 3px rgba(0, 0, 0, 0.05)",
+      transition: "all 0.2s ease"
+    }),
     menu: (provided) => {
       if (!inputValue.length) {
         return {
           ...provided,
-          visibility: "hidden"
+          visibility: "hidden",
+          height: 0
         };
       }
       return {
         ...provided,
-        border: "1px solid gray"
+        border: "1px solid #e2e8f0",
+        borderRadius: "12px",
+        backgroundColor: "#fff",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.12)",
+        marginTop: "6px",
+        overflow: "hidden"
       };
-    }
+    },
+    menuList: (provided) => ({
+      ...provided,
+      padding: "8px"
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? "#ff006e" : state.isFocused ? "#f0f4f8" : "#fff",
+      color: state.isSelected ? "#fff" : "#1e293b",
+      padding: "10px 12px",
+      borderRadius: "8px",
+      margin: "4px 0",
+      cursor: "pointer",
+      fontWeight: state.isSelected ? "600" : "500",
+      transition: "all 0.15s ease"
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: "#1e293b",
+      fontSize: "15px"
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#1e293b",
+      fontSize: "15px"
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "#94a3b8",
+      fontSize: "15px"
+    })
   };
+
+  // custom styles for dark mode
   const customStylesForAsyncSelectDark = {
-    control: (provided) => {
-      return {
-        ...provided,
-        border: "1px solid #3d3d3d",
-        background: "#3d3d3d"
-      };
-    },
+    control: (provided, state) => ({
+      ...provided,
+      border: state.isFocused ? "2px solid #ff006e" : "2px solid #475569",
+      borderRadius: "12px",
+      padding: "10px 14px",
+      backgroundColor: "#1e293b",
+      minHeight: "48px",
+      boxShadow: state.isFocused
+        ? "0 0 0 3px rgba(255, 0, 110, 0.2)"
+        : "0 1px 3px rgba(0, 0, 0, 0.3)",
+      transition: "all 0.2s ease"
+    }),
     menu: (provided) => {
       if (!inputValue.length) {
         return {
           ...provided,
-          visibility: "hidden"
+          visibility: "hidden",
+          height: 0
         };
       }
       return {
         ...provided,
-        background: "#3d3d3d",
-        color: "white"
+        backgroundColor: "#0f172a",
+        border: "1px solid #475569",
+        borderRadius: "12px",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+        marginTop: "6px",
+        overflow: "hidden"
       };
     },
-    input: (provided) => {
-      return {
-        ...provided,
-        color: "white"
-      };
-    },
-    singleValue: (provided) => {
-      return {
-        ...provided,
-        color: "white"
-      };
-    },
-    menuList: (provided) => {
-      return {
-        ...provided,
-        color: "#808080"
-      };
-    }
+    menuList: (provided) => ({
+      ...provided,
+      padding: "8px"
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? "#ff006e" : state.isFocused ? "#334155" : "#1e293b",
+      color: state.isSelected ? "#fff" : "#e2e8f0",
+      padding: "10px 12px",
+      borderRadius: "8px",
+      margin: "4px 0",
+      cursor: "pointer",
+      fontWeight: state.isSelected ? "600" : "500",
+      transition: "all 0.15s ease"
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: "#e2e8f0",
+      fontSize: "15px"
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#e2e8f0",
+      fontSize: "15px"
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "#64748b",
+      fontSize: "15px"
+    })
   };
   return (
     <>
       {!gameFinished && (
-        <div className="w-full">
-          <div className="w-full flex justify-center mb-3">
-            <button
-              onClick={() => submit({ title: "Skipped" })}
-              className="block w-fit px-3 py-1 border-red-600 bg-red-600 rounded text-secondary">
-              Skip
-            </button>
-          </div>
-
-          <div className="w-full flex justify-center items-center">
-            <div className="min-w-68 md:min-w-33">
+        <div className="w-full space-y-4 lg:space-y-5">
+          <div className="card p-5 lg:p-6 space-y-4 lg:space-y-5 relative z-10">
+            {/* Input Section with label */}
+            <div className="space-y-2 relative z-20">
+              <label className="text-sm lg:text-base font-semibold text-slate-700 dark:text-slate-300 block">
+                Search Movie
+              </label>
               <AsyncSelect
-                placeholder="Enter a movie name"
+                placeholder="Type a movie name..."
                 cacheOptions
                 defaultValue={false}
-                // className={
-                //   !inputValue.length ? "hide-dropdown w-full text-primary" : "w-full text-primary"
-                // }
                 styles={
                   localStorage.getItem("theme") === "dark"
                     ? customStylesForAsyncSelectDark
@@ -224,30 +289,49 @@ const Game = ({
                 onChange={(value) => {
                   setSelectedValue(value);
                 }}
+                classNamePrefix="react-select"
               />
             </div>
 
-            <div className="w-20">
+            {/* Action Buttons */}
+            <div className="flex gap-2 lg:gap-3 w-full">
               <button
-                className="px-4 py-1.5 bg-blue-600 border-blue-600 rounded text-secondary ml-2"
+                className="btn-primary flex-1 lg:flex-auto flex items-center justify-center gap-2 px-5 lg:px-6 py-3 lg:py-3"
                 onClick={() => submit()}>
-                submit
+                <span className="text-lg">
+                  <i className="fa-solid fa-check-circle"></i>
+                </span>
+                <span>Submit</span>
+              </button>
+
+              <button
+                onClick={() => submit({ title: "Skipped" })}
+                className="btn-secondary flex-1 lg:flex-auto flex items-center justify-center gap-2 px-5 lg:px-6 py-3 lg:py-3">
+                <span className="text-lg">
+                  <i className="fa-solid fa-forward"></i>
+                </span>
+                <span>Skip</span>
               </button>
             </div>
           </div>
+
+          {/* Results Display - Below dropdown */}
+          <div className="relative z-0">
+            <Results
+              currentGuesses={currentGuesses}
+              gameStatus={gameStatus}
+              currentIndex={currentIndex}
+              movie={movie}
+              contributor={contributor}
+              contributorTwitterId={contributorTwitterId}
+              gameFinished={gameFinished}
+            />
+          </div>
         </div>
       )}
-      <Results
-        currentGuesses={currentGuesses}
-        gameStatus={gameStatus}
-        currentIndex={currentIndex}
-        movie={movie}
-        contributor={contributor}
-        contributorTwitterId={contributorTwitterId}
-        gameFinished={gameFinished}
-      />
+
+      {/* Confetti Animation */}
       <div
-        className="flex justify-center"
         style={{
           position: "absolute",
           top: "55%",
