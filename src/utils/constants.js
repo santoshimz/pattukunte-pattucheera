@@ -330,5 +330,6 @@ export const missingMovies = [
   "Patang",
   "Santhana Prapthirasthu",
   "Eesha",
-  "K-Ramp"
+  "K-Ramp",
+  "Salaar"
 ];
