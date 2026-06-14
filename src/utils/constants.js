@@ -331,5 +331,9 @@ export const missingMovies = [
   "Santhana Prapthirasthu",
   "Eesha",
   "K-Ramp",
-  "Salaar"
+  "Salaar",
+  "Journey",
+  "Detective",
+  "Kutumba Gowravam",
+  "Yuganiki okkadu"
 ];
