@@ -334,6 +334,6 @@ export const missingMovies = [
   "Salaar",
   "Journey",
   "Detective",
-  "Kutumba Gowravam",
+  "Kutumba Gouravam",
   "Yuganiki okkadu"
 ];
