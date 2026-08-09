@@ -32,83 +32,111 @@ const Results = ({
   };
 
   return (
-    <div className="text-center text-primary dark:text-secondary">
-      <div>
-        {gameRunning && (
-          <span className="block my-3">
-            You got{" "}
-            <strong
-              className={`text-lg ${
+    <div className="text-slate-900 dark:text-slate-100 space-y-3 lg:space-y-4">
+      {/* Status Bar */}
+      {gameRunning && (
+        <div className="card p-4 lg:p-5 text-center">
+          <div className="flex justify-center items-center gap-3 lg:gap-4">
+            <span className="text-sm lg:text-base uppercase tracking-wider text-slate-600 dark:text-slate-400 font-semibold">
+              Remaining:
+            </span>
+            <span
+              className={`text-3xl lg:text-4xl font-black ${
                 6 - currentIndex >= 4
                   ? "text-green-500"
                   : 6 - currentIndex === 3
-                  ? "text-orange-500"
+                  ? "text-amber-500"
                   : 6 - currentIndex < 3
                   ? "text-red-500"
                   : null
               }`}>
               {6 - currentIndex}
-            </strong>{" "}
-            guesses remaining out of <strong className="text-lg text-green-500">5</strong>.
+            </span>
+            <span className="text-sm lg:text-base text-slate-600 dark:text-slate-400 font-semibold">
+              / 5
+            </span>
+          </div>
+        </div>
+      )}
+
+      {gameSuccess && (
+        <div className="card p-4 lg:p-5 text-center">
+          <p className="text-base lg:text-lg font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 lg:mb-3">
+            🎉 You Got It!
+          </p>
+          <p className="text-2xl lg:text-3xl font-black text-green-500">{movie}</p>
+        </div>
+      )}
+
+      {gameFailed && (
+        <div className="card p-4 lg:p-5 text-center">
+          <p className="text-base lg:text-lg font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 lg:mb-3">
+            The Answer Was
+          </p>
+          <p className="text-2xl lg:text-3xl font-black text-green-500">{movie}</p>
+        </div>
+      )}
+
+      {/* Result Icons */}
+      <div
+        className="flex justify-center items-center gap-2 lg:gap-3 text-2xl lg:text-4xl py-2 lg:py-3"
+        id="share">
+        {range(1, currentIndex).map(() => (
+          <span
+            key={Math.random() * 100}
+            className="transform hover:scale-110 transition-transform">
+            <i className="fa-solid fa-square-xmark text-red-500"></i>
           </span>
-        )}
+        ))}
         {gameSuccess && (
-          <span className="text-lg">
-            You got it - The answer was
-            <span className="text-green-600"> {movie}</span>
+          <span className="transform hover:scale-110 transition-transform text-green-500 text-3xl lg:text-5xl">
+            <i className="fa-solid fa-square-check"></i>
           </span>
         )}
         {gameFailed && (
-          <span className="text-lg">
-            The answer was
-            <span className="text-green-500"> {movie}</span>
+          <span className="transform hover:scale-110 transition-transform text-red-500 text-3xl lg:text-5xl">
+            <i className="fa-solid fa-square-xmark"></i>
           </span>
         )}
-        <div className="justify-center" id="share">
-          {range(1, currentIndex).map(() => {
-            return (
-              <span key={Math.random() * 100}>
-                <i className="fa-solid fa-square-xmark text-red-600 text-3xl mr-2"></i>
-              </span>
-            );
-          })}
-          {gameSuccess && (
-            <span className="text-green-600 text-3xl">
-              <i className="fa-solid fa-square-check"></i>
-            </span>
-          )}
-          {gameFailed && (
-            <span className="text-red-600 text-3xl">
-              <i className="fa-solid fa-square-xmark"></i>
-            </span>
-          )}
-        </div>
       </div>
-      {allGuesses.map((allGuess, index) => {
-        return (
-          <div
-            className="mx-auto my-3 flex items-center border-2 border-red-600 rounded w-72 py-0.5"
-            key={index}>
-            <span className="text-red-600 text-xl ml-3">
-              <i className="fa-regular fa-circle-xmark"></i>
-            </span>
-            <span className="ml-3">{allGuess}</span>
-          </div>
-        );
-      })}
-      {gameSuccess && (
-        <div className="mx-auto my-3 flex items-center border-2 border-green-600 rounded w-72 py-0.5">
-          <span className="text-green-500 text-xl ml-3">
-            <i className="fa-regular fa-circle-check"></i>
-          </span>
-          <span className="ml-3">{movie}</span>
+
+      {/* Guesses List */}
+      {allGuesses.length > 0 && (
+        <div className="space-y-2 lg:space-y-3">
+          {allGuesses.map((allGuess, index) => (
+            <div key={index} className="result-item incorrect max-w-md mx-auto py-3 px-4">
+              <span className="text-red-500 text-base lg:text-lg mr-3">
+                <i className="fa-regular fa-circle-xmark"></i>
+              </span>
+              <span className="text-sm lg:text-base font-semibold text-slate-700 dark:text-slate-200">
+                {allGuess}
+              </span>
+            </div>
+          ))}
         </div>
       )}
+
+      {gameSuccess && (
+        <div className="result-item correct max-w-md mx-auto py-3 px-4">
+          <span className="text-green-500 text-base lg:text-lg mr-3">
+            <i className="fa-regular fa-circle-check"></i>
+          </span>
+          <span className="text-sm lg:text-base font-semibold text-green-700 dark:text-green-300">
+            {movie}
+          </span>
+        </div>
+      )}
+
+      {/* Contributor */}
       {(contributor || contributorTwitterId) && gameFinished && (
-        <small className="block text-center text-primary dark:text-secondary">
-          Contributed by &nbsp;
-          {!contributorTwitterId ? "@" + contributor : getTwitterProfile(contributorTwitterId)}
-        </small>
+        <div className="text-center pt-3 lg:pt-4 border-t border-slate-200 dark:border-slate-700 text-xs lg:text-sm">
+          <p className="text-slate-600 dark:text-slate-400 mb-1">Level by</p>
+          {!contributorTwitterId ? (
+            <p className="font-semibold text-slate-900 dark:text-slate-100">@{contributor}</p>
+          ) : (
+            getTwitterProfile(contributorTwitterId)
+          )}
+        </div>
       )}
     </div>
   );

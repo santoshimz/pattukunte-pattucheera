@@ -29,13 +29,16 @@ const ShareButton = ({
     }
   };
   return (
-    <>
-      <button
-        className="px-4 py-1.5 rounded-sm bg-green-500 border-green-500 mx-auto mb-4 text-secondary"
-        onClick={copyText}>
-        {shareText}
-      </button>
-    </>
+    <button
+      className={`btn-primary w-full md:w-auto transition-all duration-300 ${
+        shareText === "COPIED" ? "bg-green-500 hover:bg-green-600" : ""
+      }`}
+      onClick={copyText}>
+      <span className="material-symbols-outlined mr-2 inline-block">
+        {shareText === "COPIED" ? "check_circle" : "share"}
+      </span>
+      {shareText}
+    </button>
   );
 };
 
