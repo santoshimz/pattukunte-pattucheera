@@ -10,7 +10,6 @@ const BackButton = () => {
 
   return (
     <div className="w-8/12 md:w-1/3 m-auto py-3 text-primary dark:text-secondary">
-      {" "}
       <button onClick={goBack}>
         <span className="flex items-center">
           <i className="fa-solid fa-left-long text-md"></i>{" "}

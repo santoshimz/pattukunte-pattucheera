@@ -1,14 +1,11 @@
 import AsyncSelect from "react-select/async";
-import React, { useEffect, useMemo } from "react";
-import { Collections, GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
+import React, { useMemo } from "react";
+import { GAME_STATUS, MAX_ATTEMPTS, isGameDone } from "../utils/constants";
 import PropTypes from "prop-types";
 import ShareResults from "./ShareResults";
 import Results from "./Results";
 import Fuse from "fuse.js";
 import Confetti from "react-dom-confetti";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../components/Firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
 const config = {
   angle: "180",
@@ -46,31 +43,18 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList
+  moviesList,
+  userId,
+  onStatsChange
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
   const [isShowConfetti, setIsShowConfetti] = React.useState(null);
-  const [currentUserStats, setCurrentUserStats] = React.useState(null);
-  const [currentUserId, setCurrentUserId] = React.useState("");
   const gameFinished = useMemo(() => isGameDone(gameStatus), [gameStatus]);
   const statsModalTimeOut = 2000;
   const handleInputChange = (value) => {
     setValue(value);
   };
-
-  useEffect(async () => {
-    return onAuthStateChanged(auth, async (user) => {
-      if (user != null) {
-        setCurrentUserId(user.uid);
-        const statsRef = doc(db, Collections.STATS_COLLECTION, user.uid);
-        const statsSnap = await getDoc(statsRef);
-        var currentUserStats = {};
-        currentUserStats = statsSnap.data();
-        setCurrentUserStats(currentUserStats);
-      }
-    });
-  }, []);
 
   const fuzzyOptions = {
     isCaseSensitive: false
@@ -90,12 +74,6 @@ const Game = ({
 
   const fuse = new Fuse(moviesList, fuzzyOptions);
 
-  const setAttemptsInLocalStorage = (attempts) => {
-    let currentGuessDistribution = JSON.parse(guessDistribution);
-    currentGuessDistribution[attempts.toString()]++;
-    setGuessDistribution(JSON.stringify(currentGuessDistribution));
-  };
-
   const submit = async (value) => {
     if (
       (selectedValue?.title && !value ? selectedValue.title : value.title).trim().toLowerCase() ===
@@ -105,32 +83,26 @@ const Game = ({
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
-      setAttemptsInLocalStorage(currentIndex);
-      var updatedGameStats = {
-        gamesPlayed: gameStats.gamesPlayed + 1,
-        gamesWon: gameStats.gamesWon + 1,
-        currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
-        maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
-      };
-      setStats(JSON.stringify(gameStats));
-      setLastPlayedGame(day);
-      // storing in the DB
-      if (currentUserStats != null) {
-        var updatedCurrentStats = {
-          ...currentUserStats,
-          gamesPlayed: updatedGameStats.gamesPlayed,
-          gamesWon: updatedGameStats.gamesWon,
-          maxStreak: updatedGameStats.maxStreak,
-          currentStreak: updatedGameStats.currentStreak,
-          [currentIndex.toString()]: currentUserStats[currentIndex.toString()] + 1
+      if (!timeTravelled) {
+        const updatedGameStats = {
+          gamesPlayed: gameStats.gamesPlayed + 1,
+          gamesWon: gameStats.gamesWon + 1,
+          currentStreak:
+            lastPlayedGame !== "" && Number(lastPlayedGame) === day - 1
+              ? gameStats.currentStreak + 1
+              : 1,
+          maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
         };
-        updatedCurrentStats.score =
-          updatedCurrentStats["1"] * 1000 +
-          updatedCurrentStats["2"] * 800 +
-          updatedCurrentStats["3"] * 600 +
-          updatedCurrentStats["4"] * 400 +
-          updatedCurrentStats["5"] * 200;
-        await setDoc(doc(db, Collections.STATS_COLLECTION, currentUserId), updatedCurrentStats);
+        const updatedGuessDistribution = {
+          ...guessDistribution,
+          [currentIndex.toString()]: (guessDistribution[currentIndex.toString()] ?? 0) + 1
+        };
+        setStats(updatedGameStats);
+        setGuessDistribution(updatedGuessDistribution);
+        setLastPlayedGame(day);
+        if (userId && onStatsChange) {
+          await onStatsChange(updatedGameStats, updatedGuessDistribution, day);
+        }
       }
     } else if (currentIndex === MAX_ATTEMPTS) {
       window.gtag("event", "GameFailed", { event_category: "game-stats" });
@@ -143,15 +115,19 @@ const Game = ({
       } else {
         setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
-      setStats(
-        JSON.stringify({
+      if (!timeTravelled) {
+        const updatedGameStats = {
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon,
           maxStreak: gameStats.maxStreak,
           currentStreak: 0
-        })
-      );
-      setLastPlayedGame(day);
+        };
+        setStats(updatedGameStats);
+        setLastPlayedGame(day);
+        if (userId && onStatsChange) {
+          await onStatsChange(updatedGameStats, guessDistribution, day);
+        }
+      }
       setSelectedValue(null);
     } else {
       setCurrentIndex(currentIndex + 1);
@@ -318,7 +294,7 @@ Game.propTypes = {
   gameStats: PropTypes.object,
   setCurrentIndexFromButton: PropTypes.func,
   movie: PropTypes.string,
-  guessDistribution: PropTypes.string,
+  guessDistribution: PropTypes.object,
   setGuessDistribution: PropTypes.func,
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
@@ -326,9 +302,11 @@ Game.propTypes = {
   contributorTwitterId: PropTypes.string,
   shareText: PropTypes.string,
   setShareText: PropTypes.func,
-  lastPlayedGame: PropTypes.string,
+  lastPlayedGame: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  userId: PropTypes.string,
+  onStatsChange: PropTypes.func
 };
 
 export default Game;

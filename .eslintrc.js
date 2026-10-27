@@ -16,9 +16,20 @@ module.exports = {
       jsx: true
     },
     ecmaVersion: 2018,
-    sourceType: "module"
+    sourceType: "module",
+    requireConfigFile: false,
+    babelOptions: {
+      parserOpts: {
+        plugins: ["jsx"]
+      }
+    }
   },
   plugins: ["react"],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  },
   rules: {
     "react/react-in-jsx-scope": "off",
     // to get rid of prettier end of line errors

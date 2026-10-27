@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../components/Firebase";
+import { auth, db, isFirebaseConfigured } from "../components/Firebase";
 import BackButton from "../components/BackButton";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { getDocs, query, orderBy, limit, collection } from "firebase/firestore";
 import { Collections } from "../utils/constants";
-import { useLocation } from "react-router-dom";
 import Loader from "../components/Loader";
 import { onAuthStateChanged } from "firebase/auth";
 
 const LeaderBoard = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
   const [users, setUsers] = useState([]);
   const [currentProperty, setCurrentProperty] = useState("currentStreak");
   const [currentSortOrder, setCurrentSortOrder] = useState("desc");
@@ -22,22 +19,40 @@ const LeaderBoard = () => {
   const crownSizes = [32, 28, 24];
   const crownColors = ["text-gold", "text-silver", "text-bronze"];
 
-  useEffect(async () => {
-    setIsLoading(true);
-    try {
-      // Once loggedIn, try getting the stats for the current loggedIn user
-      await fetchUsersData(currentProperty, currentSortOrder);
-    } catch (error) {
-      console.error(error);
-    } finally {
+  useEffect(() => {
+    if (!isFirebaseConfigured || !auth || !db) {
       setIsLoading(false);
+      navigate("/home");
+      return;
     }
 
-    return onAuthStateChanged(auth, (user) => {
+    let isActive = true;
+    const loadUsers = async (user) => {
       if (user == null) {
         navigate("/home");
+        return;
       }
-    });
+      setIsLoading(true);
+      try {
+        const usersList = await fetchUsersData(currentProperty, currentSortOrder);
+        if (isActive) {
+          setUsers(usersList);
+        }
+      } catch {
+        if (isActive) {
+          setUsers([]);
+        }
+      } finally {
+        if (isActive) {
+          setIsLoading(false);
+        }
+      }
+    };
+    const unsubscribe = onAuthStateChanged(auth, loadUsers);
+    return () => {
+      isActive = false;
+      unsubscribe();
+    };
   }, [currentProperty, currentSortOrder]);
 
   const handleSortChange = async (fieldName) => {
@@ -56,18 +71,13 @@ const LeaderBoard = () => {
 
   const fetchUsersData = async (fieldName, sortOrder) => {
     const statsRef = collection(db, Collections.STATS_COLLECTION);
-    const statsQuery = query(
-      statsRef,
-      // where
-      orderBy(fieldName, sortOrder),
-      limit(10)
-    );
-    var statsSnapshot = await getDocs(statsQuery);
-    var usersList = [];
+    const statsQuery = query(statsRef, orderBy(fieldName, sortOrder), limit(10));
+    const statsSnapshot = await getDocs(statsQuery);
+    const usersList = [];
     statsSnapshot.forEach((stats) => {
       usersList.push({ ...stats.data(), userId: stats.id });
     });
-    setUsers(usersList);
+    return usersList;
   };
 
   return (
@@ -223,7 +233,7 @@ const LeaderBoard = () => {
                       <tr
                         key={index}
                         className={`border-b dark:border-gray-700 odd:bg-white odd:dark:bg-gray-800 even:bg-gray-100 even:dark:bg-gray-700 bg-white dark:bg-gray-700 ${
-                          user.userId == auth.currentUser.uid ? "scale-102" : ""
+                          user.userId == auth?.currentUser?.uid ? "scale-102" : ""
                         }`}>
                         <th
                           scope="col"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth } from "./Firebase";
+import { auth, isFirebaseConfigured } from "./Firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -10,27 +10,44 @@ const UserProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isFirebaseConfigured || !auth) {
+      setCurrentLoggedInUser(null);
+      setIsLoading(false);
+      return;
+    }
+
     return onAuthStateChanged(auth, (user) => {
       setCurrentLoggedInUser(user);
+      setIsLoading(false);
     });
   }, []);
 
   const handleSignOut = async () => {
+    if (!auth) {
+      return;
+    }
+
     setIsLoading(true);
-    await signOut(auth);
+    try {
+      await signOut(auth);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const navigetToLandingPage = () => {
     navigate("/");
   };
+  const displayName =
+    currentLoggedInUser?.displayName || currentLoggedInUser?.email?.split("@")[0] || "Guest User";
 
   return (
     <div className="absolute z-5 top-[1.5%] right-[2%] group">
-      {currentLoggedInUser != null ? (
+      {currentLoggedInUser?.photoURL ? (
         <img
           className="w-12 h-12 rounded-full cursor-pointer"
           src={currentLoggedInUser.photoURL}
-          alt={currentLoggedInUser.displayName}
+          alt={currentLoggedInUser.displayName || "Profile photo"}
         />
       ) : (
         <svg
@@ -51,15 +68,12 @@ const UserProfile = () => {
       )}
       <ul className="hidden absolute right-[2%] w-52 dark:text-secondary text-primary list-none text-center group-hover:block dark:bg-slate-800 bg-zinc-100 top-[102%] rounded">
         <li className="px-4 py-2">
-          Hi,{" "}
-          {currentLoggedInUser?.displayName != null
-            ? currentLoggedInUser.displayName
-                .split(" ")
-                .map((name) => {
-                  return name[0].toUpperCase() + name.substring(1);
-                })
-                .join(" ")
-            : "Guest User"}
+          Hi{" "}
+          {displayName
+            .split(/\s+/)
+            .filter(Boolean)
+            .map((name) => name[0].toUpperCase() + name.slice(1))
+            .join(" ")}
         </li>
         {currentLoggedInUser != null ? (
           <li className="">
@@ -77,7 +91,7 @@ const UserProfile = () => {
           <button
             className="w-full px-4 py-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-slate-900 rounded"
             onClick={navigetToLandingPage}>
-            Wanna SignIn?
+            Sign in
           </button>
         )}
       </ul>

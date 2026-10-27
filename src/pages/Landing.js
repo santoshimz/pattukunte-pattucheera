@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import {
@@ -6,14 +6,18 @@ import {
   GoogleAuthProvider,
   TwitterAuthProvider,
   onAuthStateChanged
-  // signInWithRedirect
 } from "firebase/auth";
-import { auth } from "../components/Firebase";
+import { auth, isFirebaseConfigured } from "../components/Firebase";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const [signInError, setSignInError] = useState("");
 
   useEffect(() => {
+    if (!isFirebaseConfigured || !auth) {
+      return;
+    }
+
     return onAuthStateChanged(auth, (user) => {
       if (user != null) {
         navigate("/home");
@@ -22,54 +26,33 @@ const Landing = () => {
   }, []);
 
   const handleGoogleSignIn = () => {
+    if (!isFirebaseConfigured || !auth) {
+      setSignInError("Sign-in is unavailable in this environment.");
+      return;
+    }
+
+    setSignInError("");
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log({ credential, token, user });
+      .then(() => {
         navigate("/home");
       })
-      .catch((error) => {
-        // Handling Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-
-        console.error({ errorCode, email, credential, errorMessage });
-      });
+      .catch(() => setSignInError("Google sign-in failed. Please try again."));
   };
 
-  const handleTwitterSingIn = () => {
+  const handleTwitterSignIn = () => {
+    if (!isFirebaseConfigured || !auth) {
+      setSignInError("Sign-in is unavailable in this environment.");
+      return;
+    }
+
+    setSignInError("");
     const provider = new TwitterAuthProvider();
-    console.log(provider);
     signInWithPopup(auth, provider)
-      .then((result) => {
-        // // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = TwitterAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // // The signed-in user info.
-        // const user = result.user;
-        console.log({ result });
+      .then(() => {
         navigate("/home");
       })
-      .catch((error) => {
-        // Handling Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-
-        console.error({ errorCode, email, credential, errorMessage });
-      });
+      .catch(() => setSignInError("Twitter sign-in failed. Please try again."));
   };
 
   return (
@@ -83,11 +66,11 @@ const Landing = () => {
           <p className="text-2xl italic">Introducing new feature - Leader Board 🎉</p>
           <p>
             <br />
-            You can still play the game without logging in. You jst cant see the leaderboard if u
-            dont login.
+            You can still play the game without logging in. You just can&apos;t see the leaderboard
+            if you don&apos;t login.
           </p>
           <p className="text-sm">
-            If you dont want to login, click
+            If you don&apos;t want to login, click
             <span
               className="cursor-pointer text-blue-500"
               onClick={() => {
@@ -111,10 +94,15 @@ const Landing = () => {
         {/* twitter login/setup */}
         <button
           className="w-56 h-14 ml-4 flex items-center justify-center border dark:border-slate-800 dark:bg-gray-900 border-gray-400 bg-slate-300 rounded"
-          onClick={handleTwitterSingIn}>
+          onClick={handleTwitterSignIn}>
           <i className="text-2xl w-fit text-gray-500 fa-brands fa-twitter"></i>
           <span className="ml-2">Continue with Twitter</span>
         </button>
+        {signInError && (
+          <p role="alert" className="basis-full text-center text-red-600">
+            {signInError}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -15,7 +15,19 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+const requiredFirebaseFields = ["apiKey", "authDomain", "projectId", "appId"];
+export const isFirebaseConfigured = requiredFirebaseFields.every(
+  (field) => typeof firebaseConfig[field] === "string" && firebaseConfig[field].trim() !== ""
+);
+
+let app = null;
+let auth = null;
+let db = null;
+
+if (isFirebaseConfigured) {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+}
+
+export { app, auth, db };
