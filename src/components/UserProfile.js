@@ -47,6 +47,7 @@ const UserProfile = () => {
         <img
           className="w-12 h-12 rounded-full cursor-pointer"
           src={currentLoggedInUser.photoURL}
+          referrerPolicy="no-referrer"
           alt={currentLoggedInUser.displayName || "Profile photo"}
         />
       ) : (

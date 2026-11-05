@@ -135,11 +135,19 @@ const Home = ({ timeTravelDate, moviesList }) => {
     // before logging in. If we dont the we will end up with stale data.
     // Add/Update a new document in collection "user"
     try {
-      await setDoc(doc(db, Collections.USER_COLLECTION, user.uid), {
-        displayName: user.displayName || user.email || user.uid,
-        profilePic: user.photoURL || "",
-        email: user.email || ""
-      });
+      // How they signed in, e.g. "google.com" or "twitter.com", and their id on that provider
+      const signInProvider = user.providerData?.[0];
+      await setDoc(
+        doc(db, Collections.USER_COLLECTION, user.uid),
+        {
+          displayName: user.displayName || user.email || user.uid,
+          profilePic: user.photoURL || "",
+          email: user.email || "",
+          signInProvider: signInProvider?.providerId || "",
+          providerUserId: signInProvider?.uid || ""
+        },
+        { merge: true }
+      ); // merge so fields saved elsewhere (e.g. twitterHandle) are kept
 
       // Once loggedIn, try getting the stats for the current loggedIn user
       const statsRef = doc(db, Collections.STATS_COLLECTION, user.uid);
@@ -156,9 +164,8 @@ const Home = ({ timeTravelDate, moviesList }) => {
           gamesWon: guestStats.gamesWon,
           maxStreak: guestStats.maxStreak,
           currentStreak: guestStats.currentStreak,
-          displayName: user.displayName || user.email || user.uid,
+          displayName: user.displayName || "Player",
           profilePic: user.photoURL || "",
-          email: user.email || "",
           lastPlayedGame: guestLastPlayedGame,
           ...getStoredAttemptStats(guestGuessDistribution),
           score:
@@ -217,10 +224,8 @@ const Home = ({ timeTravelDate, moviesList }) => {
           ...getStoredAttemptStats(distribution),
           score,
           lastPlayedGame: playedDay,
-          displayName:
-            currentLoggedInUser.displayName || currentLoggedInUser.email || currentLoggedInUser.uid,
-          profilePic: currentLoggedInUser.photoURL || "",
-          email: currentLoggedInUser.email || ""
+          displayName: currentLoggedInUser.displayName || "Player",
+          profilePic: currentLoggedInUser.photoURL || ""
         },
         { merge: true }
       );

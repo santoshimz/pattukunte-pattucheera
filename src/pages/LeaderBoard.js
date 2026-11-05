@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { auth, db, isFirebaseConfigured } from "../components/Firebase";
 import BackButton from "../components/BackButton";
@@ -7,6 +8,33 @@ import { getDocs, query, orderBy, limit, collection } from "firebase/firestore";
 import { Collections } from "../utils/constants";
 import Loader from "../components/Loader";
 import { onAuthStateChanged } from "firebase/auth";
+
+const Avatar = ({ src, name }) => {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [src]);
+  const initial = (name || "?").trim()[0]?.toUpperCase() || "?";
+  if (!src || failed) {
+    return (
+      <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-lg font-semibold text-gray-800 dark:text-white shrink-0">
+        {initial}
+      </div>
+    );
+  }
+  return (
+    <img
+      className="w-12 h-12 rounded-full object-cover shrink-0"
+      src={src}
+      alt={name || "DP"}
+      referrerPolicy="no-referrer"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
+Avatar.propTypes = {
+  src: PropTypes.string,
+  name: PropTypes.string
+};
 
 const LeaderBoard = () => {
   const navigate = useNavigate();
@@ -259,7 +287,7 @@ const LeaderBoard = () => {
                         <th
                           scope="col"
                           className="flex flex-wrap items-center justify-start px-6 py-4 px-4 py-1.5 md:px-6 md:py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                          <img className="w-12 h-12 rounded-full" src={user.profilePic} alt="DP" />
+                          <Avatar src={user.profilePic} name={user.displayName} />
                           <div className="ps-3">
                             <div className="text-base font-semibold">
                               {user.displayName

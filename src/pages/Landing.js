@@ -5,9 +5,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   TwitterAuthProvider,
+  getAdditionalUserInfo,
   onAuthStateChanged
 } from "firebase/auth";
-import { auth, isFirebaseConfigured } from "../components/Firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db, isFirebaseConfigured } from "../components/Firebase";
+import { Collections } from "../utils/constants";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -49,7 +52,20 @@ const Landing = () => {
     setSignInError("");
     const provider = new TwitterAuthProvider();
     signInWithPopup(auth, provider)
-      .then(() => {
+      .then(async (result) => {
+        // The @handle is only available right after sign-in, so save it now (best effort)
+        const handle = getAdditionalUserInfo(result)?.username;
+        if (handle && db) {
+          try {
+            await setDoc(
+              doc(db, Collections.USER_COLLECTION, result.user.uid),
+              { twitterHandle: handle },
+              { merge: true }
+            );
+          } catch {
+            // Not critical: sign-in still succeeds without the handle
+          }
+        }
         navigate("/home");
       })
       .catch(() => setSignInError("Twitter sign-in failed. Please try again."));
