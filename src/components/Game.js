@@ -43,7 +43,9 @@ const Game = ({
   setShareText,
   lastPlayedGame,
   setLastPlayedGame,
-  moviesList
+  moviesList,
+  userId,
+  onStatsChange
 }) => {
   const [inputValue, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -53,6 +55,7 @@ const Game = ({
   const handleInputChange = (value) => {
     setValue(value);
   };
+
   const fuzzyOptions = {
     isCaseSensitive: false
     // includeScore: false,
@@ -71,13 +74,7 @@ const Game = ({
 
   const fuse = new Fuse(moviesList, fuzzyOptions);
 
-  const setAttemptsInLocalStorage = (attempts) => {
-    let currentGuessDistribution = JSON.parse(guessDistribution);
-    currentGuessDistribution[attempts.toString()]++;
-    setGuessDistribution(JSON.stringify(currentGuessDistribution));
-  };
-
-  const submit = (value) => {
+  const submit = async (value) => {
     if (
       (selectedValue?.title && !value ? selectedValue.title : value.title).trim().toLowerCase() ===
       movie.trim().toLowerCase()
@@ -86,16 +83,27 @@ const Game = ({
       window.gtag("event", "GameWon", { event_category: "game-stats" });
       setTimeout(() => setOpenStatsModal(true), statsModalTimeOut);
       setGameStatus(GAME_STATUS.COMPLETED);
-      setAttemptsInLocalStorage(currentIndex);
-      setStats(
-        JSON.stringify({
+      if (!timeTravelled) {
+        const updatedGameStats = {
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon + 1,
-          currentStreak: lastPlayedGame === day - 1 ? gameStats.currentStreak + 1 : 1,
+          currentStreak:
+            lastPlayedGame !== "" && Number(lastPlayedGame) === day - 1
+              ? gameStats.currentStreak + 1
+              : 1,
           maxStreak: Math.max(gameStats.maxStreak, gameStats.currentStreak + 1)
-        })
-      );
-      setLastPlayedGame(day);
+        };
+        const updatedGuessDistribution = {
+          ...guessDistribution,
+          [currentIndex.toString()]: (guessDistribution[currentIndex.toString()] ?? 0) + 1
+        };
+        setStats(updatedGameStats);
+        setGuessDistribution(updatedGuessDistribution);
+        setLastPlayedGame(day);
+        if (userId && onStatsChange) {
+          await onStatsChange(updatedGameStats, updatedGuessDistribution, day);
+        }
+      }
     } else if (currentIndex === MAX_ATTEMPTS) {
       window.gtag("event", "GameFailed", { event_category: "game-stats" });
       setGameStatus(GAME_STATUS.FAILED);
@@ -107,15 +115,19 @@ const Game = ({
       } else {
         setCurrentGuesses(value?.title ? value?.title : selectedValue.title);
       }
-      setStats(
-        JSON.stringify({
+      if (!timeTravelled) {
+        const updatedGameStats = {
           gamesPlayed: gameStats.gamesPlayed + 1,
           gamesWon: gameStats.gamesWon,
           maxStreak: gameStats.maxStreak,
           currentStreak: 0
-        })
-      );
-      setLastPlayedGame(day);
+        };
+        setStats(updatedGameStats);
+        setLastPlayedGame(day);
+        if (userId && onStatsChange) {
+          await onStatsChange(updatedGameStats, guessDistribution, day);
+        }
+      }
       setSelectedValue(null);
     } else {
       setCurrentIndex(currentIndex + 1);
@@ -282,7 +294,7 @@ Game.propTypes = {
   gameStats: PropTypes.object,
   setCurrentIndexFromButton: PropTypes.func,
   movie: PropTypes.string,
-  guessDistribution: PropTypes.string,
+  guessDistribution: PropTypes.object,
   setGuessDistribution: PropTypes.func,
   setOpenStatsModal: PropTypes.func,
   contributor: PropTypes.string,
@@ -290,9 +302,11 @@ Game.propTypes = {
   contributorTwitterId: PropTypes.string,
   shareText: PropTypes.string,
   setShareText: PropTypes.func,
-  lastPlayedGame: PropTypes.string,
+  lastPlayedGame: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setLastPlayedGame: PropTypes.func,
-  moviesList: PropTypes.array
+  moviesList: PropTypes.array,
+  userId: PropTypes.string,
+  onStatsChange: PropTypes.func
 };
 
 export default Game;
